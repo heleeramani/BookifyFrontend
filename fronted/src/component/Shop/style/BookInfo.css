@@ -1,0 +1,167 @@
+.bookinfo-main-section1{
+    background-color: var(--secondary-color);
+}
+.bookinfo-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+  justify-content: center;
+  background-color: transparent;
+  max-width: 1200px;
+  margin: auto;
+  border-radius: 8px;
+}
+
+.bookinfo-image-section {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+  max-width: 400px;
+}
+
+.bookinfo-image-section img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.bookinfo-details-section {
+  flex: 2;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.bookinfo-details-section h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.bookinfo-details-section .author {
+  font-size: 18px;
+  color: #555;
+}
+
+.bookinfo-details-section .rating {
+  font-size: 18px;
+  color: #f39c12;
+}
+
+.bookinfo-details-section .price {
+  font-size: 20px;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.bookinfo-details-section p {
+  font-size: 16px;
+  color: #666;
+}
+
+.bookinfo-details-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bookinfo-details-section ul li {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.bookinfo-format-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.bookinfo-format-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  background-color: #de3241;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
+
+.bookinfo-format-buttons button i {
+  font-size: 18px;
+}
+
+.bookinfo-format-buttons button:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.bookinfo-quantity-buy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.bookinfo-quantity-buy input[type="number"] {
+  width: 60px;
+  padding: 15px;
+  margin-top: 17px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  text-align: center;
+  outline: none;
+}
+
+
+
+
+.bookinfo-product-info {
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.bookinfo-product-info span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Changes specifically for 425px width */
+@media (max-width: 425px) {
+  .bookinfo-container {
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+  }
+
+  .bookinfo-image-section img {
+    max-height: 300px;
+    object-fit: contain;
+  }
+
+  .bookinfo-details-section {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .bookinfo-details-section h1 {
+    font-size: 22px;
+  }
+
+  .bookinfo-details-section .price {
+    font-size: 18px;
+  }
+
+  .bookinfo-quantity-buy input[type="number"] {
+    width: 50px;
+  }
+
+  .bookinfo-buy-now button {
+    width: 100%; 
+    text-align: center;
+  }
+}

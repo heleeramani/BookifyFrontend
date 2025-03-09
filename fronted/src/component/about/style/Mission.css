@@ -1,0 +1,232 @@
+/* .mission-main {
+ margin-top: 90px;
+}
+
+.mission-section-mission {
+  text-align: center;
+  padding: 0px 20px;
+  margin-top: 20px;
+  width: 80%;
+  margin: 0 auto;
+}
+  
+  .mission-section-mission h2 {
+    font-size: 55px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .mission-section-mission h2::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 2.5px;
+    background-color: #848383;
+    margin: 10px auto 20px;
+  }
+  
+  .mission-section-mission p {
+    font-size: 22px;
+    line-height: 1.5;
+    color: grey;
+  }
+  
+  .mission-video-section {
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .mission-video-section video {
+    width: 100%;
+    max-height: 580px;
+    object-fit: cover;
+  }
+  
+  .mission-video-section .mission-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 50%;
+    padding: 15px 20px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none;
+  }
+   */
+
+   .mission-main {
+    margin-top: 90px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Mission Heading & Paragraph */
+  .mission-section-mission {
+    text-align: center;
+    padding: 0 20px;
+    margin-top: 20px;
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .mission-section-mission h2 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .mission-section-mission h2::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 2.5px;
+    background-color: #848383;
+    margin: 10px auto 20px;
+  }
+  
+  .mission-section-mission p {
+    font-size: 20px;
+    line-height: 1.6;
+    color: grey;
+    max-width: 100%;
+  }
+  
+  /* Video Section */
+  .mission-video-section {
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .mission-video-section .mission-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .mission-video-section video {
+    width: 100%;
+    max-height: 580px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  /* Play Button (if used later) */
+  .mission-video-section .mission-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 50%;
+    padding: 15px 20px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none;
+  }
+  
+  /* Responsive Breakpoints */
+  @media (max-width: 1024px) {
+    .mission-section-mission {
+      width: 90%;
+    }
+  
+    .mission-section-mission h2 {
+      font-size: 40px;
+    }
+  
+    .mission-section-mission p {
+      font-size: 18px;
+    }
+  
+    .mission-video-section .mission-container {
+      width: 95%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mission-section-mission {
+      width: 95%;
+    }
+  
+    .mission-section-mission h2 {
+      font-size: 32px;
+    }
+  
+    .mission-section-mission p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  
+    .mission-video-section {
+      width: 100%;
+    }
+  
+    .mission-video-section video {
+      max-height: 400px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mission-section-mission h2 {
+      font-size: 28px;
+    }
+  
+  
+      .mission-section-mission p {
+        font-size: 12px;
+        text-align: center;
+        max-width: 100%;
+        word-break: break-word; /* Breaks long words */
+        line-height: 1.4;
+      }
+    
+    
+  
+    .mission-video-section video {
+      max-height: 280px;
+    }
+  }
+
+
+  @media (max-width: 442px) {
+    .mission-section-mission {
+      width: 100%;
+      padding: 0 10px; /* Reduce side padding */
+    }
+  
+    .mission-section-mission h2 {
+      font-size: 26px; /* Smaller heading for small screens */
+    }
+  
+    .mission-section-mission p {
+      font-size: 11px;
+      text-align: justify; /* Ensures neat text alignment */
+      word-wrap: break-word; /* Prevents overflow */
+      line-height: 1.5;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  
+    .mission-video-section {
+      width: 100%;
+      padding: 0 5px; /* Ensure video fits smaller screens */
+    }
+  
+    .mission-video-section video {
+      width: 100%;
+      height: auto; /* Maintain video aspect ratio */
+    }
+  }
+  
+  

@@ -1,0 +1,102 @@
+.subscriptioncard{
+    height: 100vh;
+    background-color: #f5c0c4;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+}
+.card {
+    background: white;
+    width: 500px;
+    height: auto;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.profile {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.profile img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.update-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+    background: #DE3241;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.info {
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+p {
+    color: gray;
+    margin: 5px 0;
+}
+
+.edit-btn {
+    background: #DE3241;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.details p {
+    margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+    .card {
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+        width: 100%;
+    }
+
+    .profile {
+        width: 120px;
+        height: 120px;
+    }
+
+    .edit-btn {
+        align-self: center;
+    }
+    .header{
+        flex-direction: column-reverse;
+    }
+}

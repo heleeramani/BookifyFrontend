@@ -1,0 +1,36 @@
+/* Styles for WishlistEmpty component */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:var(--white-color);
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .message {
+    font-size: 18px;
+    color: var(--helper-colors);
+    margin-bottom: 20px;
+  }
+  .msg{
+    font-size: 18px;
+    color: var(--helper-colors);
+    margin-bottom: 20px;
+  }
+  .button {
+    background-color: var( --black-color);
+    color:var(--white-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow:  var( --black-color);
+  }
+  

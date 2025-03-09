@@ -1,0 +1,277 @@
+Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+.newsletter-section {
+  background-color: var(--primary-color);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.newsletter-section h2 {
+  color: var(--white-color);
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.inner-newsletter {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.newsletter-form .form-control {
+  flex: 1;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.newsletter-form .btn-submit {
+  padding: 15px 30px;
+  background-color: var(--black-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form .btn-submit:hover {
+  background-color: var(--white-color);
+  color: var(--black-color);
+  border: 2px solid var(--black-color);
+}
+
+.privacy-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  color: var(--white-color);
+  font-size: 0.9rem;
+}
+
+.privacy-check input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.privacy-check a {
+  color: var(--white-color);
+  text-decoration: underline;
+}
+
+.privacy-check a:hover {
+  color: var(--black-color);
+}
+
+.footer {
+  background-color: var(--black-color);
+  color: var(--white-color);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  margin-bottom: 30px;
+}
+
+.footer-logo img {
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.footer-nav {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-nav .nav-link {
+  color: var(--white-color);
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+.footer-nav .nav-link:hover {
+  color: var(--primary-color);
+}
+
+.social-icons a {
+  color: var(--white-color);
+  margin: 0 15px;
+  
+}
+
+.social-icons a:hover {
+  color: var(--primary-color);
+}
+
+.footer-bottom {
+  margin-top: 30px;
+  border-top: 1px solid #444;
+  padding-top: 20px;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+
+/* Larger Desktops (1440px and above) */
+@media (min-width: 1440px) {
+  .newsletter-section h2 {
+    font-size: 2.6rem;
+  }
+
+  .inner-newsletter {
+    max-width: 800px;
+  }
+
+  .newsletter-form .form-control {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+
+  .newsletter-form .btn-submit {
+    padding: 20px 40px;
+    font-size: 1.2rem;
+  }
+
+  .footer-container {
+    max-width: 1400px;
+  }
+
+  .footer-logo img {
+    height: 30px;
+  }
+
+  .footer-nav .nav-link {
+    font-size: 1rem;
+  }
+
+  .social-icons a {
+    font-size: 1.8rem;
+  }
+
+  .footer-bottom {
+    font-size: 1rem;
+  }
+}
+
+/* Medium Screens (1024px to 1439px) */
+@media (max-width: 1439px) {
+  .newsletter-section h2 {
+    font-size: 2.2rem;
+  }
+
+  .inner-newsletter {
+    max-width: 600px;
+  }
+
+  .newsletter-form .form-control {
+    font-size: 1rem;
+    padding: 20px;
+  }
+
+  .newsletter-form .btn-submit {
+    font-size: 1rem;
+  }
+
+  .footer-nav .nav-link {
+    font-size: 1rem;
+  }
+
+  .social-icons a {
+    font-size: 1.5rem;
+  }
+}
+
+/* Small Screens (768px to 1023px) */
+@media (max-width: 1024px) {
+  .newsletter-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form .form-control,
+  .newsletter-form .btn-submit {
+    width: 100%;
+  }
+
+  .footer-nav .nav-link {
+    display: block;
+    margin: 10px 0;
+  }
+}
+
+/* Very Small Screens (576px to 767px) */
+@media (max-width: 767px) {
+  .newsletter-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .newsletter-form .form-control {
+    font-size: 0.9rem;
+  }
+
+  .footer-nav .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .social-icons a {
+    font-size: 1.2rem;
+  }
+}
+
+/* Extra Small Screens (Below 576px) */
+@media (max-width: 576px) {
+  .newsletter-section {
+    width: 100%;
+  }
+  .footer{
+    width: 100%;
+  }
+  .newsletter-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .newsletter-form .form-control {
+    font-size: 0.8rem;
+  }
+
+  .newsletter-form .btn-submit {
+    font-size: 0.8rem;
+  }
+
+  .footer-nav .nav-link {
+    font-size: 0.8rem;
+  }
+
+  .social-icons a {
+    font-size: 1rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.7rem;
+  }
+}

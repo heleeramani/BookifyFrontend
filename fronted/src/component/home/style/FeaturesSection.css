@@ -1,0 +1,125 @@
+/* Reset and common styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.features-section {
+  background-color: var(--white-color, #fff);
+  padding: 140px 0;
+}
+
+.features-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.feature-card {
+  width: 100%;
+  max-width: 350px;
+  flex: 1 1 calc(33.333% - 40px);
+  padding: 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.feature-icon {
+  font-size: 60px;
+  color: var(--primary-color, #e63946);
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.feature-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--black-color, #1d3557);
+}
+
+.feature-text {
+  font-size: 15px;
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Read More Link */
+.feature-read-more {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--black-color, #1d3557);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  width: 140px; /* Controls the space for the animation */
+}
+
+.feature-read-more .read-more-text {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  white-space: nowrap;
+}
+
+.feature-read-more .arrow-icon {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.4s ease, left 0.4s ease;
+}
+
+/* Hover Effect */
+.feature-read-more:hover .read-more-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.feature-read-more:hover .arrow-icon {
+  left: 100%;
+  transform: translateX(-10px); /* Slightly adjusts position on hover */
+}
+
+/* Icon color change on card hover */
+.feature-card:hover .feature-icon {
+  color: var(--black-color, #1d3557);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .feature-card {
+    flex: 1 1 calc(50% - 30px);
+  }
+}
+
+@media (max-width: 576px) {
+  .feature-card {
+    flex: 1 1 100%;
+  }
+
+  .feature-icon {
+    font-size: 50px;
+  }
+
+  .feature-title {
+    font-size: 18px;
+  }
+
+  .feature-text {
+    font-size: 14px;
+  }
+
+  .feature-read-more {
+    font-size: 16px;
+    width: 120px;
+  }
+}

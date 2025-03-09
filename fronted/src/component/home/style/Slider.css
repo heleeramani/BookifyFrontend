@@ -1,0 +1,73 @@
+  /* .image {
+      height: 85vh;
+      width: auto;
+      filter: grayscale(90%);
+    }
+    
+    .slider-text h1 {
+      font-size: 70px;
+    }
+    
+    .slider-text .btn {
+      font-size: 15px;
+      padding: 1.5rem 2rem !important;
+    }
+    @media screen and (max-width:576px) {
+      .image{
+          height:50vh ;
+      }
+    } */
+
+
+    /* 📸 Carousel Image */
+.image {
+  height: 85vh;
+  width: auto;
+  filter: grayscale(90%);
+}
+
+.slider-text h1 {
+  font-size: 70px;
+}
+
+.slider-text .btn {
+  font-size: 15px;
+  padding: 1.5rem 2rem !important;
+}
+
+/* 📱 Responsive Image */
+@media screen and (max-width: 576px) {
+  .image {
+    height: 50vh;
+  }
+}
+
+/* 🎯 Bigger Prev & Next Buttons */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 70px; /* Wider clickable area */
+  height: 70px; /* Taller clickable area */
+  background-color: rgba(255, 255, 255, 0.8); /* Light background */
+  border-radius: 50%; /* Circular shape */
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 📝 Icon Size Increase */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 30px; /* Bigger icon */
+  height: 30px;
+  filter: invert(1); /* White icons for contrast */
+}
+
+/* 🌟 Hover Effect */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.6); /* Darker on hover */
+  transform: translateY(-50%) scale(1.1); /* Slight zoom */
+}

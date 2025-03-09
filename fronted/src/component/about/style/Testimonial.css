@@ -1,0 +1,125 @@
+:root {
+  --black-color: black;
+  --white-color: white;
+  --secondary-color: #f5f5f4;
+  --primary-color: #de3241;
+  --text-color: #838383;
+  --helper-color: #808080;
+}
+
+.testimonial-container {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--secondary-color);
+}
+
+.testimonial-title {
+  font-size: 2.5rem;
+  /* color: var(--primary-color); */
+  margin-bottom: 30px;
+  /* font-weight: bold; */
+}
+
+.testimonial-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.testimonial-slider {
+  width: 100%;
+  overflow: hidden;
+}
+
+.testimonial-slider-track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.testimonial-slide {
+  min-width: 100%;
+  background: var(--white-color);
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-quote {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.testimonial-text {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.testimonial-profile-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  margin: 15px auto;
+}
+
+.testimonial-author {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--black-color);
+}
+
+.testimonial-role {
+  font-size: 1rem;
+  color: var(--helper-color);
+  margin-top: 5px;
+}
+
+/* Navigation Arrows */
+.testimonial-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  background: var(--white-color);
+  color: var(--primary-color);
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 50%;
+  transition: background 0.3s, color 0.3s;
+  z-index: 2;
+}
+
+.testimonial-arrow:hover {
+  background: var(--primary-color);
+  color: var(--white-color);
+}
+
+.testimonial-arrow.left {
+  left: -50px;
+}
+
+.testimonial-arrow.right {
+  right: -50px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .testimonial-title {
+    font-size: 2rem;
+  }
+
+  .testimonial-text {
+    font-size: 1rem;
+  }
+
+  .testimonial-arrow {
+    font-size: 2rem;
+    left: -30px;
+    right: -30px;
+  }
+}

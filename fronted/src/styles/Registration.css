@@ -1,0 +1,195 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.register-main-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+}
+
+/* Form Container */
+.register-form-container {
+    width: 420px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.register-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Step Indicator */
+.register-step-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.register-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 25%;
+}
+
+.register-step span {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.register-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.register-active-circle {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.register-step:not(:last-child)::after {
+    content: "";
+    width: 100%;
+    height: 4px;
+    background-color: var(--helper-color);
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+}
+
+.register-step.active:not(:last-child)::after {
+    background-color: var(--primary-color);
+}
+
+/* Form Sections */
+.register-form-section {
+    text-align: left;
+    padding: 15px;
+    background: var(--secondary-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Buttons */
+.register-btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.register-btn {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-next-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.register-prev-btn {
+    background-color: var(--helper-color);
+    color: var(--white-color);
+}
+
+.register-submit-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+/* Hover Effects */
+.register-btn:hover {
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .register-form-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .register-step span {
+        font-size: 12px;
+    }
+
+    .register-circle {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+
+    .register-btn-group {
+        flex-direction: column;
+    }
+
+    .register-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.register-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .register-error-input {
+    border: 2px solid red;
+  }
+  

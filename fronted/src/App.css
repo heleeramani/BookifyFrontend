@@ -1,0 +1,27 @@
+:root {
+  --black-color: black;
+  --white-color: white;
+  --secondary-color: #f5f5f4;
+  --primary-color: #de3241;
+  --text-color: #838383;
+  --helper-color: #808080;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* 🌐 Hide scrollbar but allow scrolling (Mobile & Tablet) */
+@media (max-width: 1024px) {
+  html, body {
+    overflow-y: scroll; /* ✅ Enable vertical scrolling */
+    scrollbar-width: none; /* 🔒 Hide scrollbar (Firefox) */
+    -ms-overflow-style: none; /* 🔒 Hide scrollbar (IE/Edge) */
+  }
+
+  ::-webkit-scrollbar {
+    display: none; /* 🔒 Hide scrollbar (Chrome, Safari, Edge) */
+  }
+}
+
+

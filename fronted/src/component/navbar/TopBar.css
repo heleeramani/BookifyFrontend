@@ -1,0 +1,35 @@
+.topbar-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+  }
+  
+  .topbar-welcome {
+    color: #555;
+  }
+  
+  .topbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .topbar-login,
+  .topbar-register {
+    margin: 0 5px;
+    color: #d32f2f;
+    cursor: pointer;
+  }
+  
+  .topbar-icons {
+    display: flex;
+    gap: 10px;
+    margin-left: 15px;
+  }
+  
+  .topbar-icon {
+    font-size: 16px;
+    cursor: pointer;
+  }
+  

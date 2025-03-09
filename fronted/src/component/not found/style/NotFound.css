@@ -1,0 +1,48 @@
+/* Full-page centering */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: bold;
+    color: #e63946;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.error-icon {
+    max-width: 100px;
+}
+
+.error-message {
+    font-size: 1.5rem;
+    color: #343a40;
+    margin-top: 1rem;
+}
+
+.back-button {
+    background-color: #343a40;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #495057;
+}

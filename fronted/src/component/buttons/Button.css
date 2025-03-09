@@ -1,0 +1,26 @@
+.discover-button {
+    padding: 16px 32px;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    font-weight: bold;
+    border: none;
+    font-size: 16px; 
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  .discover-button:hover{
+    background-color: var(--white-color);
+    color: var(--black-color);
+    font-weight: bold;
+    border: 2px solid var(--black-color);
+  }
+  .discover-button:hover a{
+    text-decoration: none;
+    color: var(--black-color);
+  }
+  .discover-button a{
+    color: var(--white-color);
+    text-decoration: none;
+  }
