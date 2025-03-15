@@ -1276,12 +1276,12 @@
 
 // export default Registration;
 
-
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/Registration.css";
-
+import { useNavigate } from "react-router-dom";
 const Registration = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -1417,9 +1417,9 @@ const Registration = () => {
         // First, upload the profile picture
         const imageFormData = new FormData();
         imageFormData.append("file", formData.profilePicture);
-        
+
         console.log("Uploading profile picture...");
-        
+
         try {
           const imageResponse = await axios.post(
             `${baseUrl}/auth/upload`,
@@ -1428,7 +1428,7 @@ const Registration = () => {
               headers: { "Content-Type": "multipart/form-data" },
             }
           );
-          
+
           // If image upload is successful, add the image ID to the user data
           if (imageResponse.data?.data?._id) {
             userData.profile = imageResponse.data.data._id;
@@ -1442,14 +1442,10 @@ const Registration = () => {
 
       // Now send the user registration request
       console.log("Sending registration request:", userData);
-      
-      const response = await axios.post(
-        `${baseUrl}/auth/register`,
-        userData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+
+      const response = await axios.post(`${baseUrl}/auth/register`, userData, {
+        headers: { "Content-Type": "application/json" },
+      });
 
       console.log("Registration successful:", response.data);
       setSuccessMessage("🎉 Registration successful!");
@@ -1459,19 +1455,27 @@ const Registration = () => {
         "Error during registration:",
         error.response?.data || error.message
       );
-      
+
       // Show detailed error message
       setErrorMessage(
         `Registration failed: ${
-          error.response?.data?.error || 
-          error.response?.data?.message || 
-          error.message || 
+          error.response?.data?.error ||
+          error.response?.data?.message ||
+          error.message ||
           "Please try again."
         }`
       );
     } finally {
       setLoading(false);
     }
+
+    // console.log("Registration successful:", response.data);
+    setSuccessMessage("🎉 Registration successful!");
+    setStep(6);
+
+    setTimeout(() => {
+      navigate("/login"); // Change this path if your login route is different
+    }, 2000);
   };
 
   return (
@@ -1746,7 +1750,7 @@ const Registration = () => {
                 {errorMessage}
               </p>
             )}
-            
+
             {successMessage && (
               <p className="register-success" role="status">
                 {successMessage}
