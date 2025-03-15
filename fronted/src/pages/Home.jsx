@@ -8,8 +8,8 @@ import AuthorUpdate from "../component/home/component/AuthorUpdate";
 import ReadingBanner from "../component/home/component/ReadingBanner";
 import BestSeller from "../component/home/component/BestSeller";
 import MostRecentArtical from "../component/home/component/MostRecentArtical";
-import BokInfo from '../component/Shop/component/BookInfo'
-import ShopList from '../component/Shop/component/ShopList'
+import BokInfo from "../component/Shop/component/BookInfo";
+import ShopList from "../component/Shop/component/ShopList";
 import Profile from "../component/navbar/Profile";
 import AddWishlist from "../component/wishlist/component/Addwishlist";
 import SubscriptionCard from "./SubscriptionCard";
@@ -30,12 +30,12 @@ const Home = () => {
       <BestSeller />
       <MostRecentArtical />
 
-<SubscriptionCard />
+      {/* <SubscriptionCard /> */}
       {/* <BokInfo /> */}
       {/* <ShopList /> */}
       {/* <Profile/> */}
       {/* <AddWishlist /> */}
-      <Review/>
+      {/* <Review /> */}
     </div>
   );
 };

@@ -302,7 +302,7 @@ import axios from "axios";
 import "../style/BookInfo.css";
 import Button from "../../buttons/Button";
 import blogImg1 from "../../home/images/discover-book1.jpg";
-
+import Review from "../../review/Review"
 const BookInfo = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
@@ -569,13 +569,15 @@ console.log(data.data,"datataaaa");
               max="99"
               className="bookinfo-input-change"
               value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+              // onChange={(e) => setQuantity(e.target.value)}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
             />
             <Button title="Buy Now" onClick={handlePurchase} />
             <Button title="Borrow Now" onClick={handleBorrow} />
           </div>
         </div>
       </div>
+      <Review productId={book.id} />
     </div>
   );
 };

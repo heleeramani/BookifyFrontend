@@ -14,6 +14,8 @@ import ShopList from "../Shop/component/ShopList";
 import Author from "../about/component/Author";
 import Profile from "../navbar/Profile";
 import DiscoverBook from "../home/component/DiscoverBook";
+// In your main router file (e.g., App.js or routes.js)
+import AddWishlist from '../wishlist/component/Addwishlist'
 const AppRouter = () => {
   return (
     <Routes>
@@ -21,11 +23,11 @@ const AppRouter = () => {
       <Route path="/about" element={<About />} />
       <Route path="/blog" element={<MainBlog />} />
       <Route path="/contactus" element={<ContactUs />} />
-      <Route path="/store" element={<DiscoverBook />} />
+      <Route path="/store" element={<ShopList />} />
       <Route path="/author" element={<Author />} />
       {/* <Route path="/book-info/:bookId" element={<BookInfo />} /> */}
       <Route path="/profile" element={<Profile />} />
-
+      <Route path="/favorites" element={<AddWishlist />} />
       <Route path="/" element={<DiscoverBook />} />
         <Route path="/book-info/:id" element={<BookInfo />} />
       {/* <Route path="/login" element={<Login />} /> */}

@@ -63,7 +63,7 @@
 
 import React, { useState, useEffect } from "react";
 import "../style/DiscoverBook.css";
-import Discover1 from "../images/discover-book1.jpg";
+
 import Button from "../../buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

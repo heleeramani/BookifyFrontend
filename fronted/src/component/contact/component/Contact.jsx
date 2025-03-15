@@ -415,6 +415,8 @@ const Contact = () => {
     return newErrors;
   };
 
+  // console.log(formData, "formdataaaa");
+  
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();

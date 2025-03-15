@@ -1,9 +1,8 @@
-Base Styles
-* {
+Base Styles * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .newsletter-section {
@@ -101,7 +100,9 @@ Base Styles
 
 .footer-nav {
   margin-bottom: 30px;
+  gap: 15px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -118,7 +119,6 @@ Base Styles
 .social-icons a {
   color: var(--white-color);
   margin: 0 15px;
-  
 }
 
 .social-icons a:hover {
@@ -248,7 +248,7 @@ Base Styles
   .newsletter-section {
     width: 100%;
   }
-  .footer{
+  .footer {
     width: 100%;
   }
   .newsletter-section h2 {

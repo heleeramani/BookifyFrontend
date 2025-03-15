@@ -267,7 +267,7 @@
 // //           <span className="navbar-register">
 // //             <Link to="/register">Register</Link>
 // //           </span>
-         
+
 // //           {/* 👤 Profile Icon */}
 // //           <Link to="/profile" className="navbar-profile-icon">
 // //             <i className="navbar-icon">👤</i>
@@ -389,8 +389,6 @@
 
 // // export default Navbar;
 
-
-
 // import React, { useState } from "react";
 // import "./Navbar.css";
 // import { Link } from "react-router-dom";
@@ -413,7 +411,7 @@
 //           <span className="navbar-register">
 //             <Link to="/register">Register</Link>
 //           </span>
-         
+
 //           {/* 👤 Profile Icon */}
 //           <Link to="/profile" className="navbar-profile-icon">
 //             <i className="navbar-icon">👤</i>
@@ -546,26 +544,25 @@
 
 // export default Navbar;
 
-
 // import React, { useState } from "react";
 // import "./Navbar.css";
 // import { Link } from "react-router-dom";
 // // Import Font Awesome components
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { 
-//   faPhone, 
-//   faBook, 
-//   faShoppingCart, 
-//   faHeart, 
-//   faSearch, 
-//   faBars, 
-//   faTimes, 
-//   faUser 
+// import {
+//   faPhone,
+//   faBook,
+//   faShoppingCart,
+//   faHeart,
+//   faSearch,
+//   faBars,
+//   faTimes,
+//   faUser
 // } from '@fortawesome/free-solid-svg-icons';
-// import { 
-//   faFacebook, 
-//   faTwitter, 
-//   faInstagram 
+// import {
+//   faFacebook,
+//   faTwitter,
+//   faInstagram
 // } from '@fortawesome/free-brands-svg-icons';
 
 // const Navbar = () => {
@@ -586,12 +583,12 @@
 //           <span className="navbar-register">
 //             <Link to="/register">Register</Link>
 //           </span>
-         
+
 //           {/* Profile Icon */}
 //           <Link to="/profile" className="navbar-profile-icon">
 //             <FontAwesomeIcon icon={faUser} className="navbar-icon" />
 //           </Link>
-          
+
 //           {/* Social Media Icons */}
 //           <div className="navbar-topbar-icons">
 //             <FontAwesomeIcon icon={faFacebook} className="navbar-icon" />
@@ -645,9 +642,9 @@
 //           className="navbar-small-toggle"
 //           onClick={() => setNavMenuOpen(!navMenuOpen)}
 //         >
-//           <FontAwesomeIcon 
-//             icon={navMenuOpen ? faTimes : faBars} 
-//             className="navbar-toggle-icon" 
+//           <FontAwesomeIcon
+//             icon={navMenuOpen ? faTimes : faBars}
+//             className="navbar-toggle-icon"
 //           />
 //         </div>
 
@@ -656,9 +653,9 @@
 //           className="navbar-sidebar-toggle"
 //           onClick={() => setSidebarOpen(!sidebarOpen)}
 //         >
-//           <FontAwesomeIcon 
-//             icon={sidebarOpen ? faTimes : faBars} 
-//             className="navbar-toggle-icon" 
+//           <FontAwesomeIcon
+//             icon={sidebarOpen ? faTimes : faBars}
+//             className="navbar-toggle-icon"
 //           />
 //         </div>
 
@@ -698,10 +695,10 @@
 //               BOOK<span className="sidebar-logo-highlight">lovers</span>
 //             </span>
 //           </div>
-//           <FontAwesomeIcon 
-//             icon={faTimes} 
-//             className="sidebar-close" 
-//             onClick={() => setSidebarOpen(false)} 
+//           <FontAwesomeIcon
+//             icon={faTimes}
+//             className="sidebar-close"
+//             onClick={() => setSidebarOpen(false)}
 //           />
 //         </div>
 //         <ul className="sidebar-links">
@@ -745,32 +742,31 @@
 
 // export default Navbar;
 
-
 import React, { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 // Import Font Awesome components
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faPhone, 
-  faBook, 
-  faShoppingCart, 
-  faHeart, 
-  faSearch, 
-  faBars, 
-  faTimes, 
-  faUser 
-} from '@fortawesome/free-solid-svg-icons';
-import { 
-  faFacebook, 
-  faTwitter, 
-  faInstagram 
-} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPhone,
+  faBook,
+  faShoppingCart,
+  faHeart,
+  faSearch,
+  faBars,
+  faTimes,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Navbar = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false); 
-  const [navMenuOpen, setNavMenuOpen] = useState(false); 
-  const [favoriteCount, setFavoriteCount] = useState(0); 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [navMenuOpen, setNavMenuOpen] = useState(false);
+  const [favoriteCount, setFavoriteCount] = useState(0);
 
   return (
     <div className="navbar-container">
@@ -785,7 +781,6 @@ const Navbar = () => {
           <span className="navbar-register">
             <Link to="/register">Register</Link>
           </span>
-         
           {/* Profile Icon (replacing social media icons) */}
           <Link to="/profile" className="navbar-profile-icon">
             <FontAwesomeIcon icon={faUser} className="navbar-icon" />
@@ -817,14 +812,20 @@ const Navbar = () => {
           {/* Favorites */}
           <div className="navbar-favorites">
             <Link to="/favorites">
-              <FontAwesomeIcon icon={faHeart} className="navbar-favorites-icon" />
+              <FontAwesomeIcon
+                icon={faHeart}
+                className="navbar-favorites-icon"
+              />
               <span className="navbar-favorites-badge">{favoriteCount}</span>
             </Link>
           </div>
 
           {/* Cart */}
           <div className="navbar-cart">
-            <FontAwesomeIcon icon={faShoppingCart} className="navbar-cart-icon" />
+            <FontAwesomeIcon
+              icon={faShoppingCart}
+              className="navbar-cart-icon"
+            />
             <span className="navbar-cart-badge">0</span>
           </div>
         </div>
@@ -837,9 +838,9 @@ const Navbar = () => {
           className="navbar-small-toggle"
           onClick={() => setNavMenuOpen(!navMenuOpen)}
         >
-          <FontAwesomeIcon 
-            icon={navMenuOpen ? faTimes : faBars} 
-            className="navbar-toggle-icon" 
+          <FontAwesomeIcon
+            icon={navMenuOpen ? faTimes : faBars}
+            className="navbar-toggle-icon"
           />
         </div>
 
@@ -848,9 +849,9 @@ const Navbar = () => {
           className="navbar-sidebar-toggle"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
-          <FontAwesomeIcon 
-            icon={sidebarOpen ? faTimes : faBars} 
-            className="navbar-toggle-icon" 
+          <FontAwesomeIcon
+            icon={sidebarOpen ? faTimes : faBars}
+            className="navbar-toggle-icon"
           />
         </div>
 
@@ -859,19 +860,29 @@ const Navbar = () => {
           className={`navbar-links ${navMenuOpen ? "navbar-links-open" : ""}`}
         >
           <li className="navbar-link navbar-link-active">
-            <a href="/">HOME</a>
+            <a href="/" className="nav-items">
+              HOME
+            </a>
           </li>
           <li className="navbar-link">
-            <a href="/about">ABOUT</a>
+            <a href="/about" className="nav-items">
+              ABOUT
+            </a>
           </li>
           <li className="navbar-link">
-            <a href="/blog">BLOG</a>
+            <a href="/blog" className="nav-items">
+              BLOG
+            </a>
           </li>
           <li className="navbar-link">
-            <a href="/contactus">CONTACT US</a>
+            <a href="/contactus" className="nav-items">
+              CONTACT US
+            </a>
           </li>
           <li className="navbar-link">
-            <a href="/store">STORE</a>
+            <a href="/store" className="nav-items">
+              STORE
+            </a>
           </li>
         </ul>
 
@@ -890,15 +901,17 @@ const Navbar = () => {
               BOOK<span className="sidebar-logo-highlight">lovers</span>
             </span>
           </div>
-          <FontAwesomeIcon 
-            icon={faTimes} 
-            className="sidebar-close" 
-            onClick={() => setSidebarOpen(false)} 
+          <FontAwesomeIcon
+            icon={faTimes}
+            className="sidebar-close"
+            onClick={() => setSidebarOpen(false)}
           />
         </div>
         <ul className="sidebar-links">
           <li className="navbar-link navbar-link-active">
-            <a href="/" className="">HOME</a>
+            <a href="/" className="">
+              HOME
+            </a>
           </li>
           <li className="navbar-link">
             <a href="/about">ABOUT</a>
@@ -913,7 +926,7 @@ const Navbar = () => {
             <a href="/store">STORE</a>
           </li>
         </ul>
-        
+
         {/* Profile Icon in Sidebar */}
         <Link to="/profile" className="sidebar-profile-icon">
           <FontAwesomeIcon icon={faUser} className="sidebar-icon" />
