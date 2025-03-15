@@ -538,7 +538,7 @@
 //       formDataToSend.append("profilePicture", formData.profilePicture);
 //     }
 //     console.log(formDataToSend,"dmkfm");
-    
+
 //     try {
 //       const response = await axios.post(
 //         `${process.env.REACT_APP_BASE_URL}/auth/register`,
@@ -768,6 +768,514 @@
 
 // export default Registration;
 
+// import React, { useState } from "react";
+// import axios from "axios";
+// import "../styles/Registration.css";
+
+// const Registration = () => {
+//   const [step, setStep] = useState(1);
+//   const [formData, setFormData] = useState({
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     phone: "",
+//     password: "",
+//     address: "",
+//     gender: "",
+//     profilePicture: null,
+//   });
+//   const [errors, setErrors] = useState({});
+//   const [successMessage, setSuccessMessage] = useState("");
+//   const [regData, setRegData] = useState();
+//   const [loading, setLoading] = useState();
+//   const [error, setError] = useState();
+//   const [alert, setAlert] = useState()
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+//     validateField(name, value);
+//   };
+
+//   const handleFileChange = (e) => {
+//     setFormData({ ...formData, profilePicture: e.target.files[0] });
+//   };
+
+//   const validateField = (name, value) => {
+//     const newErrors = { ...errors };
+
+//     if (["firstName", "lastName"].includes(name)) {
+//       newErrors[name] = !value
+//         ? "Required field"
+//         : /^[A-Za-z]+$/.test(value)
+//         ? ""
+//         : "Only alphabets allowed";
+//     }
+
+//     if (name === "email") {
+//       newErrors.email = !value
+//         ? "Required field"
+//         : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+//         ? ""
+//         : "Enter a valid email";
+//     }
+
+//     if (name === "phone") {
+//       newErrors.phone = !value
+//         ? "Required field"
+//         : /^\d{10}$/.test(value)
+//         ? ""
+//         : "Phone number must be 10 digits";
+//     }
+
+//     if (name === "password") {
+//       newErrors.password = !value
+//         ? "Required field"
+//         : value.length < 6
+//         ? "Password must be at least 6 characters"
+//         : "";
+//     }
+
+//     if (name === "address") {
+//       newErrors.address = !value ? "Address is required" : "";
+//     }
+
+//     if (name === "gender") {
+//       newErrors.gender = !value ? "Please select a gender" : "";
+//     }
+
+//     setErrors(newErrors);
+//   };
+
+//   const validateStep = () => {
+//     const newErrors = {};
+//     if (step === 1) {
+//       if (!formData.firstName) newErrors.firstName = "Required field";
+//       if (!formData.lastName) newErrors.lastName = "Required field";
+//     } else if (step === 2) {
+//       if (!formData.email) newErrors.email = "Required field";
+//       if (!formData.phone) newErrors.phone = "Required field";
+//       if (!formData.password) newErrors.password = "Required field";
+//     } else if (step === 3) {
+//       if (!formData.address) newErrors.address = "Address is required";
+//       if (!formData.gender) newErrors.gender = "Please select a gender";
+//     }
+
+//     setErrors(newErrors);
+//     return Object.keys(newErrors).length === 0;
+//   };
+
+//   const nextStep = () => {
+//     if (validateStep()) setStep(step + 1);
+//   };
+
+//   const prevStep = () => {
+//     setStep(step - 1);
+//   };
+
+//   // const handleSubmit = async () => {
+//   //   // Handle form submission here
+//   //   console.log(regData);
+//   //   try {
+//   //     setLoading(true);
+
+//   //     // if (!regData.title || !bookData.author || !bookData.category) {
+//   //     //   setAlert({
+//   //     //     open: true,
+//   //     //     message: "Title, author, and category are required",
+//   //     //     severity: "error"
+//   //     //   });
+//   //     //   return;
+//   //     // }
+//   //     //--------------------
+//   //     let imageId = null;
+//   //     if (!(regData.image instanceof File)) {
+//   //       console.error("Invalid file format", regData.image);
+
+//   //       return;
+//   //     }
+
+//   //     // If there's a new image to upload
+//   //     if (regData.image) {
+//   //       const formData = new FormData();
+//   //       formData.append("file", regData.image);
+//   //       console.log(regData.image, "book dataaaa");
+//   //       // console.log(formData,"form data");
+
+//   //       for (let pair of formData.entries()) {
+//   //         console.log(`FormData Key: ${pair[0]}, Value: ${pair[1]}`);
+//   //       }
+
+//   //       // Upload image first
+//   //       const imageResponse = await axios.post(
+//   //         `${process.env.REACT_APP_BASE_URL}/auth/upload`,
+//   //         formData,
+//   //         {
+//   //           headers: {
+//   //             "Content-Type": "multipart/form-data",
+//   //           },
+//   //         }
+//   //       );
+//   //       console.log(imageResponse, "image responseeee");
+
+//   //       imageId = imageResponse.data.data._id;
+//   //       console.log(imageId, "image iddddd");
+//   //     }
+//   //     //-------------------------------
+//   //     // Prepare book data
+//   //     const bookPayload = {
+//   //       // title: bookData.title,
+//   //       // author: bookData.author,
+//   //       // isbn: bookData.isbn,
+//   //       // category: bookData.category,
+//   //       // price: bookData.price,
+//   //       // publishYear: bookData.publishYear,
+//   //       // publisher: bookData.publisher,
+//   //       // description: bookData.description,
+//   //       // totalCopy: bookData.totalCopy
+
+//   //       firstName: regData.firstName,
+//   //       lastName: regData.lastName,
+//   //       email: regData.email,
+//   //       phone: regData.phone,
+//   //       password: regData.password,
+//   //       address: regData.address,
+//   //       gender: regData.gender,
+//   //     };
+//   //     //-------------------image
+//   //     // Add image ID to payload if we have one
+//   //     if (imageId) {
+//   //       bookPayload.profile = imageId;
+//   //     }
+//   //     //-------------------image
+//   //   } catch (err) {
+//   //     console.error("Error saving book:", error);
+//   //   } finally {
+//   //     setLoading(false);
+//   //   }
+//   // };
+
+//   const handleSubmitt = async (e) => {
+//     e.preventDefault();
+//     if (!validateStep()) return;
+
+//     // Debug: Log all form data before submission
+//     console.log("Form data before submission:", formData);
+
+//     try {
+//       // Method 1: Using FormData (for files)
+//       if (formData.profilePicture) {
+//         const formDataToSend = new FormData();
+//         // Explicitly trim strings to remove any whitespace
+//         formDataToSend.append("firstName", formData.firstName.trim());
+//         formDataToSend.append("lastName", formData.lastName.trim());
+//         formDataToSend.append("email", formData.email.trim());
+//         formDataToSend.append("password", formData.password);
+//         formDataToSend.append("role", "user");
+//         formDataToSend.append("phone", formData.phone.trim());
+//         formDataToSend.append("address", formData.address.trim());
+//         formDataToSend.append("gender", formData.gender);
+//         formDataToSend.append("profilePicture", formData.profilePicture);
+
+//         // Debug: Log each piece of data in the FormData
+//         for (let pair of formDataToSend.entries()) {
+//           console.log(pair[0] + ": " + pair[1]);
+//         }
+
+//         const response = await axios.post(
+//           `${process.env.REACT_APP_BASE_URL}/auth/register`,
+//           formDataToSend,
+//           {
+//             headers: { "Content-Type": "multipart/form-data" },
+//           }
+//         );
+
+//         console.log("Response:", response.data);
+//         setSuccessMessage("🎉 Registration successful!");
+//         setStep(6);
+//       }
+//       // Method 2: Using JSON (when no file is uploaded)
+//       else {
+//         const jsonData = {
+//           firstName: formData.firstName.trim(),
+//           lastName: formData.lastName.trim(),
+//           email: formData.email.trim(),
+//           password: formData.password,
+//           role: "user",
+//           phone: formData.phone.trim(),
+//           address: formData.address.trim(),
+//           gender: formData.gender,
+//         };
+
+//         console.log("JSON data being sent:", jsonData);
+
+//         const response = await axios.post(
+//           `${process.env.REACT_APP_BASE_URL}/auth/register`,
+//           jsonData,
+//           {
+//             headers: { "Content-Type": "application/json" },
+//           }
+//         );
+
+//         console.log("Response:", response.data);
+//         setSuccessMessage("🎉 Registration successful!");
+//         setStep(6);
+//       }
+//     } catch (error) {
+//       console.error(
+//         "Error during registration:",
+//         error.response?.data || error.message
+//       );
+//       setSuccessMessage(
+//         `❌ Registration failed: ${
+//           error.response?.data?.message || "Please try again."
+//         }`
+//       );
+//     }
+//   };
+
+//   return (
+//     <div className="register-main-form">
+//       <div className="register-form-container">
+//         <h1 className="register-title">Signup Form</h1>
+
+//         <div className="register-step-indicator">
+//           {["Name", "Contact", "Other Info", "Profile Picture", "Submit"].map(
+//             (label, index) => (
+//               <div
+//                 key={index}
+//                 className={`register-step ${
+//                   step === index + 1 ? "active" : ""
+//                 }`}
+//               >
+//                 <span>{label}</span>
+//                 <div
+//                   className={
+//                     step === index + 1
+//                       ? "register-circle register-active-circle"
+//                       : "register-circle"
+//                   }
+//                 >
+//                   {index + 1}
+//                 </div>
+//                 {index < 4 && <div className="register-line" />}
+//               </div>
+//             )
+//           )}
+//         </div>
+
+//         {step === 1 && (
+//           <div className="register-form-section">
+//             <h2>Basic Info:</h2>
+//             <label>First Name</label>
+//             <input
+//               name="firstName"
+//               value={formData.firstName}
+//               onChange={handleChange}
+//               placeholder="Enter your first name"
+//             />
+//             {errors.firstName && (
+//               <p className="register-error">{errors.firstName}</p>
+//             )}
+
+//             <label>Last Name</label>
+//             <input
+//               name="lastName"
+//               value={formData.lastName}
+//               onChange={handleChange}
+//               placeholder="Enter your last name"
+//             />
+//             {errors.lastName && (
+//               <p className="register-error">{errors.lastName}</p>
+//             )}
+
+//             <button
+//               onClick={nextStep}
+//               className="register-next-btn register-btn"
+//               disabled={!formData.firstName || !formData.lastName}
+//             >
+//               Next
+//             </button>
+//           </div>
+//         )}
+
+//         {step === 2 && (
+//           <div className="register-form-section">
+//             <h2>Contact Info:</h2>
+//             <label>Email</label>
+//             <input
+//               name="email"
+//               value={formData.email}
+//               onChange={handleChange}
+//               placeholder="Enter your email"
+//             />
+//             {errors.email && <p className="register-error">{errors.email}</p>}
+
+//             <label>Phone</label>
+//             <input
+//               name="phone"
+//               value={formData.phone}
+//               onChange={handleChange}
+//               placeholder="Enter your 10-digit phone number"
+//             />
+//             {errors.phone && <p className="register-error">{errors.phone}</p>}
+
+//             <label>Password</label>
+//             <input
+//               type="password"
+//               name="password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               placeholder="Enter password (min 6 characters)"
+//             />
+//             {errors.password && (
+//               <p className="register-error">{errors.password}</p>
+//             )}
+
+//             <div className="btn-group">
+//               <button
+//                 onClick={prevStep}
+//                 className="register-prev-btn register-btn"
+//               >
+//                 Previous
+//               </button>
+//               <button
+//                 onClick={nextStep}
+//                 className="register-next-btn register-btn"
+//                 disabled={
+//                   !formData.email || !formData.phone || !formData.password
+//                 }
+//               >
+//                 Next
+//               </button>
+//             </div>
+//           </div>
+//         )}
+
+//         {step === 3 && (
+//           <div className="register-form-section">
+//             <h2>Other Info:</h2>
+//             <label>Address</label>
+//             <input
+//               name="address"
+//               value={formData.address}
+//               onChange={handleChange}
+//               placeholder="Enter your address"
+//             />
+//             {errors.address && (
+//               <p className="register-error">{errors.address}</p>
+//             )}
+
+//             <label>Gender</label>
+//             <select
+//               name="gender"
+//               value={formData.gender}
+//               onChange={handleChange}
+//             >
+//               <option value="">Select Gender</option>
+//               <option value="Male">Male</option>
+//               <option value="Female">Female</option>
+//               <option value="Other">Other</option>
+//             </select>
+//             {errors.gender && <p className="register-error">{errors.gender}</p>}
+
+//             <div className="btn-group">
+//               <button
+//                 onClick={prevStep}
+//                 className="register-prev-btn register-btn"
+//               >
+//                 Previous
+//               </button>
+//               <button
+//                 onClick={nextStep}
+//                 className="register-next-btn register-btn"
+//                 disabled={!formData.address || !formData.gender}
+//               >
+//                 Next
+//               </button>
+//             </div>
+//           </div>
+//         )}
+
+//         {step === 4 && (
+//           <div className="register-form-section">
+//             <h2>Upload Profile Picture (Optional)</h2>
+//             <input type="file" accept="image/*" onChange={handleFileChange} />
+//             <div className="btn-group">
+//               <button
+//                 onClick={prevStep}
+//                 className="register-prev-btn register-btn"
+//               >
+//                 Previous
+//               </button>
+//               <button
+//                 onClick={nextStep}
+//                 className="register-next-btn register-btn"
+//               >
+//                 Next
+//               </button>
+//             </div>
+//           </div>
+//         )}
+
+//         {step === 5 && (
+//           <div className="register-form-section">
+//             <h2>Confirm & Submit</h2>
+//             <p>
+//               <strong>Name:</strong>{" "}
+//               {`${formData.firstName} ${formData.lastName}`}
+//             </p>
+//             <p>
+//               <strong>Email:</strong> {formData.email}
+//             </p>
+//             <p>
+//               <strong>Phone:</strong> {formData.phone}
+//             </p>
+//             <p>
+//               <strong>Address:</strong> {formData.address}
+//             </p>
+//             <p>
+//               <strong>Gender:</strong> {formData.gender}
+//             </p>
+//             <p>
+//               <strong>Profile Picture:</strong>{" "}
+//               {formData.profilePicture ? formData.profilePicture.name : "None"}
+//             </p>
+
+//             {successMessage && (
+//               <p className="register-success">{successMessage}</p>
+//             )}
+
+//             <div className="register-btn-group">
+//               <button
+//                 onClick={prevStep}
+//                 className="register-prev-btn register-btn"
+//               >
+//                 Previous
+//               </button>
+//               <button
+//                 onClick={handleSubmitt}
+//                 className="register-submit-btn register-btn"
+//               >
+//                 Submit
+//               </button>
+//             </div>
+//           </div>
+//         )}
+
+//         {step === 6 && successMessage.includes("successful") && (
+//           <div className="register-form-section">
+//             <h2>Registration Complete!</h2>
+//             <p>{successMessage}</p>
+//             <p>You can now login with your email and password.</p>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Registration;
+
 
 import React, { useState } from "react";
 import axios from "axios";
@@ -787,6 +1295,8 @@ const Registration = () => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -795,7 +1305,9 @@ const Registration = () => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, profilePicture: e.target.files[0] });
+    if (e.target.files && e.target.files[0]) {
+      setFormData({ ...formData, profilePicture: e.target.files[0] });
+    }
   };
 
   const validateField = (name, value) => {
@@ -874,71 +1386,91 @@ const Registration = () => {
     e.preventDefault();
     if (!validateStep()) return;
 
-    // Debug: Log all form data before submission
-    console.log("Form data before submission:", formData);
-    
+    // Clear any previous messages
+    setSuccessMessage("");
+    setErrorMessage("");
+    setLoading(true);
+
     try {
-      // Method 1: Using FormData (for files)
-      if (formData.profilePicture) {
-        const formDataToSend = new FormData();
-        // Explicitly trim strings to remove any whitespace
-        formDataToSend.append("firstName", formData.firstName.trim());
-        formDataToSend.append("lastName", formData.lastName.trim());
-        formDataToSend.append("email", formData.email.trim());
-        formDataToSend.append("password", formData.password);
-        formDataToSend.append("role", "user");
-        formDataToSend.append("phone", formData.phone.trim());
-        formDataToSend.append("address", formData.address.trim());
-        formDataToSend.append("gender", formData.gender);
-        formDataToSend.append("profilePicture", formData.profilePicture);
-        
-        // Debug: Log each piece of data in the FormData
-        for (let pair of formDataToSend.entries()) {
-          console.log(pair[0] + ': ' + pair[1]);
-        }
-        
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/auth/register`,
-          formDataToSend,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
-        
-        console.log("Response:", response.data);
-        setSuccessMessage("🎉 Registration successful!");
-        setStep(6);
-      } 
-      // Method 2: Using JSON (when no file is uploaded)
-      else {
-        const jsonData = {
-          firstName: formData.firstName.trim(),
-          lastName: formData.lastName.trim(),
-          email: formData.email.trim(),
-          password: formData.password,
-          role: "user",
-          phone: formData.phone.trim(),
-          address: formData.address.trim(),
-          gender: formData.gender
-        };
-        
-        console.log("JSON data being sent:", jsonData);
-        
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/auth/register`,
-          jsonData,
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        
-        console.log("Response:", response.data);
-        setSuccessMessage("🎉 Registration successful!");
-        setStep(6);
+      const baseUrl = process.env.REACT_APP_BASE_URL;
+      if (!baseUrl) {
+        throw new Error("API base URL is not defined");
       }
+
+      // Prepare the user data
+      const userData = {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim(),
+        password: formData.password,
+        role: "user",
+        phone: formData.phone.trim(),
+        address: formData.address.trim(),
+        gender: formData.gender,
+      };
+
+      // Log the data being sent
+      console.log("User data:", userData);
+
+      // If there's a profile picture, handle it separately
+      if (formData.profilePicture) {
+        // First, upload the profile picture
+        const imageFormData = new FormData();
+        imageFormData.append("file", formData.profilePicture);
+        
+        console.log("Uploading profile picture...");
+        
+        try {
+          const imageResponse = await axios.post(
+            `${baseUrl}/auth/upload`,
+            imageFormData,
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
+          
+          // If image upload is successful, add the image ID to the user data
+          if (imageResponse.data?.data?._id) {
+            userData.profile = imageResponse.data.data._id;
+            console.log("Image uploaded successfully, ID:", userData.profile);
+          }
+        } catch (imageError) {
+          console.error("Error uploading image:", imageError);
+          // Continue with registration without the profile image
+        }
+      }
+
+      // Now send the user registration request
+      console.log("Sending registration request:", userData);
+      
+      const response = await axios.post(
+        `${baseUrl}/auth/register`,
+        userData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      console.log("Registration successful:", response.data);
+      setSuccessMessage("🎉 Registration successful!");
+      setStep(6);
     } catch (error) {
-      console.error("Error during registration:", error.response?.data || error.message);
-      setSuccessMessage(`❌ Registration failed: ${error.response?.data?.message || "Please try again."}`);
+      console.error(
+        "Error during registration:",
+        error.response?.data || error.message
+      );
+      
+      // Show detailed error message
+      setErrorMessage(
+        `Registration failed: ${
+          error.response?.data?.error || 
+          error.response?.data?.message || 
+          error.message || 
+          "Please try again."
+        }`
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -973,34 +1505,45 @@ const Registration = () => {
         </div>
 
         {step === 1 && (
-          <div className="register-form-section">
+          <div className="register-form-section" role="form">
             <h2>Basic Info:</h2>
-            <label>First Name</label>
+            <label htmlFor="firstName">First Name</label>
             <input
+              id="firstName"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
               placeholder="Enter your first name"
+              aria-required="true"
+              aria-invalid={!!errors.firstName}
             />
             {errors.firstName && (
-              <p className="register-error">{errors.firstName}</p>
+              <p className="register-error" role="alert">
+                {errors.firstName}
+              </p>
             )}
 
-            <label>Last Name</label>
+            <label htmlFor="lastName">Last Name</label>
             <input
+              id="lastName"
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
               placeholder="Enter your last name"
+              aria-required="true"
+              aria-invalid={!!errors.lastName}
             />
             {errors.lastName && (
-              <p className="register-error">{errors.lastName}</p>
+              <p className="register-error" role="alert">
+                {errors.lastName}
+              </p>
             )}
 
             <button
               onClick={nextStep}
               className="register-next-btn register-btn"
               disabled={!formData.firstName || !formData.lastName}
+              aria-label="Next step"
             >
               Next
             </button>
@@ -1008,49 +1551,74 @@ const Registration = () => {
         )}
 
         {step === 2 && (
-          <div className="register-form-section">
+          <div className="register-form-section" role="form">
             <h2>Contact Info:</h2>
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               name="email"
+              type="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
+              aria-required="true"
+              aria-invalid={!!errors.email}
             />
-            {errors.email && <p className="register-error">{errors.email}</p>}
+            {errors.email && (
+              <p className="register-error" role="alert">
+                {errors.email}
+              </p>
+            )}
 
-            <label>Phone</label>
+            <label htmlFor="phone">Phone</label>
             <input
+              id="phone"
               name="phone"
+              type="tel"
               value={formData.phone}
               onChange={handleChange}
               placeholder="Enter your 10-digit phone number"
+              aria-required="true"
+              aria-invalid={!!errors.phone}
             />
-            {errors.phone && <p className="register-error">{errors.phone}</p>}
+            {errors.phone && (
+              <p className="register-error" role="alert">
+                {errors.phone}
+              </p>
+            )}
 
-            <label>Password</label>
+            <label htmlFor="password">Password</label>
             <input
+              id="password"
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter password (min 6 characters)"
+              aria-required="true"
+              aria-invalid={!!errors.password}
             />
             {errors.password && (
-              <p className="register-error">{errors.password}</p>
+              <p className="register-error" role="alert">
+                {errors.password}
+              </p>
             )}
 
             <div className="btn-group">
               <button
                 onClick={prevStep}
                 className="register-prev-btn register-btn"
+                aria-label="Previous step"
               >
                 Previous
               </button>
               <button
                 onClick={nextStep}
                 className="register-next-btn register-btn"
-                disabled={!formData.email || !formData.phone || !formData.password}
+                disabled={
+                  !formData.email || !formData.phone || !formData.password
+                }
+                aria-label="Next step"
               >
                 Next
               </button>
@@ -1059,36 +1627,49 @@ const Registration = () => {
         )}
 
         {step === 3 && (
-          <div className="register-form-section">
+          <div className="register-form-section" role="form">
             <h2>Other Info:</h2>
-            <label>Address</label>
+            <label htmlFor="address">Address</label>
             <input
+              id="address"
               name="address"
               value={formData.address}
               onChange={handleChange}
               placeholder="Enter your address"
+              aria-required="true"
+              aria-invalid={!!errors.address}
             />
             {errors.address && (
-              <p className="register-error">{errors.address}</p>
+              <p className="register-error" role="alert">
+                {errors.address}
+              </p>
             )}
 
-            <label>Gender</label>
+            <label htmlFor="gender">Gender</label>
             <select
+              id="gender"
               name="gender"
               value={formData.gender}
               onChange={handleChange}
+              aria-required="true"
+              aria-invalid={!!errors.gender}
             >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
-            {errors.gender && <p className="register-error">{errors.gender}</p>}
+            {errors.gender && (
+              <p className="register-error" role="alert">
+                {errors.gender}
+              </p>
+            )}
 
             <div className="btn-group">
               <button
                 onClick={prevStep}
                 className="register-prev-btn register-btn"
+                aria-label="Previous step"
               >
                 Previous
               </button>
@@ -1096,6 +1677,7 @@ const Registration = () => {
                 onClick={nextStep}
                 className="register-next-btn register-btn"
                 disabled={!formData.address || !formData.gender}
+                aria-label="Next step"
               >
                 Next
               </button>
@@ -1104,23 +1686,30 @@ const Registration = () => {
         )}
 
         {step === 4 && (
-          <div className="register-form-section">
+          <div className="register-form-section" role="form">
             <h2>Upload Profile Picture (Optional)</h2>
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleFileChange} 
+            <input
+              id="profilePicture"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              aria-label="Upload profile picture"
             />
+            {formData.profilePicture && (
+              <p>Selected file: {formData.profilePicture.name}</p>
+            )}
             <div className="btn-group">
               <button
                 onClick={prevStep}
                 className="register-prev-btn register-btn"
+                aria-label="Previous step"
               >
                 Previous
               </button>
               <button
                 onClick={nextStep}
                 className="register-next-btn register-btn"
+                aria-label="Next step"
               >
                 Next
               </button>
@@ -1152,31 +1741,44 @@ const Registration = () => {
               {formData.profilePicture ? formData.profilePicture.name : "None"}
             </p>
 
+            {errorMessage && (
+              <p className="register-error" role="alert">
+                {errorMessage}
+              </p>
+            )}
+            
             {successMessage && (
-              <p className="register-success">{successMessage}</p>
+              <p className="register-success" role="status">
+                {successMessage}
+              </p>
             )}
 
             <div className="register-btn-group">
               <button
                 onClick={prevStep}
                 className="register-prev-btn register-btn"
+                aria-label="Previous step"
               >
                 Previous
               </button>
               <button
                 onClick={handleSubmit}
                 className="register-submit-btn register-btn"
+                disabled={loading}
+                aria-label="Submit registration"
               >
-                Submit
+                {loading ? "Submitting..." : "Submit"}
               </button>
             </div>
           </div>
         )}
-        
-        {step === 6 && successMessage.includes("successful") && (
+
+        {step === 6 && successMessage && (
           <div className="register-form-section">
             <h2>Registration Complete!</h2>
-            <p>{successMessage}</p>
+            <p className="register-success" role="status">
+              {successMessage}
+            </p>
             <p>You can now login with your email and password.</p>
           </div>
         )}
