@@ -110,7 +110,6 @@
 
 // export default Login;
 
-
 // import React, { useState } from "react";
 // import axios from "axios";
 // import "../styles/Login.css";
@@ -220,7 +219,6 @@
 
 // export default Login;
 
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -249,10 +247,18 @@ const Login = () => {
 
     // Real-time validation
     if (name === "email") {
-      setErrors((prev) => ({ ...prev, email: validateEmail(value) ? "" : "Invalid email format" }));
+      setErrors((prev) => ({
+        ...prev,
+        email: validateEmail(value) ? "" : "Invalid email format",
+      }));
     }
     if (name === "password") {
-      setErrors((prev) => ({ ...prev, password: validatePassword(value) ? "" : "Password must be at least 6 characters" }));
+      setErrors((prev) => ({
+        ...prev,
+        password: validatePassword(value)
+          ? ""
+          : "Password must be at least 6 characters",
+      }));
     }
   };
 
@@ -262,7 +268,9 @@ const Login = () => {
     // Final validation before submission
     const newErrors = {
       email: validateEmail(formData.email) ? "" : "Invalid email format",
-      password: validatePassword(formData.password) ? "" : "Password must be at least 6 characters",
+      password: validatePassword(formData.password)
+        ? ""
+        : "Password must be at least 6 characters",
     };
 
     setErrors(newErrors);
@@ -278,18 +286,28 @@ const Login = () => {
 
       console.log("API Response:", response.data);
       setResponseMessage("Login Successful!");
-      
+
       // Example: Save token to localStorage
-      localStorage.setItem("token", response.data.token);
+      // localStorage.setItem("token", response.data.token);
+
+      const authToken =
+        response.headers["authorization"] ||
+        response.headers["Authorization"] ||
+        response.headers["x-auth-token"];
+      // Example: Save token to localStorage
+      localStorage.setItem("authToken", 
       
+      );
+      console.log(authToken, "authToken");
       // Show success message briefly before redirecting
       setTimeout(() => {
         navigate("/"); // Redirect to home page
       }, 1000); // Wait 1 second so user can see success message
-
     } catch (error) {
       console.error("API Error:", error.response?.data || error.message);
-      setResponseMessage(error.response?.data?.message || "Login failed. Please try again.");
+      setResponseMessage(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
     }
   };
 
@@ -298,7 +316,9 @@ const Login = () => {
       <div className="form-container">
         <h1 className="title">Sign In</h1>
 
-        {responseMessage && <p className="response-message">{responseMessage}</p>}
+        {responseMessage && (
+          <p className="response-message">{responseMessage}</p>
+        )}
 
         <form className="form-section" onSubmit={handleSubmit}>
           <label>Email Address</label>
@@ -323,7 +343,9 @@ const Login = () => {
           />
           {errors.password && <p className="error">{errors.password}</p>}
 
-          <button type="submit" className="submit-btn">Sign In</button>
+          <button type="submit" className="submit-btn">
+            Sign In
+          </button>
         </form>
 
         <p className="switch-form">
