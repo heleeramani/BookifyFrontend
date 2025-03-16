@@ -295,9 +295,7 @@ const Login = () => {
         response.headers["Authorization"] ||
         response.headers["x-auth-token"];
       // Example: Save token to localStorage
-      localStorage.setItem("authToken", 
-      
-      );
+      localStorage.setItem("authToken", authToken);
       console.log(authToken, "authToken");
       // Show success message briefly before redirecting
       setTimeout(() => {
