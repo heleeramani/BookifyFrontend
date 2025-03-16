@@ -36,7 +36,7 @@
 
 /* Navbar Login & Register Styles */
 .navbar-login a,
-.navbar-register a {
+.navbar-register a, .navbar-logout a {
   color: #b92b3a;  /* Change to your desired color */
   font-weight: bold;
 }
