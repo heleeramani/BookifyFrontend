@@ -1,0 +1,155 @@
+/* General Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --primary-color: #5963f7;
+  --secondary-color: #3c4167;
+  --dark-bg: #1d2032;
+  --chart-color: #56dee8;
+  --text-light: #ffffff;
+  --text-secondary: #a9afc3;
+}
+
+body {
+  background-color: #1d2032;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.mainn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #1d2032;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Form Container */
+.form-container {
+  width: 400px;
+  background: #242b42;
+  padding: 35px 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: var(--text-light);
+}
+
+/* Form Section */
+.form-section {
+  text-align: left;
+  padding: 20px;
+  background: #2b324e;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* Input Fields */
+label {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 12px 0 8px;
+  color: var(--text-secondary);
+}
+
+input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #3a4165;
+  background-color: #2b324e;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+  color: var(--text-light);
+}
+
+input::placeholder {
+  color: #6a7295;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  background-color: #303755;
+}
+
+.input-error {
+  border-color: #e74c3c;
+}
+
+/* Error Messages */
+.error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Response Message */
+.response-message {
+  color: var(--chart-color);
+  margin-bottom: 15px;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Button */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: white;
+  transition: 0.3s;
+  margin-top: 15px;
+}
+
+.submit-btn:hover {
+  background-color: #4751e6;
+}
+
+/* Switch to Sign Up */
+.switch-form {
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.switch-form a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch-form a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .form-container {
+    width: 90%;
+    padding: 20px;
+  }
+}

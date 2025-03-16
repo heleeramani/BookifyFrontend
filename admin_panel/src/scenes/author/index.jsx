@@ -280,9 +280,14 @@ const Author = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [author, setAuthor] = useState([]);
   const [authorData, setAuthorData] = useState({
-    authorName: "",
-    image: "",
-    bio: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    gender: "",
+    role: "author",
+    phone: "",
+    address: "",
   });
   //upload image  1
   const handleFileChange = (e) => {
@@ -290,7 +295,6 @@ const Author = () => {
     if (file) {
       setAuthorData({
         ...authorData,
-        image: file,
       });
     }
   };
@@ -308,12 +312,17 @@ const Author = () => {
     setIsEdit(isEditMode);
     if (isEditMode && data) {
       console.log("📌 Editing Book Data:", data); // Debugging
-      setAuthorData({ ...data, image: null });
+      setAuthorData({ ...data });
     } else {
       setAuthorData({
-        authorName: "",
-        image: "",
-        bio: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        gender: "",
+        role: "author",
+        phone: "",
+        address: "",
       });
     }
     setOpenDialog(true);
@@ -336,125 +345,163 @@ const Author = () => {
   };
 
   //upload image and book
+  // const handleSubmit = async () => {
+  //   // Handle form submission here
+  //   console.log(authorData);
+  //   try {
+  //     setLoading(true);
+
+  //     // Validate required fields
+  //     if (!authorData.authorName) {
+  //       setAlert({
+  //         open: true,
+  //         message: "required",
+  //         severity: "error",
+  //       });
+  //       return;
+  //     }
+  //     //--------------------
+  //     let imageId = null;
+  //     if (!(authorData.image instanceof File)) {
+  //       console.error("Invalid file format", authorData.image);
+
+  //       return;
+  //     }
+
+  //     // If there's a new image to upload
+  //     if (authorData.image) {
+  //       const formData = new FormData();
+  //       formData.append("file", authorData.image);
+  //       console.log(authorData.image, "book dataaaa");
+  //       // console.log(formData,"form data");
+
+  //       for (let pair of formData.entries()) {
+  //         console.log(`FormData Key: ${pair[0]}, Value: ${pair[1]}`);
+  //       }
+
+  //     // Prepare book data
+  //     const authorPayload = {
+  //       // title: bookData.title,
+  //       // author: bookData.author,
+  //       // isbn: bookData.isbn,
+  //       // category: bookData.category,
+  //       // price: bookData.price,
+  //       // publishYear: bookData.publishYear,
+  //       // publisher: bookData.publisher,
+  //       // description: bookData.description,
+  //       // totalCopy: bookData.totalCopy,
+  //       // authorName: authorData.authorName,
+  //       // bio: authorData.bio,
+
+  //       firstName: authorData.firstName,
+  //       lastName: authorData.lastName,
+  //       email: authorData.email,
+  //       password: authorData.password,
+  //       gender: authorData.gender,
+  //       role: authorData.role,
+  //       phone: authorData.phone,
+  //       address: authorData.address
+  //     };
+
+  //     let response1;
+
+  //       response1 = await axios.post(
+  //         `${process.env.REACT_APP_BASE_URL}/admin/author/create`,
+  //         authorData
+  //       );
+  //       setAlert({
+  //         open: true,
+  //         message: "Book added successfully",
+  //         severity: "success",
+  //       });
+
+  //     // Refresh the book list
+  //     fetchAuthor();
+
+  //     handleCloseDialog();
+  //   } catch (err) {
+  //     console.error("Error saving book:", error);
+  //     setAlert({
+  //       open: true,
+  //       message: `Failed to ${isEdit ? "update" : "add"} book: ${
+  //         error.response?.data?.message || error.message
+  //       }`,
+  //       severity: "error",
+  //     });
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async () => {
     // Handle form submission here
     console.log(authorData);
+
     try {
+      let authToken = localStorage.getItem("authToken");
+
       setLoading(true);
 
       // Validate required fields
       if (!authorData.authorName) {
         setAlert({
           open: true,
-          message: "required",
+          message: "Author name is required",
           severity: "error",
         });
         return;
       }
-      //--------------------
-      let imageId = null;
-      if (!(authorData.image instanceof File)) {
-        console.error("Invalid file format", authorData.image);
 
-        return;
-      }
-
-      // If there's a new image to upload
-      if (authorData.image) {
-        const formData = new FormData();
-        formData.append("file", authorData.image);
-        console.log(authorData.image, "book dataaaa");
-        // console.log(formData,"form data");
-
-        for (let pair of formData.entries()) {
-          console.log(`FormData Key: ${pair[0]}, Value: ${pair[1]}`);
-        }
-
-        // Upload image first
-        const imageResponse = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/admin/author/upload`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        console.log(imageResponse, "image responseeee");
-
-        imageId = imageResponse.data.data._id;
-        console.log(imageId, "image iddddd");
-      }
-      //-------------------------------
-      // Prepare book data
+      // Prepare author data payload
       const authorPayload = {
-        // title: bookData.title,
-        // author: bookData.author,
-        // isbn: bookData.isbn,
-        // category: bookData.category,
-        // price: bookData.price,
-        // publishYear: bookData.publishYear,
-        // publisher: bookData.publisher,
-        // description: bookData.description,
-        // totalCopy: bookData.totalCopy,
+        firstName: authorData.firstName,
+        lastName: authorData.lastName,
+        email: authorData.email,
+        password: authorData.password,
+        gender: authorData.gender,
+        role: authorData.role,
+        phone: authorData.phone,
+        address: authorData.address,
         authorName: authorData.authorName,
         bio: authorData.bio,
       };
-      //-------------------image
-      // Add image ID to payload if we have one
-      if (imageId) {
-        authorPayload.image = imageId;
-      }
-      //-------------------image
-      let response1;
-      if (isEdit) {
-        // Update existing book
-        response1 = await axios.patch(
-          `${process.env.REACT_APP_BASE_URL}/admin/author/update/${authorData.id}`,
-          authorData
-        );
-        setAlert({
-          open: true,
-          message: "Book updated successfully",
-          severity: "success",
-        });
-      } else {
-        // Create new book
-        response1 = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/admin/author/create`,
-          authorData
-        );
-        setAlert({
-          open: true,
-          message: "Book added successfully",
-          severity: "success",
-        });
-      }
 
-      // Refresh the book list
+      // Send author data to API
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/admin/author/create`,
+        authorPayload,
+        {
+          headers: {
+            Authorization: authToken,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // Refresh the author list
       fetchAuthor();
-
       handleCloseDialog();
-    } catch (err) {
-      console.error("Error saving book:", error);
-      setAlert({
-        open: true,
-        message: `Failed to ${isEdit ? "update" : "add"} book: ${
-          error.response?.data?.message || error.message
-        }`,
-        severity: "error",
-      });
+    } catch (error) {
+      console.error("Error saving author:", error);
     } finally {
       setLoading(false);
     }
   };
+
   //delete ...
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
       try {
+        const authToken = localStorage.getItem("authToken");
         setLoading(true);
         await axios.delete(
-          `${process.env.REACT_APP_BASE_URL}/admin/author/delete/${id}`
+          `${process.env.REACT_APP_BASE_URL}/admin/author/delete/${id}`,
+          {
+            headers: {
+              Authorization: authToken,
+              "Content-Type": "application/json",
+            },
+          }
         );
 
         // Update the books list
@@ -489,30 +536,47 @@ const Author = () => {
     //   cellClassName: "name-column--cell",
     // },
     {
-      field: "authorName",
-      headerName: "Name",
+      field: "firstName",
+      headerName: "First Name",
       type: "text",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "image",
-      headerName: "Image",
+      field: "lastName",
+      headerName: "Last Name",
       flex: 1,
-      renderCell: (params) => (
-        <img
-          src={params.value}
-          alt="Book Cover"
-          style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 5 }}
-        />
-      ),
     },
     {
-      field: "bio",
-      headerName: "bio",
+      field: "email",
+      headerName: "Email",
       flex: 1,
     },
-
+    {
+      field: "password",
+      headerName: "Password",
+      flex: 1,
+    },
+    {
+      field: "gender",
+      headerName: "Gender",
+      flex: 1,
+    },
+    {
+      field: "role",
+      headerName: "Role",
+      flex: 1,
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
+      flex: 1,
+    },
+    {
+      field: "address",
+      headerName: "Address",
+      flex: 1,
+    },
     {
       field: "actions",
       headerName: "Actions",
@@ -537,8 +601,16 @@ const Author = () => {
 
   const fetchAuthor = async () => {
     try {
+      let token = localStorage.getItem("authToken");
+
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/admin/author/get`
+        `${process.env.REACT_APP_BASE_URL}/admin/author/getAll`,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
       );
       console.log("response", response?.data?.data);
 
@@ -551,7 +623,6 @@ const Author = () => {
       const formattedAuthors = authorArray.map((book) => ({
         ...book,
         id: book._id,
-        image: book.image ? book.image.url : "", // Check if image exists // Ensure DataGrid has an id
       }));
       console.log(formattedAuthors, "hellllll");
 
@@ -643,24 +714,39 @@ const Author = () => {
               }
             /> */}
             <TextField
-              label="bookName"
-              id="bookName"
-              value={authorData.bookName}
+              label="firstName"
+              id="firstName"
+              value={authorData.firstName}
               onChange={handleInputChange}
             />
             <TextField
-              label="Image URL"
-              id="image"
-              type="file"
-              title="Upload Image"
-              // InputLabelProps={{ shrink: true }}
-              // value={bookData.image}
-              onChange={handleFileChange}
+              label="lastName"
+              id="lastName"
+              value={authorData.lastName}
+              onChange={handleInputChange}
             />
             <TextField
-              label="bio"
-              id="bio"
-              value={authorData.bio}
+              label="email"
+              id="email"
+              value={authorData.email}
+              onChange={handleInputChange}
+            />
+            <TextField
+              label="pasword"
+              id="password"
+              value={authorData.password}
+              onChange={handleInputChange}
+            />
+            <TextField
+              label="phone"
+              id="phone"
+              value={authorData.phone}
+              onChange={handleInputChange}
+            />
+            <TextField
+              label="address"
+              id="address"
+              value={authorData.address}
               onChange={handleInputChange}
             />
           </Box>

@@ -1333,6 +1333,7 @@ const Review = ({ productId }) => {
       avatar: '👤'
     }
   ]);
+  const [review, setReview] = useState([]);
 
   // Get user ID from localStorage when component mounts
   useEffect(() => {
@@ -1405,6 +1406,39 @@ const Review = ({ productId }) => {
       setIsSubmitting(false);
     }
   };
+
+  const fetchReview = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/admin/book/get`
+      );
+      console.log("response", response?.data?.data);
+
+      // Check if response.data is an array or wrapped inside another object
+      // const booksArray = Array.isArray(response.data)
+      //   ? response.data
+      //   : response.data?.data || [];
+      // console.log(booksArray,"shhrreeee");
+      
+      // const formattedBooks = booksArray.map((book) => ({
+      //   ...book,
+      //   id: book._id,
+      //   image: book.image ? book.image.url : "" // Check if image exists // Ensure DataGrid has an id
+      // }));
+      // console.log(formattedBooks,"hellllll");
+      
+      
+
+      setReview(formattedBooks);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchReview();
+    // console.log(book, "skjcskhc");
+  }, []);
 
   return (
     <div className="review-container">

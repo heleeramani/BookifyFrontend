@@ -2864,7 +2864,7 @@ const Profile = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [borrow, setBorrow] = useState([]);
   const openTab = (tabName) => {
     setActiveTab(tabName);
   };
@@ -2910,6 +2910,48 @@ const Profile = () => {
   useEffect(() => {
     fetchUser();
   }, []);
+
+
+  const fetchBorrow = async () => {
+      try {
+        const authToken = localStorage.getItem("authToken");
+        const response = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/user/profile/borrow`,
+          {
+            headers: {
+              Authorization: authToken,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("response", response?.data?.borrowedBooks);
+  
+        // Check if response.data is an array or wrapped inside another object
+        // const booksArray = Array.isArray(response.data)
+        //   ? response.data
+        //   : response.data?.data || [];
+        // console.log(booksArray,"shhrreeee");
+        
+        // const formattedBooks = booksArray.map((book) => ({
+        //   ...book,
+        //   id: book._id,
+        //   image: book.image ? book.image.url : "" // Check if image exists // Ensure DataGrid has an id
+        // }));
+        // console.log(formattedBooks,"hellllll");
+        
+        
+        console.log(response?.data?.data?.borrowedBooks,"borrrrrrroooooowwwwwweeedd");
+        
+        setBorrow(response?.data?.data?.borrowedBooks);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchBorrow();
+      // console.log(book, "skjcskhc");
+    }, []);
 
   if (isLoading && !userData) {
     return <div className="loading">Loading profile data...</div>;
@@ -3034,7 +3076,7 @@ const Profile = () => {
                           userData.borrowedBooks.length > 0 ? (
                             userData.borrowedBooks.map((book) => (
                               <tr key={book._id || Math.random()}>
-                                <td>{book.bookName || "Unknown Book"}</td>
+                                <td>{book.title || "Unknown Book"}</td>
                                 <td>
                                   {new Date(
                                     book.borrowedDate

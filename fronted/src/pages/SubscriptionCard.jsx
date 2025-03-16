@@ -1,6 +1,6 @@
 import React from "react";
 import "./Subscription.css"; // Import the CSS file
-import SubscriptionImg from '../component/home/images/articaksimage2.jpg';
+import SubscriptionImg from "../component/home/images/discover-book1.jpg";
 
 const SubscriptionCard = () => {
   return (

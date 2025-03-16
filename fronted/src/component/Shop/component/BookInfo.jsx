@@ -307,6 +307,8 @@ const BookInfo = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [alerts, setAlerts] = useState({ open: false, message: "", severity: "" });
 
   const fetchBook = async () => {
     try {
@@ -410,12 +412,29 @@ const BookInfo = () => {
 
 const handlePurchase = async () => {
   try {
+    // Get authToken from localStorage
+    const authToken = localStorage.getItem("authToken");
+      
+    if (!authToken) {
+      setAlerts({
+        open: true,
+        message: "Please log in to view your wishlist",
+        severity: "warning"
+      });
+      setLoading(false);
+      return;
+    }
+
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/user/purchase/initiate`,
       {
-        userId: "67ccab6ec2430f8187f1a4b3",
         bookId: book.id,
         quantity: quantity,
+      },{
+        headers:{
+          Authorization:authToken,
+          'Content-Type': 'application/json',
+        }
       }
     );
 
@@ -436,7 +455,12 @@ const handlePurchase = async () => {
               `${process.env.REACT_APP_BASE_URL}/user/payment/verify`,
               {
                 orderId: data?.data.order._id,
-                razorpayPaymentId: response.razorpay_payment_id,
+                razorayPaymentId: response.razorpay_payment_id,
+              },{
+                headers:{
+                  Authorization:authToken,
+                  'Content-Type': 'application/json',
+                }
               }
             );
 
@@ -473,11 +497,28 @@ const handlePurchase = async () => {
 
 const handleBorrow = async () => {
   try {
+    // Get authToken from localStorage
+    const authToken = localStorage.getItem("authToken");
+      
+    if (!authToken) {
+      setAlerts({
+        open: true,
+        message: "Please log in to view your wishlist",
+        severity: "warning"
+      });
+      setLoading(false);
+      return;
+    }
+
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/user/borrow/initiate`,
       {
-        userId: "67ccab6ec2430f8187f1a4b3",
         bookId: book.id,
+      },{
+        headers:{
+          Authorization:authToken,
+          'Content-Type': 'application/json',
+        }
       }
     );
 
@@ -502,7 +543,12 @@ console.log(data.data,"datataaaa");
               `${process.env.REACT_APP_BASE_URL}/user/payment/verify`,
               {
                 orderId: data?.data.order._id,
-                razorpayPaymentId: response.razorpay_payment_id,
+                razorayPaymentId: response.razorpay_payment_id,
+              },{
+                headers:{
+                  Authorization:authToken,
+                  'Content-Type': 'application/json',
+                }
               }
             );
 
@@ -536,6 +582,7 @@ console.log(data.data,"datataaaa");
     alert("Failed to borrow the book. Please try again.");
   }
 };
+
 
 
   useEffect(() => {

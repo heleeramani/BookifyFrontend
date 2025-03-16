@@ -30,7 +30,7 @@ const Home = () => {
       <BestSeller />
       <MostRecentArtical />
 
-      {/* <SubscriptionCard /> */}
+      <SubscriptionCard />
       {/* <BokInfo /> */}
       {/* <ShopList /> */}
       {/* <Profile/> */}
