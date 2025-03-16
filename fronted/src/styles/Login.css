@@ -13,7 +13,26 @@
   align-items: center;
   min-height: 100vh;
 } */
+/* Add this to your existing Login.css file */
 
+.forgot-password {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.forgot-password a {
+  color: #4a90e2;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+  color: #2a6fc9;
+  text-decoration: underline;
+}
 .mainn {
   display: flex;
   justify-content: center;
