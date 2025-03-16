@@ -742,6 +742,211 @@
 
 // export default Navbar;
 
+// import React, { useState } from "react";
+// import "./Navbar.css";
+// import { Link } from "react-router-dom";
+// // Import Font Awesome components
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faPhone,
+//   faBook,
+//   faShoppingCart,
+//   faHeart,
+//   faSearch,
+//   faBars,
+//   faTimes,
+//   faUser,
+// } from "@fortawesome/free-solid-svg-icons";
+// import {
+//   faFacebook,
+//   faTwitter,
+//   faInstagram,
+// } from "@fortawesome/free-brands-svg-icons";
+
+// const Navbar = () => {
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+//   const [navMenuOpen, setNavMenuOpen] = useState(false);
+//   const [favoriteCount, setFavoriteCount] = useState(0);
+
+//   return (
+//     <div className="navbar-container">
+//       {/* 🔝 Top Bar */}
+//       <div className="navbar-topbar">
+//         <p className="navbar-welcome">Welcome to Our Publishing House!</p>
+//         <div className="navbar-topbar-right">
+//           <span className="navbar-login">
+//             <Link to="/login">Login</Link>
+//           </span>
+//           or
+//           <span className="navbar-register">
+//             <Link to="/register">Register</Link>
+//           </span>
+//           {/* Profile Icon (replacing social media icons) */}
+//           <Link to="/profile" className="navbar-profile-icon">
+//             <FontAwesomeIcon icon={faUser} className="navbar-icon" />
+//           </Link>
+//         </div>
+//       </div>
+
+//       {/* 🧭 Header */}
+//       <div className="navbar-header">
+//         {/* Contact Info */}
+//         <div className="navbar-contact">
+//           <FontAwesomeIcon icon={faPhone} className="navbar-contact-icon" />
+//           <p>
+//             Free call: <span>123-456-7890</span>
+//           </p>
+//         </div>
+
+//         {/* Logo */}
+//         <div className="navbar-logo">
+//           <FontAwesomeIcon icon={faBook} className="navbar-logo-icon" />
+//           <span className="navbar-logo-text">
+//             BOOK<span className="navbar-logo-highlight">lovers</span>
+//           </span>
+//           <p className="navbar-tagline">Your Favorite Bookshelf!</p>
+//         </div>
+
+//         {/* Action buttons container */}
+//         <div className="navbar-actions">
+//           {/* Favorites */}
+//           <div className="navbar-favorites">
+//             <Link to="/favorites">
+//               <FontAwesomeIcon
+//                 icon={faHeart}
+//                 className="navbar-favorites-icon"
+//               />
+//               <span className="navbar-favorites-badge">{favoriteCount}</span>
+//             </Link>
+//           </div>
+
+//           {/* Cart */}
+//           <div className="navbar-cart">
+//             <FontAwesomeIcon
+//               icon={faShoppingCart}
+//               className="navbar-cart-icon"
+//             />
+//             <span className="navbar-cart-badge">0</span>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* 🔽 Navbar Links */}
+//       <nav className="navbar-menu">
+//         {/* Toggle for Small Devices */}
+//         <div
+//           className="navbar-small-toggle"
+//           onClick={() => setNavMenuOpen(!navMenuOpen)}
+//         >
+//           <FontAwesomeIcon
+//             icon={navMenuOpen ? faTimes : faBars}
+//             className="navbar-toggle-icon"
+//           />
+//         </div>
+
+//         {/* Toggle for Sidebar (Large Devices) */}
+//         <div
+//           className="navbar-sidebar-toggle"
+//           onClick={() => setSidebarOpen(!sidebarOpen)}
+//         >
+//           <FontAwesomeIcon
+//             icon={sidebarOpen ? faTimes : faBars}
+//             className="navbar-toggle-icon"
+//           />
+//         </div>
+
+//         {/* Navigation Links */}
+//         <ul
+//           className={`navbar-links ${navMenuOpen ? "navbar-links-open" : ""}`}
+//         >
+//           <li className="navbar-link navbar-link-active">
+//             <a href="/" className="nav-items">
+//               HOME
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/about" className="nav-items">
+//               ABOUT
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/blog" className="nav-items">
+//               BLOG
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/contactus" className="nav-items">
+//               CONTACT US
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/store" className="nav-items">
+//               STORE
+//             </a>
+//           </li>
+//         </ul>
+
+//         {/* Search */}
+//         <div className="navbar-search">
+//           <FontAwesomeIcon icon={faSearch} className="navbar-search-icon" />
+//         </div>
+//       </nav>
+
+//       {/* Sidebar */}
+//       <div className={`sidebar ${sidebarOpen ? "sidebar-open" : ""}`}>
+//         <div className="sidebar-header">
+//           <div className="sidebar-logo">
+//             <FontAwesomeIcon icon={faBook} className="sidebar-logo-icon" />
+//             <span className="sidebar-logo-text">
+//               BOOK<span className="sidebar-logo-highlight">lovers</span>
+//             </span>
+//           </div>
+//           <FontAwesomeIcon
+//             icon={faTimes}
+//             className="sidebar-close"
+//             onClick={() => setSidebarOpen(false)}
+//           />
+//         </div>
+//         <ul className="sidebar-links">
+//           <li className="navbar-link navbar-link-active">
+//             <a href="/" className="">
+//               HOME
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/about">ABOUT</a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/blog">BLOG</a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/contactus">CONTACT US</a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/store">STORE</a>
+//           </li>
+//         </ul>
+
+//         {/* Profile Icon in Sidebar */}
+//         <Link to="/profile" className="sidebar-profile-icon">
+//           <FontAwesomeIcon icon={faUser} className="sidebar-icon" />
+//         </Link>
+//       </div>
+
+//       {/* Overlay (for Sidebar Close) */}
+//       {sidebarOpen && (
+//         <div
+//           className="sidebar-overlay"
+//           onClick={() => setSidebarOpen(false)}
+//         ></div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Navbar;
+
+
 import React, { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
@@ -777,9 +982,13 @@ const Navbar = () => {
           <span className="navbar-login">
             <Link to="/login">Login</Link>
           </span>
-          or
+          |
           <span className="navbar-register">
             <Link to="/register">Register</Link>
+          </span>
+          |
+          <span className="navbar-logout">
+            <Link to="/logout">Logout</Link>
           </span>
           {/* Profile Icon (replacing social media icons) */}
           <Link to="/profile" className="navbar-profile-icon">
