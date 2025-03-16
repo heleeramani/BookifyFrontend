@@ -340,7 +340,9 @@ const Login = () => {
             className={errors.password ? "input-error" : ""}
           />
           {errors.password && <p className="error">{errors.password}</p>}
-
+          <div className="forgot-password">
+            <a href="/forgot-password">Forgot Password?</a>
+          </div>
           <button type="submit" className="submit-btn">
             Sign In
           </button>
