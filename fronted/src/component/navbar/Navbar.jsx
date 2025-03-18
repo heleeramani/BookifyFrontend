@@ -1208,7 +1208,13 @@ const Navbar = () => {
           "Authorization": authToken
         }
       });
-
+      const token =
+        response.headers["authorization"] ||
+        response.headers["Authorization"] ||
+        response.headers["x-auth-token"];
+      // Example: Save token to localStorage
+      localStorage.setItem("authToken", token);
+      console.log(authToken, "authToken");
       // If successful, clear token and redirect
       // localStorage.removeItem("authToken");
       setIsLoggedIn(false);
