@@ -141,7 +141,7 @@
 //           Add Book
 //         </Button>
 //       </Box>
-      
+
 //       <Box
 //         m="40px 0 0 0"
 //         height="75vh"
@@ -276,7 +276,7 @@
 //               </Typography>
 //               <Typography variant="subtitle1" sx={{ mb: 1 }}>
 //                 <strong>Author:</strong> {selectedBook.author || 'N/A'}
-//               </Typography> 
+//               </Typography>
 //               <Typography variant="subtitle1" sx={{ mb: 1 }}>
 //                 <strong>ISBN:</strong> {selectedBook.isbn || 'N/A'}
 //               </Typography>
@@ -338,7 +338,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 const Book = () => {
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
+  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const [books, setBooks] = useState([]);
   const [error, setError] = useState(null);
   const theme = useTheme();
@@ -347,7 +347,7 @@ const Book = () => {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
   const [selectedBook, setSelectedBook] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
-  const [book,setBook]=useState([]);
+  const [book, setBook] = useState([]);
   const [bookData, setBookData] = useState({
     title: "",
     image: "",
@@ -360,31 +360,31 @@ const Book = () => {
     description: "",
     totalCopy: "",
   });
-//upload image  1
+  //upload image  1
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setBookData({
         ...bookData,
-        image: file
+        image: file,
       });
     }
   };
   // 1
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setBookData(prev => ({
+    setBookData((prev) => ({
       ...prev,
-      [id]: value
+      [id]: value,
     }));
   };
   const handleOpenDialog = (isEditMode = false, data = null) => {
     console.log("-----enter in handle open dialog");
-    
+
     setIsEdit(isEditMode);
     if (isEditMode && data) {
       console.log("📌 Editing Book Data:", data); // Debugging
-      setBookData({ ...data,image:null });
+      setBookData({ ...data, image: null });
     } else {
       setBookData({
         // bookName: "",
@@ -420,57 +420,59 @@ const Book = () => {
   };
 
   //upload image and book
-  const handleSubmit =async () => {
+  const handleSubmit = async () => {
+    const authToken = localStorage.getItem("authToken");
     // Handle form submission here
     console.log(bookData);
-    try{
+    try {
+      
       setLoading(true);
 
-        // Validate required fields
-        if (!bookData.title || !bookData.author || !bookData.category) {
-          setAlert({
-            open: true,
-            message: "Title, author, and category are required",
-            severity: "error"
-          });
-          return;
-        }
-//--------------------
-        let imageId = null;
-        if (!(bookData.image instanceof File)) {
-          console.error("Invalid file format", bookData.image);
-          
-          return;
-        }
-        
-        // If there's a new image to upload
+      // Validate required fields
+      if (!bookData.title || !bookData.author || !bookData.category) {
+        setAlert({
+          open: true,
+          message: "Title, author, and category are required",
+          severity: "error",
+        });
+        return;
+      }
+      //--------------------
+      let imageId = null;
+      if (!(bookData.image instanceof File)) {
+        console.error("Invalid file format", bookData.image);
+
+        return;
+      }
+
+      // If there's a new image to upload
       if (bookData.image) {
         const formData = new FormData();
         formData.append("file", bookData.image);
-        console.log(bookData.image,"book dataaaa");
+        console.log(bookData.image, "book dataaaa");
         // console.log(formData,"form data");
-        
+
         for (let pair of formData.entries()) {
           console.log(`FormData Key: ${pair[0]}, Value: ${pair[1]}`);
         }
-  
+
         // Upload image first
         const imageResponse = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/admin/book/upload`,
+          `${process.env.REACT_APP_BASE_URL}/author/book/upload`,
           formData,
           {
             headers: {
-              'Content-Type': 'multipart/form-data'
-            }
+              Authorization: authToken,
+              "Content-Type": "multipart/form-data",
+            },
           }
         );
-        console.log(imageResponse,"image responseeee");
-        
-        imageId = imageResponse.data.data._id
-        console.log(imageId,"image iddddd");
-        
+        console.log(imageResponse, "image responseeee");
+
+        imageId = imageResponse.data.data._id;
+        console.log(imageId, "image iddddd");
       }
-//-------------------------------
+      //-------------------------------
       // Prepare book data
       const bookPayload = {
         title: bookData.title,
@@ -481,36 +483,45 @@ const Book = () => {
         publishYear: bookData.publishYear,
         publisher: bookData.publisher,
         description: bookData.description,
-        totalCopy: bookData.totalCopy
+        totalCopy: bookData.totalCopy,
       };
-//-------------------image
+      //-------------------image
       // Add image ID to payload if we have one
       if (imageId) {
         bookPayload.image = imageId;
       }
-//-------------------image    
+      //-------------------image
       let response1;
       if (isEdit) {
         // Update existing book
         response1 = await axios.patch(
-          `${process.env.REACT_APP_BASE_URL}/admin/book/update/${bookData.id}`,
-          bookPayload
+          `${process.env.REACT_APP_BASE_URL}/author/book/update/${bookData.id}`,
+          bookPayload,
+          {
+            headers: {
+              Authorization: authToken,
+            },
+          }
         );
         setAlert({
           open: true,
           message: "Book updated successfully",
-          severity: "success"
+          severity: "success",
         });
       } else {
         // Create new book
         response1 = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/admin/book/create`,
-          bookPayload
+          `${process.env.REACT_APP_BASE_URL}/author/book/create`,
+          bookPayload, {
+            headers: {
+              Authorization: authToken
+            }
+          }
         );
         setAlert({
           open: true,
           message: "Book added successfully",
-          severity: "success"
+          severity: "success",
         });
       }
 
@@ -518,41 +529,49 @@ const Book = () => {
       fetchBook();
 
       handleCloseDialog();
-    }catch(err){
+    } catch (err) {
       console.error("Error saving book:", error);
       setAlert({
         open: true,
-        message: `Failed to ${isEdit ? 'update' : 'add'} book: ${error.response?.data?.message || error.message}`,
-        severity: "error"
+        message: `Failed to ${isEdit ? "update" : "add"} book: ${
+          error.response?.data?.message || error.message
+        }`,
+        severity: "error",
       });
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
-//delete ...
-  const handleDelete =async (id) => {
+  //delete ...
+  const handleDelete = async (id) => {
+    const authToken = localStorage.getItem("authToken");
     if (window.confirm("Are you sure you want to delete this book?")) {
       try {
         setLoading(true);
         await axios.delete(
-          `${process.env.REACT_APP_BASE_URL}/admin/book/delete/${id}`
+          `${process.env.REACT_APP_BASE_URL}/author/book/delete/${id}`,
+          {
+            headers: {
+              Authorization: authToken,
+            },
+          }
         );
-        
+
         // Update the books list
-        setBooks(books.filter(book => book.id !== id));
-        
+        setBooks(books.filter((book) => book.id !== id));
+
         setAlert({
           open: true,
           message: "Book deleted successfully",
-          severity: "success"
+          severity: "success",
         });
-        fetchBook()
+        fetchBook();
       } catch (error) {
         console.error("Error deleting book:", error);
         setAlert({
           open: true,
           message: "Failed to delete book",
-          severity: "error"
+          severity: "error",
         });
       } finally {
         setLoading(false);
@@ -622,8 +641,14 @@ const Book = () => {
 
   const fetchBook = async () => {
     try {
+      const authToken = localStorage.getItem("authToken");
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/admin/book/get`
+        `${process.env.REACT_APP_BASE_URL}/author/book/get`,
+        {
+          headers: {
+            Authorization: authToken,
+          },
+        }
       );
       console.log("response", response?.data?.data);
 
@@ -631,16 +656,14 @@ const Book = () => {
       const booksArray = Array.isArray(response.data)
         ? response.data
         : response.data?.data || [];
-      console.log(booksArray,"shhrreeee");
-      
+      console.log(booksArray, "shhrreeee");
+
       const formattedBooks = booksArray.map((book) => ({
         ...book,
         id: book._id,
-        image: book.image ? book.image.url : "" // Check if image exists // Ensure DataGrid has an id
+        image: book.image ? book.image.url : "", // Check if image exists // Ensure DataGrid has an id
       }));
-      console.log(formattedBooks,"hellllll");
-      
-      
+      console.log(formattedBooks, "hellllll");
 
       setBook(formattedBooks);
     } catch (error) {

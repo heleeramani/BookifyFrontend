@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .pricing-page {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9fbff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .pricing-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card-header {
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .card-header.free {
+    background: #f8f9fb;
+    color: #333;
+  }
+  
+  .card-header.lite {
+    background: linear-gradient(90deg, #b383ff, #ff82d7);
+    color: #fff;
+  }
+  
+  .card-header.pro {
+    background: linear-gradient(90deg, #ff9a7c, #ffd17c);
+    color: #fff;
+  }
+  
+  .price {
+    font-size: 2.5rem;
+    margin: 20px 0 10px;
+    color: #2e2e4d;
+  }
+  
+  .desc {
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .subtext {
+    color: #777;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #2e2e4d;
+    color: #2e2e4d;
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    background: #2e2e4d;
+    color: #fff;
+  }
+  
+  .card.lite .btn {
+    background: #2e2e4d;
+    color: #fff;
+    border: none;
+  }
+  
+  .pricing-list {
+    list-style: none;
+    width: 100%;
+  }
+  
+  .pricing-list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  .pricing-list-item .check {
+    color: green;
+    margin-right: 10px;
+  }
+  
+  .pricing-list-item .cross {
+    color: red;
+    margin-right: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .pricing-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  }

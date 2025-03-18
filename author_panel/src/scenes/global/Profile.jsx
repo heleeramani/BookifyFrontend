@@ -2638,7 +2638,7 @@
 //       // Create update data object
 //       const updateData = {
 //         ...formData,
-        
+
 //         userId: userData._id, // Explicitly include the user ID
 //       };
 //       console.log(formData, "formdata");
@@ -2853,7 +2853,6 @@
 
 // export default Profile;
 
-
 import React, { useEffect, useState } from "react";
 import "./Profile.css"; // You'll need to create this CSS file separately
 import axios from "axios";
@@ -2864,9 +2863,6 @@ const Profile = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [borrow, setBorrow] = useState([]);
-  const [returned, setReturned] = useState([]);
-  const [fine,setFine]=useState([]);
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
@@ -2888,7 +2884,7 @@ const Profile = () => {
       const authToken = localStorage.getItem("authToken");
 
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/user/profile/get`,
+        `${process.env.REACT_APP_BASE_URL}/author/profile/get`,
         {
           headers: {
             Authorization: authToken,
@@ -2914,163 +2910,6 @@ const Profile = () => {
     fetchUser();
   }, []);
 
-  // const handleRefund=async()=>{
-  //   try{
-  //     const authToken = localStorage.getItem("authToken");
-  //     const response=await axios.post(${process.env.REACT_APP_BASE_URL}/user/borrow/return/${borrow._id},
-  //       {
-  //         headers: {
-  //           Authorization: authToken,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     )
-  //   }catch(err){
-  //     console.log(err);
-
-  //   }
-  // }
-  const handleRefund = async (book) => {
-    try {
-      console.log(book, "bororowww");
-
-      const authToken = localStorage.getItem("authToken");
-
-      if (!authToken) {
-        // Handle unauthorized state
-        alert("Please log in to continue");
-        return;
-      }
-
-      // Set loading state if needed
-      setIsLoading(true);
-      const borrowId = book._id;
-      console.log(borrowId, "boroow iddddddddddddddddddddddddddddddddddeeee");
-
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/user/borrow/return/${borrowId}`,
-        {}, // Empty body as you're passing data in URL
-        {
-          // This is the correct way to structure the axios post request
-          headers: {
-            Authorization: authToken,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const { data } = response;
-
-      if (data.success) {
-        // Handle successful refund
-        alert("Book successfully returned and refund initiated!");
-        // You might want to update the UI or redirect
-        // Perhaps fetch updated borrow history
-      } else {
-        alert(data.message || "Return process failed");
-      }
-    } catch (err) {
-      console.error("Error processing return:", err);
-      alert(
-        err.response?.data?.message ||
-          "An error occurred while processing your return"
-      );
-    } finally {
-      // Reset loading state
-      setIsLoading(false);
-    }
-  };
-  
-  const handleFine=async(book)=>{
-
-  }
-
-  const fetchBorrow = async () => {
-    try {
-      const authToken = localStorage.getItem("authToken");
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/user/profile/borrow`,
-        {
-          headers: {
-            Authorization: authToken,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      // console.log("response", response?.data?.borrowedBooks);
-      console.log(
-        response?.data?.data?.borrowedBooks,
-        "borrrrrrroooooowwwwwweeedd"
-      );
-
-      setBorrow(response?.data?.data?.borrowedBooks);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchFine = async () => {
-    try {
-      const authToken = localStorage.getItem("authToken");
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/user/profile/fine`,
-        {
-          headers: {
-            Authorization: authToken,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      // console.log("response", response?.data?.borrowedBooks);
-      console.log(
-        response?.data?.data,
-        "fineeeeeeeeeeeeeeee"
-      );
-
-      setFine(response?.data?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchReturned = async () => {
-    try {
-      const authToken = localStorage.getItem("authToken");
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/user/profile/return`,
-        {
-          headers: {
-            Authorization: authToken,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      // console.log("response", response?.data?.borrowedBooks);
-      console.log(
-        response?.data?.data?.borrowedBooks,
-        "borrrrrrroooooowwwwwweeedd"
-      );
-
-      setReturned(response?.data?.data?.borrowedBooks);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchBorrow();
-    // fetchReturned()
-    // fetchFine()
-    // console.log(book, "skjcskhc");
-  }, []);
-
-  useEffect(()=>{
-    fetchReturned()
-  },[])
-  useEffect(()=>{
-    fetchFine()
-  },[])
-
   if (isLoading && !userData) {
     return <div className="loading">Loading profile data...</div>;
   }
@@ -3095,8 +2934,8 @@ const Profile = () => {
                     : "Loading..."}
                 </h2>
                 <div className="profile-metadata">
-                  {/* <span className="position">Web designer</span> */}
-                  {/* <span className="contact">Contact:{userData?.phone || "N/A"}</span> */}
+                  <span className="position">Web designer</span>
+                  <span className="contact">{userData?.phone || "N/A"}</span>
                   <span className="user-id">
                     ID: {userData?._id?.substring(0, 5) || "N/A"}
                   </span>
@@ -3122,12 +2961,6 @@ const Profile = () => {
                 onClick={() => openTab("fine")}
               >
                 FINE
-              </span>
-              <span
-                className={activeTab === "returned" ? "active" : ""}
-                onClick={() => openTab("returned")}
-              >
-                RETURNED BOOKS
               </span>
             </div>
 
@@ -3192,35 +3025,29 @@ const Profile = () => {
                             <th>Book Name</th>
                             <th>Borrowed Date</th>
                             <th>Due Date</th>
-                            <th>status</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {borrow && borrow.length > 0 ? (
-                            borrow.map((book) => (
+                          {userData?.borrowedBooks &&
+                          userData.borrowedBooks.length > 0 ? (
+                            userData.borrowedBooks.map((book) => (
                               <tr key={book._id || Math.random()}>
-                                <td>{book.bookId.title || "Unknown Book"}</td>
+                                <td>{book.title || "Unknown Book"}</td>
                                 <td>
-                                  {book.createdAt
-                                    ? new Date(
-                                        book.createdAt
-                                      ).toLocaleDateString()
-                                    : "N/A"}
+                                  {new Date(
+                                    book.borrowedDate
+                                  ).toLocaleDateString() || "N/A"}
                                 </td>
                                 <td>
-                                  {book.dueDate
-                                    ? new Date(
-                                        book.dueDate
-                                      ).toLocaleDateString()
-                                    : "N/A"}
+                                  {new Date(
+                                    book.dueDate
+                                  ).toLocaleDateString() || "N/A"}
                                 </td>
-                                <td>{book.status || "Unknown"}</td>
                                 <td>
                                   <button
                                     type="submit"
                                     className="action-btn return-btn"
-                                    onClick={() => handleRefund(book)}
                                   >
                                     Return
                                   </button>
@@ -3251,103 +3078,17 @@ const Profile = () => {
                           <tr>
                             <th>Book Name</th>
                             <th>Fine Amount</th>
-                            <th>status</th>
+                            <th>Date</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                        {fine && fine.length > 0 ? (
-                            fine.map((book) => (
-                              <tr key={book._id || Math.random()}>
-                                <td>{book.borrowId.bookId.title || "Unknown Book"}</td>
-                                <td>
-                                  {book.amount?book.amount : "N/A"}
-                                </td>
-                                {/* <td>
-                                  {book.createdAt
-                                    ? new Date(
-                                        book.createdAta
-                                      ).toLocaleDateString()
-                                    : "N/A"}
-                                </td> */}
-                                <td>{book.status || "Unknown"}</td>
-                                <td>
-                                <button
-                                    type="submit"
-                                    className="action-btn return-btn"
-                                    onClick={() => handleFine(book)}
-                                  >
-                                    Pay  fine
-                                  </button>
-                                </td>
-                                
-                              </tr>
-                            ))
-                          ) : (
-                            <tr>
-                              <td colSpan="4" className="empty-table-message">
-                                No fine record available
-                              </td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === "returned" && (
-                <div id="borrowed" className="tab-content active">
-                  <div className="info-card">
-                    <h3>returned Books</h3>
-                    <div className="table-container">
-                      <table>
-                        <thead>
+                          {/* Replace with dynamic fine data when available */}
                           <tr>
-                            <th>Book Name</th>
-                            <th>Borrowed Date</th>
-                            <th>Due Date</th>
-                            <th>Returned Date</th>
-                            <th>status</th>
+                            <td colSpan="4" className="empty-table-message">
+                              No fine records available
+                            </td>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {returned && returned.length > 0 ? (
-                            returned.map((book) => (
-                              <tr key={book._id || Math.random()}>
-                                <td>{book.bookId.title || "Unknown Book"}</td>
-                                <td>
-                                  {book.createdAt
-                                    ? new Date(
-                                        book.createdAt
-                                      ).toLocaleDateString()
-                                    : "N/A"}
-                                </td>
-                                <td>
-                                  {book.dueDate
-                                    ? new Date(
-                                        book.dueDate
-                                      ).toLocaleDateString()
-                                    : "N/A"}
-                                </td>
-                                <td>
-                                  {book.returnDate
-                                    ? new Date(
-                                        book.returnDate
-                                      ).toLocaleDateString()
-                                    : "N/A"}
-                                </td>
-                                <td>{book.status || "Unknown"}</td>
-                              </tr>
-                            ))
-                          ) : (
-                            <tr>
-                              <td colSpan="4" className="empty-table-message">
-                                No books record available
-                              </td>
-                            </tr>
-                          )}
                         </tbody>
                       </table>
                     </div>
@@ -3428,7 +3169,7 @@ const EditProfileForm = ({ onSave, userData }) => {
 
       // First update the profile data
       const response = await axios.patch(
-        `${process.env.REACT_APP_BASE_URL}/user/profile/update`,
+        `${process.env.REACT_APP_BASE_URL}/author/profile/update`,
         updateData,
         {
           headers: {
@@ -3447,7 +3188,7 @@ const EditProfileForm = ({ onSave, userData }) => {
         imageFormData.append("userId", userData._id);
 
         await axios.patch(
-          `${process.env.REACT_APP_BASE_URL}/user/profile/update-image`,
+          `${process.env.REACT_APP_BASE_URL}/author/profile/update-image`,
           imageFormData,
           {
             headers: {

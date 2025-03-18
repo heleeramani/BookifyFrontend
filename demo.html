@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Table</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fbff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .pricing-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-header {
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .card-header.free {
+            background: #f8f9fb;
+            color: #333;
+        }
+
+        .card-header.lite {
+            background: linear-gradient(90deg, #b383ff, #ff82d7);
+            color: #fff;
+        }
+
+        .card-header.pro {
+            background: linear-gradient(90deg, #ff9a7c, #ffd17c);
+            color: #fff;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            margin: 20px 0 10px;
+            color: #2e2e4d;
+        }
+
+        .desc {
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtext {
+            color: #777;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #2e2e4d;
+            color: #2e2e4d;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #2e2e4d;
+            color: #fff;
+        }
+
+        .card.lite .btn {
+            background: #2e2e4d;
+            color: #fff;
+            border: none;
+        }
+
+        ul {
+            list-style: none;
+            width: 100%;
+        }
+
+        ul li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        ul li .check {
+            color: green;
+            margin-right: 10px;
+        }
+
+        ul li .cross {
+            color: red;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pricing-container">
+        <!-- Free Plan -->
+        <div class="card">
+            <div class="card-header free">Free</div>
+            <div class="price">$0</div>
+            <div class="desc">GREAT FOR STARTERS</div>
+            <div class="subtext">Discover how to create your first projects.</div>
+            <a href="#" class="btn">GET STARTED</a>
+            <ul>
+                <li><span class="check">✔</span>3 new projects / month</li>
+                <li><span class="cross">✘</span>Basic interaction</li>
+                <li><span class="cross">✘</span>Assets library</li>
+            </ul>
+        </div>
+
+        <!-- Lite Plan -->
+        <div class="card lite">
+            <div class="card-header lite">Lite</div>
+            <div class="price">$7<span style="font-size: 14px;"> /mo</span></div>
+            <div class="desc">FOR PLANNED PROJECTS</div>
+            <div class="subtext">Bring your designs to the next level and export them.</div>
+            <a href="#" class="btn">GET STARTED</a>
+            <ul>
+                <li><span class="check">✔</span>3 new projects / month</li>
+                <li><span class="check">✔</span>Basic interaction</li>
+                <li><span class="check">✔</span>Assets library</li>
+            </ul>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="card">
+            <div class="card-header pro">Pro</div>
+            <div class="price">$12<span style="font-size: 14px;"> /mo</span></div>
+            <div class="desc">FOR PROFESSIONAL USE</div>
+            <div class="subtext">Enjoy limitless use with interactive export options.</div>
+            <a href="#" class="btn">GET STARTED</a>
+            <ul>
+                <li><span class="check">✔</span>3 new projects / month</li>
+                <li><span class="check">✔</span>Basic interaction</li>
+                <li><span class="check">✔</span>Assets library</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

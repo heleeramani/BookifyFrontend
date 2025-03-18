@@ -10,6 +10,7 @@ import Registration from "./pages/Registration";
 import './App.css'
 import Login from "./pages/Login";
 import Register from "./pages/Registration";
+import Subscription from "./component/subscription/Subscription";
 // import FaqAccordion from "./component/FAQ/FAQ";
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <AppRouter />
       {/* <Registration /> */}
       {/* <Demo/> */}
+      <Subscription />
       <Footer/>
     </Router>
   );

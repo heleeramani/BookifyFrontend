@@ -640,7 +640,7 @@ const Author = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="BOOK" subtitle="Managing the Books" />
+        <Header title="AUTHOR" subtitle="Managing the Author" />
         <Button
           variant="contained"
           startIcon={<AddIcon />}

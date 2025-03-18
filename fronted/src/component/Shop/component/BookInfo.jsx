@@ -624,7 +624,7 @@ console.log(data.data,"datataaaa");
           </div>
         </div>
       </div>
-      <Review productId={book.id} />
+      <Review bId={book.id} />
     </div>
   );
 };

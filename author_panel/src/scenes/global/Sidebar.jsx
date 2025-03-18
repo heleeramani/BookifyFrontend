@@ -136,36 +136,36 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Author"
               to="/author"
               icon={<PersonIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
-              title="Contacts Information"
-              to="/contacts"
+              title="Review"
+              to="/review"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Typography variant="h6" color={colors.grey[300]}></Typography>
-            <Item
+            {/* <Item
               title="Profile Form"
               to="/form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Typography variant="h6" color={colors.grey[300]}></Typography>
-            <Item
+            {/* <Item
               title="User"
               to="/user"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
               title="Calendar"
               to="/calendar"
@@ -173,7 +173,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography variant="h6" color={colors.grey[300]}>
+            {/* <Typography variant="h6" color={colors.grey[300]}>
               Charts
             </Typography>
             <Item
@@ -203,7 +203,7 @@ const Sidebar = () => {
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
         </Menu>
       </ProSidebar>
