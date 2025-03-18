@@ -1208,14 +1208,14 @@ const DiscoverBook = () => {
               >
                 <img src={book.image} alt={book.title} className="book-image" />
                 <div className="book-wishlist">
-                  <button
+                  {/* <button
                     className={`wishlist-btn ${
                       book.inWishlist ? "wishlist-active" : ""
                     }`}
                     onClick={(e) => handleWishlistClick(e, book.id)}
                     disabled={wishlistLoading[book.id]}
                     title="Add to Wishlist"
-                  >
+                  > */}
                     {wishlistLoading[book.id] ? (
                       <span className="loading-icon">...</span>
                     ) : (
@@ -1223,20 +1223,20 @@ const DiscoverBook = () => {
                         {book.inWishlist ? "❤️" : "🤍"}
                       </span>
                     )}
-                  </button>
+                  {/* </button> */}
                 </div>
                 <h5 className="book-title">{book.title}</h5>
                 <p className="book-author">{book.author}</p>
                 <p className="book-price">{book.price}</p>
-                <p className="book-year">{book.publishedYear}</p>
-                <p
+                {/* <p className="book-year">{book.publishedYear}</p> */}
+                {/* <p
                   className="book-description"
                   data-full-description={book.description}
                 >
                   {book.description.length > 100
                     ? `${book.description.substring(0, 100)}...`
                     : book.description}
-                </p>
+                </p> */}
                 <p className="book-isbn">
                   <b>ISBN:</b> {book.isbn}
                 </p>
