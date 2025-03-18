@@ -1186,10 +1186,31 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   // Check if user is logged in on component mount
-  useEffect(() => {
+  // useEffect(() => {
+  //   const token = localStorage.getItem("authToken");
+  //   setIsLoggedIn(!!token);
+  // }, []);
+
+// In Navbar.js, modify the useEffect hook:
+useEffect(() => {
+  const checkLoginStatus = () => {
     const token = localStorage.getItem("authToken");
     setIsLoggedIn(!!token);
-  }, []);
+  };
+  
+  // Check status on mount
+  checkLoginStatus();
+  
+  // Add event listener for login events
+  window.addEventListener('userLogin', checkLoginStatus);
+  
+  // Clean up the event listener
+  return () => {
+    window.removeEventListener('userLogin', checkLoginStatus);
+  };
+}, []);
+
+
 
   // Handle logout functionality
   const handleLogout = async () => {
@@ -1200,6 +1221,7 @@ const Navbar = () => {
         console.error("No auth token found");
         return;
       }
+      
 
       // Use axios for the API call and pass the token directly
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {}, {

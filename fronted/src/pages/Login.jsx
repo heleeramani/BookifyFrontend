@@ -231,6 +231,21 @@ const Login = () => {
     password: "",
   });
 
+
+
+
+  const forgetPass = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/auth/forget`
+      );
+      console.log("response", response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -296,6 +311,11 @@ const Login = () => {
         response.headers["x-auth-token"];
       // Example: Save token to localStorage
       localStorage.setItem("authToken", authToken);
+
+
+      window.dispatchEvent(new Event('userLogin'));
+
+
       console.log(authToken, "authToken");
       // Show success message briefly before redirecting
       setTimeout(() => {
