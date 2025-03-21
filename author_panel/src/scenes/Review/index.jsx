@@ -1008,6 +1008,380 @@
 
 // export default Review;
 
+// import axios from "axios";
+// import React, { useEffect, useState } from "react";
+
+// const Review = () => {
+//   const [books, setBooks] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const [expandedBookId, setExpandedBookId] = useState(null);
+
+//   const fetchBooks = async () => {
+//     try {
+//       setLoading(true);
+//       const authToken = localStorage.getItem("authToken");
+//       const response = await axios.get(
+//         `${process.env.REACT_APP_BASE_URL}/author/review/get`,
+//         {
+//           headers: {
+//             Authorization: authToken,
+//           },
+//         }
+//       );
+      
+//       if (response.data.success && Array.isArray(response.data.data)) {
+//         setBooks(response.data.data);
+//       } else {
+//         setError("Invalid data format received from API");
+//       }
+//     } catch (error) {
+//       console.log(error);
+//       setError("Failed to fetch books");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchBooks();
+//   }, []);
+
+//   // Function to toggle reviews visibility for a specific book
+//   const toggleReviews = (bookId) => {
+//     if (expandedBookId === bookId) {
+//       setExpandedBookId(null); // Close if already open
+//     } else {
+//       setExpandedBookId(bookId); // Open the clicked book
+//     }
+//   };
+
+//   // Function to generate star ratings
+//   const renderStars = (rating) => {
+//     // Default to 0 if no rating provided
+//     const numericRating = rating || 0;
+//     let stars = "";
+//     for (let i = 1; i <= 5; i++) {
+//       stars += i <= numericRating ? "★" : "☆";
+//     }
+//     return stars;
+//   };
+
+//   // Function to format date to a readable format
+//   const formatDate = (dateString) => {
+//     try {
+//       const date = new Date(dateString);
+//       return date.toLocaleDateString('en-US', { 
+//         year: 'numeric', 
+//         month: 'long', 
+//         day: 'numeric' 
+//       });
+//     } catch (e) {
+//       return dateString;
+//     }
+//   };
+
+//   // Function to format price from cents to dollars
+//   const formatPrice = (priceInCents) => {
+//     const price = priceInCents / 100;
+//     return new Intl.NumberFormat('en-US', {
+//       style: 'currency',
+//       currency: 'USD'
+//     }).format(price);
+//   };
+
+//   if (loading) {
+//     return <div className="loading-state">Loading books...</div>;
+//   }
+
+//   if (error) {
+//     return <div className="error-state">Error: {error}</div>;
+//   }
+
+//   if (books.length === 0) {
+//     return <div className="empty-state">No books found</div>;
+//   }
+
+//   return (
+//     <div className="books-container">
+//       {books.map((book) => (
+//         <div className="book-review-container" key={book._id}>
+//           <div className="book-info">
+//             <div className="book-summary">
+//               <h2 
+//                 className="book-title"
+//                 onClick={() => toggleReviews(book._id)}
+//                 role="button"
+//                 tabIndex={0}
+//               >
+//                 {book.title}
+//                 <span className="click-indicator">
+//                   {expandedBookId === book._id ? " ▼" : " ▶"}
+//                 </span>
+//               </h2>
+//               <h3 className="book-author">by {book.author}</h3>
+
+//               {/* <div className="book-rating">
+//                 <div className="stars">{renderStars(book.reviewCount > 0 ? 4 : 0)}</div>
+//                 <span className="rating-text">{book.reviewCount > 0 ? "4.0/5" : "No ratings"}</span>
+//                 <span className="review-count">({book.reviewCount} reviews)</span>
+//               </div> */}
+
+//               <div className="book-meta">
+//                 <span className="book-category">{book.category}</span>
+//                 <span className="book-price">{formatPrice(book.price)}</span>
+//               </div>
+
+//               <div className="book-description">
+//                 <p>{book.description}</p>
+//               </div>
+//             </div>
+//           </div>
+
+//           {expandedBookId === book._id && book.reviews && book.reviews.length > 0 && (
+//             <>
+//               <h3 className="reviews-heading">Reader Reviews</h3>
+
+//               <div className="reviews-list">
+//                 {book.reviews.map((review) => (
+//                   <div className="review-item" key={review._id}>
+//                     <div className="review-header">
+//                       <div className="reviewer-info">
+//                         <span className="reviewer-name">{review.user.email}</span>
+//                         <span className="review-date">{formatDate(review.createdAt)}</span>
+//                       </div>
+//                     </div>
+
+//                     <div className="review-content">
+//                       <p>{review.description}</p>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </>
+//           )}
+
+//           {expandedBookId === book._id && (!book.reviews || book.reviews.length === 0) && (
+//             <div className="no-reviews">
+//               No reviews available for this book.
+//             </div>
+//           )}
+//         </div>
+//       ))}
+
+//       <style jsx>{`
+//         .books-container {
+//           display: flex;
+//           flex-direction: column;
+//           gap: 32px;
+//           margin-bottom: 40px;
+//           width: 100%;
+//           align-items: center;
+//         }
+
+//         .loading-state, .error-state, .empty-state, .no-reviews {
+//           padding: 20px;
+//           text-align: center;
+//           background-color: #f8f9fa;
+//           border-radius: 8px;
+//           margin: 20px 0;
+//           color: #6c757d;
+//           width: 100%;
+//           max-width: 800px;
+//         }
+
+//         .error-state {
+//           color: #dc3545;
+//           background-color: #f8d7da;
+//         }
+
+//         .book-review-container {
+//           font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+//           width: 800px;
+//           margin: 0 auto;
+//           padding: 20px;
+//           border-radius: 12px;
+//           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+//           background-color: #fff;
+//         }
+
+//         .book-info {
+//           display: flex;
+//           border-radius: 12px;
+//           overflow: hidden;
+//           padding: 0 0 16px 0;
+//           margin-bottom: 8px;
+//           border-bottom: 1px solid #eee;
+//           width: 100%;
+//         }
+
+//         .book-summary {
+//           flex: 1;
+//           width: 100%;
+//         }
+
+//         .book-title {
+//           color: #2c3e50;
+//           font-size: 24px;
+//           margin: 0 0 8px 0;
+//           cursor: pointer;
+//           display: inline-flex;
+//           align-items: center;
+//           user-select: none;
+//         }
+
+//         .book-title:hover {
+//           color: #3498db;
+//           text-decoration: underline;
+//         }
+
+//         .click-indicator {
+//           font-size: 16px;
+//           margin-left: 5px;
+//           color: #3498db;
+//         }
+
+//         .book-author {
+//           color: #7f8c8d;
+//           font-size: 16px;
+//           font-weight: 400;
+//           font-style: italic;
+//           margin: 0 0 16px 0;
+//         }
+
+//         .book-rating {
+//           display: flex;
+//           align-items: center;
+//           margin-bottom: 16px;
+//         }
+
+//         .stars {
+//           color: #f39c12;
+//           font-size: 18px;
+//           letter-spacing: -1px;
+//         }
+
+//         .rating-text {
+//           margin-left: 8px;
+//           color: #555;
+//           font-size: 14px;
+//           font-weight: 600;
+//         }
+
+//         .review-count {
+//           margin-left: 8px;
+//           color: #95a5a6;
+//           font-size: 14px;
+//         }
+
+//         .book-meta {
+//           display: flex;
+//           gap: 16px;
+//           margin-bottom: 16px;
+//         }
+
+//         .book-category {
+//           display: inline-block;
+//           background-color: #e3f2fd;
+//           color: #1976d2;
+//           padding: 4px 10px;
+//           border-radius: 16px;
+//           font-size: 13px;
+//           font-weight: 500;
+//         }
+
+//         .book-price {
+//           font-weight: 600;
+//           color: #2c3e50;
+//         }
+
+//         .book-description {
+//           color: #34495e;
+//           line-height: 1.6;
+//           font-size: 15px;
+//         }
+
+//         .reviews-heading {
+//           font-size: 18px;
+//           color: #2c3e50;
+//           margin: 24px 0 16px 0;
+//           padding-bottom: 8px;
+//           border-bottom: 1px solid #eee;
+//         }
+
+//         .reviews-list {
+//           display: flex;
+//           flex-direction: column;
+//           gap: 16px;
+//           animation: fadeIn 0.3s ease-in;
+//           width: 100%;
+//         }
+
+//         @keyframes fadeIn {
+//           from { opacity: 0; transform: translateY(-10px); }
+//           to { opacity: 1; transform: translateY(0); }
+//         }
+
+//         .review-item {
+//           background-color: #ffffff;
+//           border-radius: 8px;
+//           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+//           padding: 16px;
+//           width: 100%;
+//         }
+
+//         .review-header {
+//           display: flex;
+//           justify-content: space-between;
+//           align-items: center;
+//           margin-bottom: 12px;
+//         }
+
+//         .reviewer-info {
+//           display: flex;
+//           flex-direction: column;
+//         }
+
+//         .reviewer-name {
+//           font-weight: 600;
+//           color: #34495e;
+//           font-size: 15px;
+//         }
+
+//         .review-date {
+//           font-size: 12px;
+//           color: #95a5a6;
+//         }
+
+//         .review-content {
+//           background-color: #f9f9f9;
+//           padding: 16px;
+//           border-radius: 6px;
+//           border-left: 3px solid #3498db;
+//           width: 100%;
+//         }
+
+//         .review-content p {
+//           color: #444;
+//           line-height: 1.6;
+//           margin: 0;
+//           font-size: 14px;
+//         }
+
+//         @media (max-width: 840px) {
+//           .book-review-container {
+//             width: calc(100% - 40px);
+//             max-width: 800px;
+//           }
+//         }
+//       `}</style>
+//     </div>
+//   );
+// };
+
+// export default Review;
+
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -1017,10 +1391,20 @@ const Review = () => {
   const [error, setError] = useState(null);
   const [expandedBookId, setExpandedBookId] = useState(null);
 
+  // Debug logs to track state changes
+  useEffect(() => {
+    console.log("Books data:", books);
+  }, [books]);
+
+  useEffect(() => {
+    console.log("Expanded book ID:", expandedBookId);
+  }, [expandedBookId]);
+
   const fetchBooks = async () => {
     try {
       setLoading(true);
       const authToken = localStorage.getItem("authToken");
+      console.log("Fetching with token:", authToken);
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/author/review/get`,
         {
@@ -1030,13 +1414,15 @@ const Review = () => {
         }
       );
       
+      console.log("API Response:", response.data);
+      
       if (response.data.success && Array.isArray(response.data.data)) {
         setBooks(response.data.data);
       } else {
         setError("Invalid data format received from API");
       }
     } catch (error) {
-      console.log(error);
+      console.error("API Error:", error);
       setError("Failed to fetch books");
     } finally {
       setLoading(false);
@@ -1048,7 +1434,15 @@ const Review = () => {
   }, []);
 
   // Function to toggle reviews visibility for a specific book
-  const toggleReviews = (bookId) => {
+  const toggleReviews = (bookId, event) => {
+    // Prevent default browser behavior (navigation)
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    console.log("Toggle reviews called for book:", bookId);
+    
     if (expandedBookId === bookId) {
       setExpandedBookId(null); // Close if already open
     } else {
@@ -1110,7 +1504,7 @@ const Review = () => {
             <div className="book-summary">
               <h2 
                 className="book-title"
-                onClick={() => toggleReviews(book._id)}
+                onClick={(e) => toggleReviews(book._id, e)}
                 role="button"
                 tabIndex={0}
               >
@@ -1120,12 +1514,6 @@ const Review = () => {
                 </span>
               </h2>
               <h3 className="book-author">by {book.author}</h3>
-
-              {/* <div className="book-rating">
-                <div className="stars">{renderStars(book.reviewCount > 0 ? 4 : 0)}</div>
-                <span className="rating-text">{book.reviewCount > 0 ? "4.0/5" : "No ratings"}</span>
-                <span className="review-count">({book.reviewCount} reviews)</span>
-              </div> */}
 
               <div className="book-meta">
                 <span className="book-category">{book.category}</span>
@@ -1147,7 +1535,7 @@ const Review = () => {
                   <div className="review-item" key={review._id}>
                     <div className="review-header">
                       <div className="reviewer-info">
-                        <span className="reviewer-name">{review.user.email}</span>
+                        <span className="reviewer-name">{review.user && review.user.email ? review.user.email : 'Anonymous'}</span>
                         <span className="review-date">{formatDate(review.createdAt)}</span>
                       </div>
                     </div>
