@@ -17,7 +17,7 @@
 // // //       console.log("response", response);
 
 // // //       // Check if response.data is an array or wrapped inside another object
-      
+
 // // //     } catch (error) {
 // // //       console.log(error);
 // // //     }
@@ -288,7 +288,6 @@
 
 // // // export default Review;
 
-
 // // import axios from "axios";
 // // import React, { useEffect, useState } from "react";
 
@@ -365,7 +364,7 @@
 // //     <div className="book-review-container">
 // //       <div className="book-info">
 // //         <div className="book-summary">
-// //           <h2 
+// //           <h2
 // //             className="book-title"
 // //             onClick={toggleReviews}
 // //             role="button"
@@ -641,7 +640,7 @@
 //           },
 //         }
 //       );
-      
+
 //       if (response.data.success && Array.isArray(response.data.data)) {
 //         setBooks(response.data.data);
 //       } else {
@@ -683,10 +682,10 @@
 //   const formatDate = (dateString) => {
 //     try {
 //       const date = new Date(dateString);
-//       return date.toLocaleDateString('en-US', { 
-//         year: 'numeric', 
-//         month: 'long', 
-//         day: 'numeric' 
+//       return date.toLocaleDateString('en-US', {
+//         year: 'numeric',
+//         month: 'long',
+//         day: 'numeric'
 //       });
 //     } catch (e) {
 //       return dateString;
@@ -720,7 +719,7 @@
 //         <div className="book-review-container" key={book._id}>
 //           <div className="book-info">
 //             <div className="book-summary">
-//               <h2 
+//               <h2
 //                 className="book-title"
 //                 onClick={() => toggleReviews(book._id)}
 //                 role="button"
@@ -1029,7 +1028,7 @@
 //           },
 //         }
 //       );
-      
+
 //       if (response.data.success && Array.isArray(response.data.data)) {
 //         setBooks(response.data.data);
 //       } else {
@@ -1071,10 +1070,10 @@
 //   const formatDate = (dateString) => {
 //     try {
 //       const date = new Date(dateString);
-//       return date.toLocaleDateString('en-US', { 
-//         year: 'numeric', 
-//         month: 'long', 
-//         day: 'numeric' 
+//       return date.toLocaleDateString('en-US', {
+//         year: 'numeric',
+//         month: 'long',
+//         day: 'numeric'
 //       });
 //     } catch (e) {
 //       return dateString;
@@ -1108,7 +1107,7 @@
 //         <div className="book-review-container" key={book._id}>
 //           <div className="book-info">
 //             <div className="book-summary">
-//               <h2 
+//               <h2
 //                 className="book-title"
 //                 onClick={() => toggleReviews(book._id)}
 //                 role="button"
@@ -1381,7 +1380,6 @@
 
 // export default Review;
 
-
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -1413,9 +1411,9 @@ const Review = () => {
           },
         }
       );
-      
+
       console.log("API Response:", response.data);
-      
+
       if (response.data.success && Array.isArray(response.data.data)) {
         setBooks(response.data.data);
       } else {
@@ -1440,9 +1438,9 @@ const Review = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-    
+
     console.log("Toggle reviews called for book:", bookId);
-    
+
     if (expandedBookId === bookId) {
       setExpandedBookId(null); // Close if already open
     } else {
@@ -1465,10 +1463,10 @@ const Review = () => {
   const formatDate = (dateString) => {
     try {
       const date = new Date(dateString);
-      return date.toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       });
     } catch (e) {
       return dateString;
@@ -1478,9 +1476,9 @@ const Review = () => {
   // Function to format price from cents to dollars
   const formatPrice = (priceInCents) => {
     const price = priceInCents / 100;
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
     }).format(price);
   };
 
@@ -1502,7 +1500,7 @@ const Review = () => {
         <div className="book-review-container" key={book._id}>
           <div className="book-info">
             <div className="book-summary">
-              <h2 
+              <h2
                 className="book-title"
                 onClick={(e) => toggleReviews(book._id, e)}
                 role="button"
@@ -1526,34 +1524,43 @@ const Review = () => {
             </div>
           </div>
 
-          {expandedBookId === book._id && book.reviews && book.reviews.length > 0 && (
-            <>
-              <h3 className="reviews-heading">Reader Reviews</h3>
+          {expandedBookId === book._id &&
+            book.reviews &&
+            book.reviews.length > 0 && (
+              <>
+                <h3 className="reviews-heading">Reader Reviews</h3>
 
-              <div className="reviews-list">
-                {book.reviews.map((review) => (
-                  <div className="review-item" key={review._id}>
-                    <div className="review-header">
-                      <div className="reviewer-info">
-                        <span className="reviewer-name">{review.user && review.user.email ? review.user.email : 'Anonymous'}</span>
-                        <span className="review-date">{formatDate(review.createdAt)}</span>
+                <div className="reviews-list">
+                  {book.reviews.map((review) => (
+                    <div className="review-item" key={review._id}>
+                      <div className="review-header">
+                        <div className="reviewer-info">
+                          <span className="reviewer-name">
+                            {review.user && review.user.email
+                              ? review.user.email
+                              : "Anonymous"}
+                          </span>
+                          <span className="review-date">
+                            {formatDate(review.createdAt)}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="review-content">
+                        <p>{review.description}</p>
                       </div>
                     </div>
+                  ))}
+                </div>
+              </>
+            )}
 
-                    <div className="review-content">
-                      <p>{review.description}</p>
-                    </div>
-                  </div>
-                ))}
+          {expandedBookId === book._id &&
+            (!book.reviews || book.reviews.length === 0) && (
+              <div className="no-reviews">
+                No reviews available for this book.
               </div>
-            </>
-          )}
-
-          {expandedBookId === book._id && (!book.reviews || book.reviews.length === 0) && (
-            <div className="no-reviews">
-              No reviews available for this book.
-            </div>
-          )}
+            )}
         </div>
       ))}
 
@@ -1567,7 +1574,10 @@ const Review = () => {
           align-items: center;
         }
 
-        .loading-state, .error-state, .empty-state, .no-reviews {
+        .loading-state,
+        .error-state,
+        .empty-state,
+        .no-reviews {
           padding: 20px;
           text-align: center;
           background-color: #f8f9fa;
@@ -1706,8 +1716,14 @@ const Review = () => {
         }
 
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         .review-item {
