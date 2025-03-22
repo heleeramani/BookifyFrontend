@@ -1156,6 +1156,283 @@
 // export default Navbar;
 
 
+// import React, { useState, useEffect } from "react";
+// import "./Navbar.css";
+// import { Link, useNavigate } from "react-router-dom";
+// import axios from "axios"; // Import axios
+// // Import Font Awesome components
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faPhone,
+//   faBook,
+//   faShoppingCart,
+//   faHeart,
+//   faSearch,
+//   faBars,
+//   faTimes,
+//   faUser,
+// } from "@fortawesome/free-solid-svg-icons";
+// import {
+//   faFacebook,
+//   faTwitter,
+//   faInstagram,
+// } from "@fortawesome/free-brands-svg-icons";
+
+// const Navbar = () => {
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+//   const [navMenuOpen, setNavMenuOpen] = useState(false);
+//   const [favoriteCount, setFavoriteCount] = useState(0);
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   const navigate = useNavigate();
+
+//   // Check if user is logged in on component mount
+//   // useEffect(() => {
+//   //   const token = localStorage.getItem("authToken");
+//   //   setIsLoggedIn(!!token);
+//   // }, []);
+
+// // In Navbar.js, modify the useEffect hook:
+// useEffect(() => {
+//   const checkLoginStatus = () => {
+//     const token = localStorage.getItem("authToken");
+//     setIsLoggedIn(!!token);
+//   };
+  
+//   // Check status on mount
+//   checkLoginStatus();
+  
+//   // Add event listener for login events
+//   window.addEventListener('userLogin', checkLoginStatus);
+  
+//   // Clean up the event listener
+//   return () => {
+//     window.removeEventListener('userLogin', checkLoginStatus);
+//   };
+// }, []);
+
+
+
+//   // Handle logout functionality
+//   const handleLogout = async () => {
+//     try {
+//       const authToken = localStorage.getItem("authToken");
+      
+//       if (!authToken) {
+//         console.error("No auth token found");
+//         return;
+//       }
+      
+
+//       // Use axios for the API call and pass the token directly
+//       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {}, {
+//         headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": authToken
+//         }
+//       });
+//       const token =
+//         response.headers["authorization"] ||
+//         response.headers["Authorization"] ||
+//         response.headers["x-auth-token"];
+//       // Example: Save token to localStorage
+//       localStorage.setItem("authToken", token);
+//       console.log(authToken, "authToken");
+//       // If successful, clear token and redirect
+//       // localStorage.removeItem("authToken");
+//       setIsLoggedIn(false);
+//       navigate("/"); // Redirect to home page
+      
+//     } catch (error) {
+//       console.error("Error during logout:", error);
+//     }
+//   };
+
+//   return (
+//     <div className="navbar-container">
+//       {/* 🔝 Top Bar */}
+//       <div className="navbar-topbar">
+//         <p className="navbar-welcome">Welcome to Our Publishing House!</p>
+//         <div className="navbar-topbar-right">
+//           {!isLoggedIn ? (
+//             <>
+//               <span className="navbar-login">
+//                 <Link to="/login">Login</Link>
+//               </span>
+//               |
+//               <span className="navbar-register">
+//                 <Link to="/register">Register</Link>
+//               </span>
+//             </>
+//           ) : (
+//             <span className="navbar-logout">
+//               <a href="#" onClick={handleLogout}>Logout</a>
+//             </span>
+//           )}
+//           {/* Profile Icon (replacing social media icons) */}
+//           <Link to="/profile" className="navbar-profile-icon">
+//             <FontAwesomeIcon icon={faUser} className="navbar-icon" />
+//           </Link>
+//         </div>
+//       </div>
+
+//       {/* 🧭 Header */}
+//       <div className="navbar-header">
+//         {/* Contact Info */}
+//         <div className="navbar-contact">
+//           <FontAwesomeIcon icon={faPhone} className="navbar-contact-icon" />
+//           <p>
+//             Free call: <span>123-456-7890</span>
+//           </p>
+//         </div>
+
+//         {/* Logo */}
+//         <div className="navbar-logo">
+//           <FontAwesomeIcon icon={faBook} className="navbar-logo-icon" />
+//           <span className="navbar-logo-text">
+//             BOOK<span className="navbar-logo-highlight">lovers</span>
+//           </span>
+//           <p className="navbar-tagline">Your Favorite Bookshelf!</p>
+//         </div>
+
+//         {/* Action buttons container */}
+//         <div className="navbar-actions">
+//           {/* Favorites */}
+//           <div className="navbar-favorites">
+//             <Link to="/favorites">
+//               <FontAwesomeIcon
+//                 icon={faHeart}
+//                 className="navbar-favorites-icon"
+//               />
+//               <span className="navbar-favorites-badge">{favoriteCount}</span>
+//             </Link>
+//           </div>
+
+//           {/* Cart */}
+//           <div className="navbar-cart">
+//             <FontAwesomeIcon
+//               icon={faShoppingCart}
+//               className="navbar-cart-icon"
+//             />
+//             <span className="navbar-cart-badge">0</span>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* 🔽 Navbar Links */}
+//       <nav className="navbar-menu">
+//         {/* Toggle for Small Devices */}
+//         <div
+//           className="navbar-small-toggle"
+//           onClick={() => setNavMenuOpen(!navMenuOpen)}
+//         >
+//           <FontAwesomeIcon
+//             icon={navMenuOpen ? faTimes : faBars}
+//             className="navbar-toggle-icon"
+//           />
+//         </div>
+
+//         {/* Toggle for Sidebar (Large Devices) */}
+//         <div
+//           className="navbar-sidebar-toggle"
+//           onClick={() => setSidebarOpen(!sidebarOpen)}
+//         >
+//           <FontAwesomeIcon
+//             icon={sidebarOpen ? faTimes : faBars}
+//             className="navbar-toggle-icon"
+//           />
+//         </div>
+
+//         {/* Navigation Links */}
+//         <ul
+//           className={`navbar-links ${navMenuOpen ? "navbar-links-open" : ""}`}
+//         >
+//           <li className="navbar-link navbar-link-active">
+//             <a href="/" className="nav-items">
+//               HOME
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/about" className="nav-items">
+//               ABOUT
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/blog" className="nav-items">
+//               BLOG
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/contactus" className="nav-items">
+//               CONTACT US
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/store" className="nav-items">
+//               STORE
+//             </a>
+//           </li>
+//         </ul>
+
+//         {/* Search */}
+//         <div className="navbar-search">
+//           <FontAwesomeIcon icon={faSearch} className="navbar-search-icon" />
+//         </div>
+//       </nav>
+
+//       {/* Sidebar */}
+//       <div className={`sidebar ${sidebarOpen ? "sidebar-open" : ""}`}>
+//         <div className="sidebar-header">
+//           <div className="sidebar-logo">
+//             <FontAwesomeIcon icon={faBook} className="sidebar-logo-icon" />
+//             <span className="sidebar-logo-text">
+//               BOOK<span className="sidebar-logo-highlight">lovers</span>
+//             </span>
+//           </div>
+//           <FontAwesomeIcon
+//             icon={faTimes}
+//             className="sidebar-close"
+//             onClick={() => setSidebarOpen(false)}
+//           />
+//         </div>
+//         <ul className="sidebar-links">
+//           <li className="navbar-link navbar-link-active">
+//             <a href="/" className="">
+//               HOME
+//             </a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/about">ABOUT</a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/blog">BLOG</a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/contactus">CONTACT US</a>
+//           </li>
+//           <li className="navbar-link">
+//             <a href="/store">STORE</a>
+//           </li>
+//         </ul>
+
+//         {/* Profile Icon in Sidebar */}
+//         <Link to="/profile" className="sidebar-profile-icon">
+//           <FontAwesomeIcon icon={faUser} className="sidebar-icon" />
+//         </Link>
+//       </div>
+
+//       {/* Overlay (for Sidebar Close) */}
+//       {sidebarOpen && (
+//         <div
+//           className="sidebar-overlay"
+//           onClick={() => setSidebarOpen(false)}
+//         ></div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Navbar;
+
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -1185,32 +1462,23 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  // Check if user is logged in on component mount
-  // useEffect(() => {
-  //   const token = localStorage.getItem("authToken");
-  //   setIsLoggedIn(!!token);
-  // }, []);
-
-// In Navbar.js, modify the useEffect hook:
-useEffect(() => {
-  const checkLoginStatus = () => {
-    const token = localStorage.getItem("authToken");
-    setIsLoggedIn(!!token);
-  };
-  
-  // Check status on mount
-  checkLoginStatus();
-  
-  // Add event listener for login events
-  window.addEventListener('userLogin', checkLoginStatus);
-  
-  // Clean up the event listener
-  return () => {
-    window.removeEventListener('userLogin', checkLoginStatus);
-  };
-}, []);
-
-
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const token = localStorage.getItem("authToken");
+      setIsLoggedIn(!!token);
+    };
+    
+    // Check status on mount
+    checkLoginStatus();
+    
+    // Add event listener for login events
+    window.addEventListener('userLogin', checkLoginStatus);
+    
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener('userLogin', checkLoginStatus);
+    };
+  }, []);
 
   // Handle logout functionality
   const handleLogout = async () => {
@@ -1222,7 +1490,6 @@ useEffect(() => {
         return;
       }
       
-
       // Use axios for the API call and pass the token directly
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {}, {
         headers: {
@@ -1264,14 +1531,16 @@ useEffect(() => {
               </span>
             </>
           ) : (
-            <span className="navbar-logout">
-              <a href="#" onClick={handleLogout}>Logout</a>
-            </span>
+            <>
+              <span className="navbar-logout">
+                <a href="#" onClick={handleLogout}>Logout</a>
+              </span>
+              {/* Profile Icon only shown when logged in */}
+              <Link to="/profile" className="navbar-profile-icon">
+                <FontAwesomeIcon icon={faUser} className="navbar-icon" />
+              </Link>
+            </>
           )}
-          {/* Profile Icon (replacing social media icons) */}
-          <Link to="/profile" className="navbar-profile-icon">
-            <FontAwesomeIcon icon={faUser} className="navbar-icon" />
-          </Link>
         </div>
       </div>
 
@@ -1414,10 +1683,12 @@ useEffect(() => {
           </li>
         </ul>
 
-        {/* Profile Icon in Sidebar */}
-        <Link to="/profile" className="sidebar-profile-icon">
-          <FontAwesomeIcon icon={faUser} className="sidebar-icon" />
-        </Link>
+        {/* Profile Icon in Sidebar - only when logged in */}
+        {isLoggedIn && (
+          <Link to="/profile" className="sidebar-profile-icon">
+            <FontAwesomeIcon icon={faUser} className="sidebar-icon" />
+          </Link>
+        )}
       </div>
 
       {/* Overlay (for Sidebar Close) */}
