@@ -1,268 +1,3 @@
-// import {
-//   Box,
-//   Typography,
-//   useTheme,
-//   IconButton,
-//   Button,
-//   Dialog,
-//   DialogTitle,
-//   DialogContent,
-//   TextField,
-//   DialogActions,
-// } from "@mui/material";
-// import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-// import { tokens } from "../../theme";
-// import { mockDataTeam } from "../../data/mockData";
-// import EditIcon from "@mui/icons-material/Edit";
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import AddIcon from "@mui/icons-material/Add";
-// import InfoIcon from "@mui/icons-material/Info";
-// import Header from "../../components/Header";
-// import { useState } from "react";
-
-// const Blog = () => {
-//   const theme = useTheme();
-//   const colors = tokens(theme.palette.mode);
-//   const [openDialog, setOpenDialog] = useState(false);
-//   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-//   const [selectedBlog, setSelectedBlog] = useState(null);
-//   const [isEdit, setIsEdit] = useState(false);
-//   const [blogData, setBlogData] = useState({
-//     title: "",
-//     description: "",
-//     createdBy: "",
-//     blogDetails: "",
-//   });
-
-//   const handleOpenDialog = (isEditMode = false, data = null) => {
-//     setIsEdit(isEditMode);
-//     if (data) {
-//       setBlogData(data);
-//     } else {
-//       setBlogData({
-//         title: "",
-//         description: "",
-//         createdBy: "",
-//         blogDetails: "",
-//       });
-//     }
-//     setOpenDialog(true);
-//   };
-
-//   const handleCloseDialog = () => {
-//     setOpenDialog(false);
-//   };
-
-//   const handleOpenDetails = (book) => {
-//     setSelectedBlog(book);
-//     setOpenDetailsDialog(true);
-//   };
-
-//   const handleCloseDetails = () => {
-//     setOpenDetailsDialog(false);
-//     setSelectedBlog(null);
-//   };
-
-//   const handleSubmit = () => {
-//     // Handle form submission here
-//     console.log(blogData);
-//     handleCloseDialog();
-//   };
-
-//   const handleDelete = (id) => {
-//     // Handle delete functionality here
-//     console.log("Delete book with id:", id);
-//   };
-
-//   const columns = [
-//     { field: "id", headerName: "ID" },
-//     {
-//       field: "title",
-//       headerName: "Title",
-//       type: "text",
-//       headerAlign: "left",
-//       align: "left",
-//     },
-//     {
-//       field: "description",
-//       headerName: "Description",
-//       type: "text",
-//       flex: 1,
-//     },
-//     {
-//       field: "createdBy",
-//       headerName: "Created By",
-//       type: "text",
-//       flex: 1,
-//     },
-//     {
-//       field: "blogDetails",
-//       headerName: "Blog Details",
-//       flex: 1,
-//     },
-//     {
-//       field: "actions",
-//       headerName: "Actions",
-//       flex: 1,
-//       renderCell: (params) => {
-//         return (
-//           <Box>
-//             <IconButton onClick={() => handleOpenDetails(params.row)}>
-//               <InfoIcon />
-//             </IconButton>
-//             <IconButton onClick={() => handleOpenDialog(true, params.row)}>
-//               <EditIcon />
-//             </IconButton>
-//             <IconButton onClick={() => handleDelete(params.row.id)}>
-//               <DeleteIcon />
-//             </IconButton>
-//           </Box>
-//         );
-//       },
-//     },
-//   ];
-
-//   return (
-//     <Box m="20px">
-//       <Box display="flex" justifyContent="space-between" alignItems="center">
-//         <Header title="Blog" subtitle="Managing the Blog" />
-//         <Button
-//           variant="contained"
-//           startIcon={<AddIcon />}
-//           onClick={() => handleOpenDialog(false)}
-//         >
-//           Add Blog
-//         </Button>
-//       </Box>
-
-//       <Box
-//         m="40px 0 0 0"
-//         height="75vh"
-//         sx={{
-//           "& .MuiDataGrid-root": {
-//             border: "none",
-//           },
-//           "& .MuiDataGrid-cell": {
-//             borderBottom: "none",
-//           },
-//           "& .name-column--cell": {
-//             color: colors.greenAccent[300],
-//           },
-//           "& .MuiDataGrid-columnHeaders": {
-//             backgroundColor: colors.blueAccent[700],
-//             borderBottom: "none",
-//           },
-//           "& .MuiDataGrid-virtualScroller": {
-//             backgroundColor: colors.primary[400],
-//           },
-//           "& .MuiDataGrid-footerContainer": {
-//             borderTop: "none",
-//             backgroundColor: colors.blueAccent[700],
-//           },
-//           "& .MuiCheckbox-root": {
-//             color: `${colors.greenAccent[200]} !important`,
-//           },
-//           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-//             color: `${colors.grey[100]} !important`,
-//           },
-//           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-//             color: `${colors.grey[100]} !important`,
-//           },
-//         }}
-//       >
-//         <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} components={{ Toolbar: GridToolbar }}/>
-//       </Box>
-
-//       {/* Add/Edit Dialog */}
-//       <Dialog
-//         open={openDialog}
-//         onClose={handleCloseDialog}
-//         maxWidth="md"
-//         fullWidth
-//       >
-//         <DialogTitle>{isEdit ? "Edit Blog" : "Add New Blog"}</DialogTitle>
-//         <DialogContent>
-//           <Box
-//             component="form"
-//             sx={{
-//               "& .MuiTextField-root": { m: 1, width: "47%" },
-//               mt: 2,
-//             }}
-//           >
-//             <TextField
-//               label="Book Name"
-//               value={blogData.title}
-//               onChange={(e) =>
-//                 setBlogData({ ...blogData, title: e.target.value })
-//               }
-//             />
-//             <TextField
-//               label="Title"
-//               value={blogData.description}
-//               onChange={(e) =>
-//                 setBlogData({ ...blogData, description: e.target.value })
-//               }
-//             />
-//             <TextField
-//               label="Created By"
-//               value={blogData.createdBy}
-//               onChange={(e) =>
-//                 setBlogData({ ...blogData, createdBy: e.target.value })
-//               }
-//             />
-//             <TextField
-//               label="blogDetails"
-//               value={blogData.blogDetails}
-//               onChange={(e) =>
-//                 setBlogData({ ...blogData, blogDetails: e.target.value })
-//               }
-//             />
-//           </Box>
-//         </DialogContent>
-//         <DialogActions>
-//           <Button onClick={handleCloseDialog}>Cancel</Button>
-//           <Button onClick={handleSubmit} variant="contained">
-//             {isEdit ? "Update" : "Add"}
-//           </Button>
-//         </DialogActions>
-//       </Dialog>
-
-//       {/* Details Dialog */}
-//       <Dialog
-//         open={openDetailsDialog}
-//         onClose={handleCloseDetails}
-//         maxWidth="sm"
-//         fullWidth
-//       >
-//         <DialogTitle>Blog Details</DialogTitle>
-//         <DialogContent>
-//           {selectedBlog && (
-//             <Box sx={{ mt: 2 }}>
-//               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-//                 <strong>Title:</strong> {selectedBlog.title || "N/A"}
-//               </Typography>
-//               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-//                 <strong>Description:</strong> {selectedBlog.description || "N/A"}
-//               </Typography>
-//               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-//                 <strong>Created By:</strong> {selectedBlog.createdBy || "N/A"}
-//               </Typography>
-//               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-//                 <strong>Blog Details:</strong> {selectedBlog.blogDetails || "N/A"}
-//               </Typography>
-//             </Box>
-//           )}
-//         </DialogContent>
-//         <DialogActions>
-//           <Button onClick={handleCloseDetails}>Close</Button>
-//         </DialogActions>
-//       </Dialog>
-//     </Box>
-//   );
-// };
-
-// export default Blog;
-
 import {
   Box,
   Typography,
@@ -294,11 +29,12 @@ const Blog = () => {
   const colors = tokens(theme.palette.mode);
   const [openDialog, setOpenDialog] = useState(false);
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-  const [selectedBook, setSelectedBook] = useState([]);
+  const [selectedBlog, setSelectedBlog] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [blog, setBlog] = useState([]);
   const [blogData, setBlogData] = useState({
     title: "",
+    image: "",
     description: "",
     blogDetail: "Hello! i am Blog",
   });
@@ -330,8 +66,9 @@ const Blog = () => {
     } else {
       setBlogData({
         title: "",
+        image: "",
         description: "",
-        blogDetail: "",
+        blogDetail: "Hello! i am Blog",
       });
     }
     setOpenDialog(true);
@@ -344,13 +81,13 @@ const Blog = () => {
 
   // 2
   const handleOpenDetails = (book) => {
-    setSelectedBook(book);
+    setSelectedBlog(book);
     setOpenDetailsDialog(true);
   };
 
   const handleCloseDetails = () => {
     setOpenDetailsDialog(false);
-    setSelectedBook(null);
+    setSelectedBlog(null);
   };
 
   //upload image and book
@@ -364,18 +101,68 @@ const Blog = () => {
       if (!blogData.title) {
         setAlert({
           open: true,
-          message: "Title required",
+          message: "required",
           severity: "error",
         });
         return;
       }
+      //--------------------
+      let imageId = null;
+      if (!(blogData.image instanceof File)) {
+        console.error("Invalid file format", blogData.image);
 
+        return;
+      }
+
+      // If there's a new image to upload
+      if (blogData.image) {
+        const formData = new FormData();
+        formData.append("file", blogData.image);
+        console.log(blogData.image, "book dataaaa");
+        // console.log(formData,"form data");
+
+        for (let pair of formData.entries()) {
+          console.log(`FormData Key: ${pair[0]}, Value: ${pair[1]}`);
+        }
+
+        // Upload image first
+        const imageResponse = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/admin/blog/upload`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log(imageResponse, "image responseeee");
+
+        imageId = imageResponse.data.data._id;
+        console.log(imageId, "image iddddd");
+      }
+      //-------------------------------
+      // Prepare book data
       const blogPayload = {
+        // title: bookData.title,
+        // author: bookData.author,
+        // isbn: bookData.isbn,
+        // category: bookData.category,
+        // price: bookData.price,
+        // publishYear: bookData.publishYear,
+        // publisher: bookData.publisher,
+        // description: bookData.description,
+        // totalCopy: bookData.totalCopy
+
         title: blogData.title,
         description: blogData.description,
         blogDetail: blogData.blogDetail,
       };
-
+      //-------------------image
+      // Add image ID to payload if we have one
+      if (imageId) {
+        blogPayload.image = imageId;
+      }
+      //-------------------image
       let response1;
       if (isEdit) {
         // Update existing book
@@ -432,7 +219,7 @@ const Blog = () => {
 
         setAlert({
           open: true,
-          message: "Blog deleted successfully",
+          message: "Book deleted successfully",
           severity: "success",
         });
         fetchBlog();
@@ -465,18 +252,18 @@ const Blog = () => {
       headerAlign: "left",
       align: "left",
     },
-    // {
-    //   field: "image",
-    //   headerName: "Image",
-    //   flex: 1,
-    //   renderCell: (params) => (
-    //     <img
-    //       src={params.value}
-    //       alt="Book Cover"
-    //       style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 5 }}
-    //     />
-    //   ),
-    // },
+    {
+      field: "image",
+      headerName: "Image",
+      flex: 1,
+      renderCell: (params) => (
+        <img
+          src={params.value}
+          alt="Book Cover"
+          style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 5 }}
+        />
+      ),
+    },
     {
       field: "description",
       headerName: "Description",
@@ -484,7 +271,7 @@ const Blog = () => {
     },
     {
       field: "blogDetail",
-      headerName: "Blog Detail",
+      headerName: "blogDetail",
       flex: 1,
     },
     {
@@ -517,15 +304,15 @@ const Blog = () => {
       console.log("response", response?.data?.data);
 
       // Check if response.data is an array or wrapped inside another object
-      const blogArray = Array.isArray(response.data)
+      const blogsArray = Array.isArray(response.data)
         ? response.data
         : response.data?.data || [];
-      console.log(blogArray, "shhrreeee");
+      console.log(blogsArray, "shhrreeee");
 
-      const formattedBlogs = blogArray.map((book) => ({
+      const formattedBlogs = blogsArray.map((book) => ({
         ...book,
         id: book._id,
-        // image: book.image ? book.image.url : "" // Check if image exists // Ensure DataGrid has an id
+        image: book.image ? book.image.url : "", // Check if image exists // Ensure DataGrid has an id
       }));
       console.log(formattedBlogs, "hellllll");
 
@@ -543,7 +330,7 @@ const Blog = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="BLOG" subtitle="Managing the Blogs" />
+        <Header title="BOOK" subtitle="Managing the Books" />
         <Button
           variant="contained"
           startIcon={<AddIcon />}
@@ -600,7 +387,7 @@ const Blog = () => {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>{isEdit ? "Edit Blog" : "Add New Blog"}</DialogTitle>
+        <DialogTitle>{isEdit ? "Edit Book" : "Add New Book"}</DialogTitle>
         <DialogContent>
           <Box
             component="form"
@@ -622,7 +409,7 @@ const Blog = () => {
               value={blogData.title}
               onChange={handleInputChange}
             />
-            {/* <TextField
+            <TextField
               label="Image URL"
               id="image"
               type="file"
@@ -630,17 +417,17 @@ const Blog = () => {
               // InputLabelProps={{ shrink: true }}
               // value={bookData.image}
               onChange={handleFileChange}
-            /> */}
+            />
+            <TextField
+              label="Description"
+              id="description"
+              value={blogData.description}
+              onChange={handleInputChange}
+            />
             <TextField
               label="blogDetail"
               id="blogDetail"
               value={blogData.blogDetail}
-              onChange={handleInputChange}
-            />
-            <TextField
-              label="description"
-              id="description"
-              value={blogData.description}
               onChange={handleInputChange}
             />
           </Box>
@@ -661,49 +448,18 @@ const Blog = () => {
         fullWidth
       >
         <DialogTitle>Blog Details</DialogTitle>
-        {/* <DialogContent>
-          {selectedBook && (
+        <DialogContent>
+          {selectedBlog && (
             <Box sx={{ mt: 2 }}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>book Name:</strong> { .bookName || "N/A"}
+                <strong>book Name:</strong> {selectedBlog.title || "N/A"}
               </Typography>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Title:</strong> {selectedBook.title || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Image:</strong> {selectedBook.image || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Author:</strong> {selectedBook.author || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>ISBN:</strong> {selectedBook.isbn || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Category:</strong> {selectedBook.category || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Price:</strong> ${selectedBook.price || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Publish Year:</strong>{" "}
-                {selectedBook.publishYear || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Publisher:</strong> {selectedBook.publisher || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Total Copies:</strong> {selectedBook.totalCopy || "N/A"}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Description:</strong>
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 1 }}>
-                {selectedBook.description || "No description available."}
+                <strong>Title:</strong> {selectedBlog.description || "N/A"}
               </Typography>
             </Box>
           )}
-        </DialogContent> */}
+        </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDetails}>Close</Button>
         </DialogActions>

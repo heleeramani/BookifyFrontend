@@ -2867,6 +2867,7 @@ const Profile = () => {
   const [borrow, setBorrow] = useState([]);
   const [returned, setReturned] = useState([]);
   const [fine,setFine]=useState([]);
+  const [returningBookId, setReturningBookId] = useState(null);
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
@@ -2930,57 +2931,105 @@ const Profile = () => {
 
   //   }
   // }
+  // const handleRefund = async (book) => {
+  //   try {
+  //     setReturningBookId(book._id);
+  //     console.log(book, "bororowww");
+
+  //     const authToken = localStorage.getItem("authToken");
+
+  //     if (!authToken) {
+  //       // Handle unauthorized state
+  //       alert("Please log in to continue");
+  //       return;
+  //     }
+
+  //     // Set loading state if needed
+  //     // setIsLoading(true);
+  //     const borrowId = book._id;
+  //     console.log(borrowId, "boroow iddddddddddddddddddddddddddddddddddeeee");
+
+  //     const response = await axios.post(
+  //       `${process.env.REACT_APP_BASE_URL}/user/borrow/return/${borrowId}`,
+  //       {}, // Empty body as you're passing data in URL
+  //       {
+  //         // This is the correct way to structure the axios post request
+  //         headers: {
+  //           Authorization: authToken,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     const { data } = response;
+
+  //     if (data.success) {
+  //       // Handle successful refund
+  //       alert("Book successfully returned and refund initiated!");
+  //       // You might want to update the UI or redirect
+  //       // Perhaps fetch updated borrow history
+  //     } else {
+  //       alert(data.message || "Return process failed");
+  //     }
+  //   } catch (err) {
+  //     console.error("Error processing return:", err);
+  //     alert(
+  //       err.response?.data?.message ||
+  //         "An error occurred while processing your return"
+  //     );
+  //   } finally {
+  //     // Reset loading state
+  //     // setIsLoading(false);
+  //     setReturningBookId(null);
+  //   }
+  // };
   const handleRefund = async (book) => {
     try {
-      console.log(book, "bororowww");
-
+      // Set the returning book ID at the start
+      setReturningBookId(book._id);
+      
       const authToken = localStorage.getItem("authToken");
-
       if (!authToken) {
-        // Handle unauthorized state
         alert("Please log in to continue");
         return;
       }
-
-      // Set loading state if needed
-      setIsLoading(true);
+  
       const borrowId = book._id;
-      console.log(borrowId, "boroow iddddddddddddddddddddddddddddddddddeeee");
-
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/user/borrow/return/${borrowId}`,
-        {}, // Empty body as you're passing data in URL
+        {},
         {
-          // This is the correct way to structure the axios post request
           headers: {
             Authorization: authToken,
             "Content-Type": "application/json",
           },
         }
       );
-
+  
       const { data } = response;
-
       if (data.success) {
-        // Handle successful refund
+        // Remove the returned book from the borrow state immediately
+        setBorrow(prevBorrowedBooks => 
+          prevBorrowedBooks.filter(item => item._id !== book._id)
+        );
+        
+        // Also fetch the updated returned books
+        fetchReturned();
+        
         alert("Book successfully returned and refund initiated!");
-        // You might want to update the UI or redirect
-        // Perhaps fetch updated borrow history
       } else {
         alert(data.message || "Return process failed");
       }
     } catch (err) {
       console.error("Error processing return:", err);
       alert(
-        err.response?.data?.message ||
-          "An error occurred while processing your return"
+        err.response?.data?.message || "An error occurred while processing your return"
       );
     } finally {
-      // Reset loading state
-      setIsLoading(false);
+      // Clear the returning book ID when done
+      setReturningBookId(null);
     }
   };
-  
   const handleFine=async(book)=>{
 
   }
@@ -3217,13 +3266,25 @@ const Profile = () => {
                                 </td>
                                 <td>{book.status || "Unknown"}</td>
                                 <td>
-                                  <button
+                                  {/* <button
                                     type="submit"
                                     className="action-btn return-btn"
                                     onClick={() => handleRefund(book)}
                                   >
                                     Return
-                                  </button>
+                                  </button> */}
+                                  <button
+  type="button"
+  className="action-btn return-btn"
+  onClick={() => handleRefund(book)}
+  disabled={returningBookId === book._id}
+>
+  {returningBookId === book._id ? (
+    <span className="loader"></span>
+  ) : (
+    "Return"
+  )}
+</button>
                                 </td>
                               </tr>
                             ))

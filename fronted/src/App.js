@@ -52,6 +52,7 @@ import Subscription from "./component/subscription/Subscription";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import './App.css';
+import BlogDetail from "./component/blog/component/BlogDetail";
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
             </Routes>
             <AppRouter />
             <Subscription />
+            <BlogDetail />
             <Footer />
           </>
         } />

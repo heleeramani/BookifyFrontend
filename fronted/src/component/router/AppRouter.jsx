@@ -16,12 +16,14 @@ import Profile from "../navbar/Profile";
 import DiscoverBook from "../home/component/DiscoverBook";
 // In your main router file (e.g., App.js or routes.js)
 import AddWishlist from '../wishlist/component/Addwishlist'
+import BlogDetail from "../blog/component/BlogDetail";
 const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/blog" element={<MainBlog />} />
+      <Route path="/blog/:id" element={<BlogDetail />} />
       <Route path="/contactus" element={<ContactUs />} />
       <Route path="/store" element={<ShopList />} />
       <Route path="/author" element={<Author />} />
