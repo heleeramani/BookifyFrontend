@@ -273,8 +273,6 @@
 
 // export default FAQ;
 
-
-
 import React, { useEffect, useState } from "react";
 import "./FAQ.css";
 import axios from "axios";
@@ -287,9 +285,15 @@ const FAQ = () => {
 
   const fetchBooks = async () => {
     try {
+      const authToken = localStorage.getItem("authToken");
       setLoading(true);
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/user/faq/getAll`
+        `${process.env.REACT_APP_BASE_URL}/user/faq/getAll`,
+        {
+          headers: {
+            "Authorization": authToken, 
+          },
+        }
       );
 
       // Check if response.data is an array or wrapped inside another object
@@ -304,6 +308,7 @@ const FAQ = () => {
       }));
 
       setFaqs(formattedFaqs);
+      console.log(formattedFaqs, "formattedFaqs");
     } catch (error) {
       console.error("Error fetching FAQs:", error);
       setAlert({
