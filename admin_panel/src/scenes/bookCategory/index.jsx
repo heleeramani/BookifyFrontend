@@ -48,8 +48,8 @@ const BookCategory = () => {
   const handleOpenDialog = (isEditMode = false, data = null) => {
     setIsEdit(isEditMode);
     if (isEditMode && data) {
-        console.log("📌 Editing Category Data:", data); // Debugging
-      setBookCategoryData({...data});
+      console.log("📌 Editing Category Data:", data); // Debugging
+      setBookCategoryData({ ...data });
     } else {
       setBookCategoryData({
         name: "",
@@ -61,7 +61,7 @@ const BookCategory = () => {
 
   const handleCloseDialog = () => {
     console.log("hgdushf");
-    
+
     setOpenDialog(false);
   };
 
@@ -81,7 +81,7 @@ const BookCategory = () => {
       setLoading(true);
 
       // Validate required fields
-      if (!bookCategoryData.name ) {
+      if (!bookCategoryData.name) {
         setAlert({
           open: true,
           message: "required",
@@ -122,7 +122,7 @@ const BookCategory = () => {
 
       // Refresh the book list
       await fetchBookCategory();
-     handleCloseDialog();
+      handleCloseDialog();
     } catch (err) {
       console.error("Error saving book:", error);
       setAlert({
@@ -136,29 +136,29 @@ const BookCategory = () => {
       setLoading(false);
     }
   };
-  const handleDelete =async (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
       try {
         setLoading(true);
         await axios.delete(
           `${process.env.REACT_APP_BASE_URL}/admin/book-category/delete/${id}`
         );
-        
+
         // Update the books list
-        setBookCategory(bookCategory.filter(book => book.id !== id));
-        
+        setBookCategory(bookCategory.filter((book) => book.id !== id));
+
         setAlert({
           open: true,
           message: "Book Category deleted successfully",
-          severity: "success"
+          severity: "success",
         });
-        fetchBookCategory()
+        fetchBookCategory();
       } catch (error) {
         console.error("Error deleting book:", error);
         setAlert({
           open: true,
           message: "Failed to delete book",
-          severity: "error"
+          severity: "error",
         });
       } finally {
         setLoading(false);
@@ -205,8 +205,14 @@ const BookCategory = () => {
 
   const fetchBookCategory = async () => {
     try {
+      const authToken = localStorage.getItem("authToken");
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/admin/book-category/getAll`
+        `${process.env.REACT_APP_BASE_URL}/admin/book-category/getAll`,
+        {
+          headers: {
+            Authorization: authToken,
+          },
+        }
       );
       console.log("response", response);
 
@@ -233,7 +239,6 @@ const BookCategory = () => {
     fetchBookCategory();
     // console.log(book, "skjcskhc");
   }, []);
-
 
   return (
     <Box m="20px">
