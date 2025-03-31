@@ -3,7 +3,7 @@ import BookCategory from "../component/home/component/BookCategory";
 import FeaturesSection from "../component/home/component/FeaturesSection";
 import Slider from "../component/home/component/Slider";
 import Elementor from "../component/home/component/Elementor";
-import DiscoverBook from "../component/home/component/DiscoverBook";
+// import DiscoverBook from "../component/home/component/DiscoverBook";
 import AuthorUpdate from "../component/home/component/AuthorUpdate";
 import ReadingBanner from "../component/home/component/ReadingBanner";
 import BestSeller from "../component/home/component/BestSeller";
@@ -14,6 +14,8 @@ import Profile from "../component/navbar/Profile";
 import AddWishlist from "../component/wishlist/component/Addwishlist";
 import SubscriptionCard from "./SubscriptionCard";
 import Review from "../component/review/Review";
+import DiscoverBook from "../component/home/component/DiscoverBook";
+// import DiscoverBook from "./DiscoverBook";
 const Home = () => {
   return (
     <div>
@@ -25,12 +27,13 @@ const Home = () => {
       <FeaturesSection />
       <Elementor />
       <DiscoverBook />
+      {/* <ShopList /> */}
       <AuthorUpdate />
       <ReadingBanner />
       <BestSeller />
       <MostRecentArtical />
 
-      <SubscriptionCard />
+      {/* <SubscriptionCard /> */}
       {/* <BokInfo /> */}
       {/* <ShopList /> */}
       {/* <Profile/> */}

@@ -17,6 +17,7 @@ import DiscoverBook from "../home/component/DiscoverBook";
 // In your main router file (e.g., App.js or routes.js)
 import AddWishlist from '../wishlist/component/Addwishlist'
 import BlogDetail from "../blog/component/BlogDetail";
+import Subscription from "../subscription/Subscription";
 const AppRouter = () => {
   return (
     <Routes>
@@ -30,8 +31,9 @@ const AppRouter = () => {
       {/* <Route path="/book-info/:bookId" element={<BookInfo />} /> */}
       <Route path="/profile" element={<Profile />} />
       <Route path="/favorites" element={<AddWishlist />} />
-      <Route path="/" element={<DiscoverBook />} />
+      {/* <Route path="/" element={<DiscoverBook />} /> */}
         <Route path="/book-info/:id" element={<BookInfo />} />
+        <Route path="subscription" element={<Subscription />} />
       {/* <Route path="/login" element={<Login />} /> */}
       {/* <Route path="/register" element={<Registration />} /> */}
     </Routes>

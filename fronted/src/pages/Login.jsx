@@ -311,6 +311,7 @@ const Login = () => {
         response.headers["x-auth-token"];
       // Example: Save token to localStorage
       localStorage.setItem("authToken", authToken);
+      localStorage.setItem('userId',response.data.user._id)
 
 
       window.dispatchEvent(new Event('userLogin'));

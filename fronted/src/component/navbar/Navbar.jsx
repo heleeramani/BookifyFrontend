@@ -1577,13 +1577,13 @@ const Navbar = () => {
           </div>
 
           {/* Cart */}
-          <div className="navbar-cart">
+          {/* <div className="navbar-cart">
             <FontAwesomeIcon
               icon={faShoppingCart}
               className="navbar-cart-icon"
             />
             <span className="navbar-cart-badge">0</span>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -1638,6 +1638,11 @@ const Navbar = () => {
           <li className="navbar-link">
             <a href="/store" className="nav-items">
               STORE
+            </a>
+          </li>
+          <li className="navbar-link">
+            <a href="/subscription" className="nav-items">
+              SUBSCRIBE
             </a>
           </li>
         </ul>

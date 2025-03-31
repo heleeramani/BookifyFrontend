@@ -113,7 +113,7 @@ function App() {
               <Route path="/author" element={<Author />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/bookCategory" element={<BookCategory />} />
-              <Route path="/user" element={<User />} />
+              <Route path="/user" element={<User/>} />
               <Route path="/newsLetter" element={<NewsLetter />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />

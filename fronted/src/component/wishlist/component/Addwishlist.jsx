@@ -2363,6 +2363,328 @@
 
 // export default Addwishlist;
 
+// import { useState, useEffect, useRef } from "react";
+// import "../../home/style/DiscoverBook.css";
+
+// import Button from "../../buttons/Button";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import blogImg1 from '../../home/images/discover-book1.jpg';
+
+// const Addwishlist = () => {
+//   const navigate = useNavigate();
+//   const [activeCategory, setActiveCategory] = useState("New Releases");
+//   const [books, setBooks] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
+//   const categoryRef = useRef(null);
+
+//   // Define categories for filter
+//   const categories = ["New Releases", "Fiction", "Non-Fiction", "Science", "History"];
+
+//   const fetchBooks = async () => {
+//     try {
+//       setLoading(true);
+      
+//       // Get authToken from localStorage
+//       const authToken = localStorage.getItem("authToken");
+      
+//       if (!authToken) {
+//         setAlert({
+//           open: true,
+//           message: "Please log in to view your wishlist",
+//           severity: "warning"
+//         });
+//         setLoading(false);
+//         return;
+//       }
+      
+//       const response = await axios.get(
+//         `${process.env.REACT_APP_BASE_URL}/user/wishlist/getByUser`,
+//         {
+//           headers: {
+//             Authorization: authToken,
+//             "Content-Type": "application/json"
+//           }
+//         }
+//       );
+
+//       const wishlistItems = Array.isArray(response.data?.data)
+//         ? response.data.data
+//         : [];
+//       console.log(wishlistItems, "wishlistItems");
+      
+//       const formattedBooks = wishlistItems.map((wishlistItem) => {
+//         // Access the book object from the wishlist item
+//         const book = wishlistItem.book;
+        
+//         // Get the correct image URL from the book object
+//         // Making sure to handle all possible data structures
+//         let imageUrl = blogImg1; // Default fallback image
+        
+//         if (book.image && typeof book.image === 'object' && book.image.url) {
+//           // Case 1: API returns image as object with url property
+//           imageUrl = book.image.url;
+//         } else if (typeof book.image === 'string') {
+//           // Case 2: API returns image as direct string URL
+//           imageUrl = book.image;
+//         }
+        
+//         return {
+//           id: book._id,
+//           wId: wishlistItem._id, // Store the wishlist item ID if needed
+//           title: book.title || "Untitled",
+//           author: book.author || "Unknown Author",
+//           description: book.description || "No description available.",
+//           isbn: book.isbn || "No ISBN Available",
+//           category: book.category?.name || book.category || "Uncategorized",
+//           price: book.price ? `${book.price}` : "Price not available",
+//           publishedYear: book.publishedYear || "Year not available",
+//           image: imageUrl, // Use the properly extracted image URL
+//           addedAt: new Date(wishlistItem.addedAt).toLocaleDateString()
+//         };
+//       });
+
+//       setBooks(formattedBooks);
+//       console.log(formattedBooks, "formattedBooks");
+      
+//     } catch (error) {
+//       console.error("Error fetching wishlist:", error);
+      
+//       if (error.response?.status === 401) {
+//         setAlert({
+//           open: true,
+//           message: "Authentication failed. Please log in again.",
+//           severity: "error"
+//         });
+//       } else {
+//         setAlert({
+//           open: true,
+//           message: "Failed to load wishlist. Please try again later.",
+//           severity: "error"
+//         });
+//       }
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // Function to remove book from wishlist
+//   const removeFromWishlist = async (wId, bookTitle, event) => {
+//     // Prevent the click from bubbling up to the parent (book card)
+//     event.stopPropagation();
+    
+//     if (!wId) {
+//       setAlert({
+//         open: true,
+//         message: "Error: Missing wishlist ID",
+//         severity: "error"
+//       });
+//       return;
+//     }
+    
+//     try {
+//       setLoading(true);
+      
+//       const authToken = localStorage.getItem("authToken");
+      
+//       if (!authToken) {
+//         setAlert({
+//           open: true,
+//           message: "Please log in to remove items from your wishlist",
+//           severity: "warning"
+//         });
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Method 1: Using DELETE with params
+//       await axios.delete(
+//         `${process.env.REACT_APP_BASE_URL}/user/wishlist/delete/${wId}`,
+//         {
+//           headers: {
+//             Authorization: authToken,
+//             "Content-Type": "application/json"
+//           }
+//         }
+//       );
+      
+//       // Remove book from local state
+//       setBooks(books.filter(book => book.wId !== wId));
+      
+//       // Show success message
+//       setAlert({
+//         open: true,
+//         message: `"${bookTitle}" has been removed from your wishlist`,
+//         severity: "success"
+//       });
+      
+//     } catch (error) {
+//       console.error("Error removing from wishlist:", error);
+      
+//       const errorMessage = error.response?.data?.message || "Failed to remove item. Please try again later.";
+      
+//       setAlert({
+//         open: true,
+//         message: errorMessage,
+//         severity: "error"
+//       });
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchBooks();
+//   }, []);
+
+//   // Filter books based on active category
+//   const filteredBooks = activeCategory
+//     ? books.filter(book => book.category.toLowerCase() === activeCategory.toLowerCase())
+//     : books;
+
+//   // Display all books if filtered list is empty
+//   const displayBooks = filteredBooks.length > 0 ? filteredBooks : books;
+
+//   // Function to dismiss alert
+//   const handleDismissAlert = () => {
+//     setAlert({ open: false, message: "", severity: "" });
+//   };
+
+//   // Function to handle image errors
+//   const handleImageError = (e) => {
+//     e.target.src = blogImg1; // Fallback to default image
+//   };
+
+//   // Scroll horizontally through categories
+//   const scrollCategories = (direction) => {
+//     if (categoryRef.current) {
+//       const scrollAmount = direction === 'left' ? -200 : 200;
+//       categoryRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+//     }
+//   };
+
+//   // Handle "All Books" category option
+//   const handleAllBooksClick = () => {
+//     setActiveCategory(null);
+//   };
+
+//   return (
+//     <div className="discover-container">
+//       {alert.open && (
+//         <div className={`alert alert-${alert.severity}`}>
+//           {alert.message}
+//           <button className="alert-close" onClick={handleDismissAlert}>×</button>
+//         </div>
+//       )}
+
+//       <div className="discover-wrap">
+//         <h2 className="main-heading">Your Wishlist</h2>
+
+//         {/* <div className="category-filter-container">
+//           <button 
+//             className="category-scroll-button left"
+//             onClick={() => scrollCategories('left')}
+//           >
+//             &lt;
+//           </button>
+
+//           <div className="category-filter" ref={categoryRef}>
+//             <ul className="filter-nav">
+//               <li
+//                 className={`filter-item ${activeCategory === null ? "active" : ""}`}
+//                 onClick={handleAllBooksClick}
+//               >
+//                 ALL BOOKS
+//               </li>
+//               {categories.map((category, index) => (
+//                 <li
+//                   key={index}
+//                   className={`filter-item ${activeCategory === category ? "active" : ""}`}
+//                   onClick={() => setActiveCategory(category)}
+//                 >
+//                   {category.toUpperCase()}
+//                 </li>
+//               ))}
+//             </ul>
+//           </div>
+
+//           <button 
+//             className="category-scroll-button right"
+//             onClick={() => scrollCategories('right')}
+//           >
+//             &gt;
+//           </button>
+//         </div> */}
+
+//         {loading ? (
+//           <div className="loading">Loading wishlist...</div>
+//         ) : (
+//           <>
+//             <div className="book-list">
+//               {displayBooks.length === 0 ? (
+//                 <div className="no-books-message">
+//                   <p>Your wishlist is empty. Discover books to add to your collection!</p>
+//                   <Button 
+//                     title="Discover Books" 
+//                     name="discover" 
+//                     onClick={() => navigate("/store")} 
+//                   />
+//                 </div>
+//               ) : (
+//                 displayBooks.map((book) => (
+//                   <div
+//                     className="book-card"
+//                     key={book.id}
+//                     onClick={() => navigate(`/book-info/${book.id}`)}
+//                   >
+//                     <div className="book-image-container">
+//                       <img 
+//                         src={book.image} 
+//                         alt={book.title} 
+//                         className="book-image" 
+//                         onError={handleImageError}
+//                       />
+//                     </div>
+//                     <div className="book-details">
+//                       <h5 className="book-title">{book.title}</h5>
+//                       <p className="book-author">{book.author}</p>
+//                       <p className="book-price">{book.price}</p>
+//                       <p className="book-year">{book.publishedYear}</p>
+//                       <p className="book-added">Added: {book.addedAt}</p>
+//                       <p className="book-isbn">ISBN: {book.isbn}</p>
+//                     </div>
+//                     <button 
+//                       className="remove-button"
+//                       onClick={(e) => removeFromWishlist(book.wId, book.title, e)}
+//                     >
+//                       Remove from Wishlist
+//                     </button>
+//                   </div>
+//                 ))
+//               )}
+//             </div>
+
+//             {displayBooks.length > 0 && (
+//               <div className="btn-wrap">
+//                 <Button
+//                   title="Discover More Books"
+//                   name="more"
+//                   onClick={() => navigate("/store")}
+//                   className="discover-more-btn"
+//                 />
+//               </div>
+//             )}
+//           </>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Addwishlist;
+
+
 import { useState, useEffect, useRef } from "react";
 import "../../home/style/DiscoverBook.css";
 
@@ -2430,15 +2752,29 @@ const Addwishlist = () => {
           imageUrl = book.image;
         }
         
+        // Handle author data which can be either a string or an object
+        let authorName = "Unknown Author";
+        if (book.author) {
+          if (typeof book.author === 'string') {
+            // If author is a simple string
+            authorName = book.author;
+          } else if (typeof book.author === 'object') {
+            // If author is an object with firstName and lastName
+            const firstName = book.author.firstName || '';
+            const lastName = book.author.lastName || '';
+            authorName = `${firstName} ${lastName}`.trim() || "Unknown Author";
+          }
+        }
+        
         return {
           id: book._id,
-          wId: wishlistItem._id, // Store the wishlist item ID if needed
+          wId: wishlistItem._id, // Store the wishlist item ID for removal
           title: book.title || "Untitled",
-          author: book.author || "Unknown Author",
+          author: authorName,
           description: book.description || "No description available.",
           isbn: book.isbn || "No ISBN Available",
           category: book.category?.name || book.category || "Uncategorized",
-          price: book.price ? `${book.price}` : "Price not available",
+          price: book.price ? `₹${book.price}` : "Price not available",
           publishedYear: book.publishedYear || "Year not available",
           image: imageUrl, // Use the properly extracted image URL
           addedAt: new Date(wishlistItem.addedAt).toLocaleDateString()
@@ -2498,7 +2834,6 @@ const Addwishlist = () => {
         return;
       }
 
-      // Method 1: Using DELETE with params
       await axios.delete(
         `${process.env.REACT_APP_BASE_URL}/user/wishlist/delete/${wId}`,
         {
@@ -2540,7 +2875,10 @@ const Addwishlist = () => {
 
   // Filter books based on active category
   const filteredBooks = activeCategory
-    ? books.filter(book => book.category.toLowerCase() === activeCategory.toLowerCase())
+    ? books.filter(book => 
+        book.category && 
+        typeof book.category === 'string' && 
+        book.category.toLowerCase() === activeCategory.toLowerCase())
     : books;
 
   // Display all books if filtered list is empty
@@ -2581,41 +2919,8 @@ const Addwishlist = () => {
       <div className="discover-wrap">
         <h2 className="main-heading">Your Wishlist</h2>
 
-        {/* <div className="category-filter-container">
-          <button 
-            className="category-scroll-button left"
-            onClick={() => scrollCategories('left')}
-          >
-            &lt;
-          </button>
-
-          <div className="category-filter" ref={categoryRef}>
-            <ul className="filter-nav">
-              <li
-                className={`filter-item ${activeCategory === null ? "active" : ""}`}
-                onClick={handleAllBooksClick}
-              >
-                ALL BOOKS
-              </li>
-              {categories.map((category, index) => (
-                <li
-                  key={index}
-                  className={`filter-item ${activeCategory === category ? "active" : ""}`}
-                  onClick={() => setActiveCategory(category)}
-                >
-                  {category.toUpperCase()}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <button 
-            className="category-scroll-button right"
-            onClick={() => scrollCategories('right')}
-          >
-            &gt;
-          </button>
-        </div> */}
+        {/* Category filter is commented out in the original code */}
+        {/* <div className="category-filter-container">...</div> */}
 
         {loading ? (
           <div className="loading">Loading wishlist...</div>
@@ -2650,9 +2955,13 @@ const Addwishlist = () => {
                       <h5 className="book-title">{book.title}</h5>
                       <p className="book-author">{book.author}</p>
                       <p className="book-price">{book.price}</p>
-                      <p className="book-year">{book.publishedYear}</p>
+                      {book.publishedYear !== "Year not available" && (
+                        <p className="book-year">{book.publishedYear}</p>
+                      )}
                       <p className="book-added">Added: {book.addedAt}</p>
-                      <p className="book-isbn">ISBN: {book.isbn}</p>
+                      {book.isbn !== "No ISBN Available" && (
+                        <p className="book-isbn">ISBN: {book.isbn}</p>
+                      )}
                     </div>
                     <button 
                       className="remove-button"

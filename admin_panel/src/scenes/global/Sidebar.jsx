@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import PersonIcon from '@mui/icons-material/Person';
-import BookIcon from '@mui/icons-material/Book';
-import CategoryIcon from '@mui/icons-material/Category';
-import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import PersonIcon from "@mui/icons-material/Person";
+import BookIcon from "@mui/icons-material/Book";
+import CategoryIcon from "@mui/icons-material/Category";
+import UnsubscribeIcon from "@mui/icons-material/Unsubscribe";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
@@ -51,7 +51,7 @@ const Sidebar = () => {
       sx={{
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
-          height:`200% !important`,
+          height: `200% !important`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -86,7 +86,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                 ADMIN
+                  ADMIN
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -131,22 +131,25 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-            >
-            </Typography>
-            <Item
-              title="Book"
-              to="/book"
-              icon={<MenuBookIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            <Typography variant="h6" color={colors.grey[300]}></Typography>
             <Item
               title="Author"
               to="/author"
               icon={<PersonIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="User"
+              to="/user"
+              icon={<PersonIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Book"
+              to="/book"
+              icon={<MenuBookIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -193,12 +196,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             /> */}
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-            >
-              
-            </Typography>
+            <Typography variant="h6" color={colors.grey[300]}></Typography>
             {/* <Item
               title="Profile Form"
               to="/form"
@@ -262,7 +260,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />*/}
-          </Box> 
+          </Box>
         </Menu>
       </ProSidebar>
     </Box>

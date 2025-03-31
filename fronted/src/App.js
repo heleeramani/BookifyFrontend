@@ -72,8 +72,8 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
             </Routes>
             <AppRouter />
-            <Subscription />
-            <BlogDetail />
+            {/* <Subscription /> */}
+            {/* <BlogDetail /> */}
             <Footer />
           </>
         } />

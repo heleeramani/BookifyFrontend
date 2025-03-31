@@ -1666,32 +1666,69 @@ const Book = () => {
       console.log("response", response?.data?.data);
   
       // Check if response.data is an array or wrapped inside another object
-      const booksArray = Array.isArray(response.data)
+      const booksArray = Array.isArray(response?.data)
         ? response.data
         : response.data?.data || [];
-      
+        console.log(booksArray,"booksArray");
+        
+      // const formattedBooks = booksArray.map((book) => {
+      //   console.log("formatteddddddddd");
+        
+      //   // Extract author name from nested object
+      //   const authorName = book.author && typeof book.author === 'object' 
+      //     ? `${book.author.firstName} ${book.author.lastName}`
+      //     : book.author; // Fallback to ID if not an object
+      //   console.log(authorName,"authorname");
+        
+      //   // Extract category name from nested object
+      //   const categoryName = book.category && typeof book.category === 'object'
+      //     ? book.category.name
+      //     : book.category; // Fallback to ID if not an object
+      //   console.log(categoryName,"category");
+        
+      //   return {
+      //     ...book,
+      //     id: book._id || "N/A",
+      //     image: book.image ? book.image.url : "",
+      //     authorName: authorName,
+      //     categoryName: categoryName,
+      //     // Keep the original fields for editing purposes
+      //     author: typeof book.author === 'object' ? book.author._id : book.author,
+      //     category: typeof book.category === 'object' ? book.category._id : book.category
+      //   };
+      // });
+  
+      // const formattedBooks = booksArray.map((book) => ({
+      //   ...book,
+      //     id: book._id || "N/A",
+      //     image: book.image ? book.image.url : "",
+      //     // author: book.author.firstName || "none",
+      //     // category: book.category.name || "none",
+      //     // Keep the original fields for editing purposes
+      //     // author: typeof book.author === 'object' ? book.author._id : book.author,
+      //     // category: typeof book.category === 'object' ? book.category._id : book.category
+      // }));
       const formattedBooks = booksArray.map((book) => {
-        // Extract author name from nested object
-        const authorName = book.author && typeof book.author === 'object' 
-          ? `${book.author.firstName} ${book.author.lastName}`
-          : book.author; // Fallback to ID if not an object
-        
-        // Extract category name from nested object
-        const categoryName = book.category && typeof book.category === 'object'
-          ? book.category.name
-          : book.category; // Fallback to ID if not an object
-        
+        const authorName = book.author
+          ? `${book.author.firstName || ''} ${book.author.lastName || ''}`.trim()
+          : "Unknown Author";
+      
+        const categoryName = book.category
+          ? book.category.name || "Unknown Category"
+          : "Unknown Category";
+      
         return {
           ...book,
-          id: book._id,
+          id: book._id || "N/A",
           image: book.image ? book.image.url : "",
           authorName: authorName,
           categoryName: categoryName,
-          // Keep the original fields for editing purposes
-          author: typeof book.author === 'object' ? book.author._id : book.author,
-          category: typeof book.category === 'object' ? book.category._id : book.category
+          author: book.author ? book.author._id : null,
+          category: book.category ? book.category._id : null,
         };
       });
+      
+      console.log("formatted book",formattedBooks);
   
       setBook(formattedBooks);
     } catch (error) {
@@ -1718,7 +1755,7 @@ const Book = () => {
       // Transform the authors data to include a name property
       const formattedAuthors = authorsArray.map((author) => ({
         ...author,
-        name: `${author.firstName} ${author.lastName}`, // Combine firstName and lastName
+        name: `${author.firstName || 'none'} ${author.lastName || 'none'}`, // Combine firstName and lastName
       }));
 
       setAuthors(formattedAuthors);

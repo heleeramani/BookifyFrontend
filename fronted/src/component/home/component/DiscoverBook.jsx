@@ -2208,12 +2208,335 @@
 // export default DiscoverBook;
 
 
+// import { useState, useEffect, useRef } from "react";
+// import "../style/DiscoverBook.css";
+// import Button from "../../buttons/Button";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import blogImg1 from "../images/discover-book1.jpg";
+
+// const DiscoverBook = () => {
+//   const navigate = useNavigate();
+//   const [activeCategory, setActiveCategory] = useState(null);
+//   const [books, setBooks] = useState([]);
+//   const [categories, setCategories] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [alert, setAlert] = useState({
+//     open: false,
+//     message: "",
+//     severity: "",
+//   });
+//   const [wishlistLoading, setWishlistLoading] = useState({});
+//   const categoryRef = useRef(null);
+
+//   // Fetch categories from API
+//   const fetchCategories = async () => {
+//     try {
+//       const authToken = localStorage.getItem("authToken");
+//       const response = await axios.get(
+//         `${process.env.REACT_APP_BASE_URL}/user/category/get`,
+//         {
+//           headers: {
+//             "Authorization": authToken,
+//           },
+//         }
+//       );
+      
+//       if (response.data?.success && Array.isArray(response.data?.data)) {
+//         setCategories(response.data.data);
+//         // Set the first category as active by default if categories exist
+//         if (response.data.data.length > 0) {
+//           setActiveCategory(response.data.data[0].name);
+//         }
+//       }
+//     } catch (error) {
+//       console.error("Error fetching categories:", error);
+//       setAlert({
+//         open: true,
+//         message: "Failed to load categories. Please try again later.",
+//         severity: "error",
+//       });
+//     }
+//   };
+
+//   const fetchBooks = async () => {
+//     try {
+//       setLoading(true);
+//       const response = await axios.get(
+//         `${process.env.REACT_APP_BASE_URL}/user/book/getAll`
+//       );
+
+//       const bookArray = Array.isArray(response.data?.data)
+//         ? response.data.data
+//         : [];
+
+//       const formattedBooks = bookArray.map((book) => ({
+//         id: book._id,
+//         title: book.title || "Untitled",
+//         author: book.author || "Unknown Author",
+//         description: book.description || "No description available.",
+//         isbn: book.isbn || "No ISBN Available",
+//         category: book.category?.name || book.category || "Uncategorized",
+//         price: book.price ? `${book.price}` : "Price not available",
+//         publishedYear: book.publishedYear || "Year not available",
+//         image: book.image?.url || blogImg1, // Use default image if missing
+//         inWishlist: book.inWishlist || false,
+//       }));
+
+//       setBooks(formattedBooks);
+//     } catch (error) {
+//       console.error("Error fetching books:", error);
+//       setAlert({
+//         open: true,
+//         message: "Failed to load books. Please try again later.",
+//         severity: "error",
+//       });
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchBooks();
+//     fetchCategories();
+//   }, []);
+
+//   // Filter books based on active category
+//   const filteredBooks = activeCategory
+//     ? books.filter((book) => 
+//         // Case-insensitive comparison for more robust filtering
+//         book.category.toLowerCase() === activeCategory.toLowerCase())
+//     : books;
+
+//   // Limit displayed books to 5
+//   const displayedBooks = filteredBooks.slice(0, 5);
+
+//   // Scroll horizontally through categories
+//   const scrollCategories = (direction) => {
+//     if (categoryRef.current) {
+//       const scrollAmount = direction === 'left' ? -200 : 200;
+//       categoryRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+//     }
+//   };
+
+//   // Add to wishlist function
+//   const addToWishlist = async (bookId) => {
+//     try {
+//       // Set loading state for this specific book
+//       setWishlistLoading((prev) => ({ ...prev, [bookId]: true }));
+
+//       // Check if token exists first
+//       const token = localStorage.getItem("authToken");
+//       if (!token) {
+//         setAlert({
+//           open: true,
+//           message: "Please log in to add books to your wishlist",
+//           severity: "warning",
+//         });
+//         return;
+//       }
+
+//       // Make API call to add book to wishlist with proper token format
+//       const response = await axios.post(
+//         `${process.env.REACT_APP_BASE_URL}/user/wishlist/create`,
+//         { book: bookId }, 
+//         {
+//           headers: {
+//             Authorization: token,
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+
+//       // Update the book in state to show it's in wishlist
+//       setBooks((prevBooks) =>
+//         prevBooks.map((book) =>
+//           book.id === bookId ? { ...book, inWishlist: true } : book
+//         )
+//       );
+
+//       setAlert({
+//         open: true,
+//         message: "Book added to wishlist successfully!",
+//         severity: "success",
+//       });
+//     } catch (error) {
+//       if (
+//         error.response?.status === 401 ||
+//         (error.message && error.message.includes("jwt"))
+//       ) {
+//         setAlert({
+//           open: true,
+//           message: "Authentication failed. Please log in again.",
+//           severity: "error",
+//         });
+//       } else {
+//         console.error("Error adding book to wishlist:", error);
+//         setAlert({
+//           open: true,
+//           message: `Failed to add to wishlist: ${
+//             error.response?.data?.message || error.message
+//           }`,
+//           severity: "error",
+//         });
+//       }
+//     } finally {
+//       // Clear loading state for this book
+//       setWishlistLoading((prev) => ({ ...prev, [bookId]: false }));
+//     }
+//   };
+
+//   // Handle wishlist button click
+//   const handleWishlistClick = (e, bookId) => {
+//     e.stopPropagation(); // Prevent triggering the parent onClick that navigates
+//     addToWishlist(bookId);
+//   };
+
+//   // Function to dismiss alert
+//   const handleDismissAlert = () => {
+//     setAlert({ open: false, message: "", severity: "" });
+//   };
+
+//   // Handle "All Books" category option
+//   const handleAllBooksClick = () => {
+//     setActiveCategory(null);
+//   };
+
+//   // Handle "Discover More Books" button click
+//   const handleDiscoverMoreClick = () => {
+//     navigate("/store");
+//   };
+
+//   return (
+//     <div className="discover-container">
+//       {alert.open && (
+//         <div className={`alert alert-${alert.severity}`}>
+//           {alert.message}
+//           <button className="alert-close" onClick={handleDismissAlert}>
+//             ×
+//           </button>
+//         </div>
+//       )}
+
+//       <div className="discover-wrap">
+//         <h2 className="main-heading">Discover Your Next Book</h2>
+
+//         <div className="category-filter-container">
+//           <button 
+//             className="category-scroll-button left"
+//             onClick={() => scrollCategories('left')}
+//           >
+//             &lt;
+//           </button>
+          
+//           <div className="category-filter" ref={categoryRef}>
+//             <ul className="filter-nav">
+//               <li
+//                 className={`filter-item ${activeCategory === null ? "active" : ""}`}
+//                 onClick={handleAllBooksClick}
+//               >
+//                 ALL BOOKS
+//               </li>
+//               {categories.map((category) => (
+//                 <li
+//                   key={category._id}
+//                   className={`filter-item ${
+//                     activeCategory === category.name ? "active" : ""
+//                   }`}
+//                   onClick={() => setActiveCategory(category.name)}
+//                 >
+//                   {category.name.toUpperCase()}
+//                 </li>
+//               ))}
+//             </ul>
+//           </div>
+          
+//           <button 
+//             className="category-scroll-button right"
+//             onClick={() => scrollCategories('right')}
+//           >
+//             &gt;
+//           </button>
+//         </div>
+
+//         {loading ? (
+//           <div className="loading">Loading books...</div>
+//         ) : displayedBooks.length === 0 ? (
+//           <div className="no-books-message">
+//             <p>No books available in this category</p>
+//             <Button 
+//               title="Browse All Books" 
+//               name="browse" 
+//               onClick={handleAllBooksClick} 
+//             />
+//           </div>
+//         ) : (
+//           <>
+//             <div className="book-list">
+//               {displayedBooks.map((book) => (
+//                 <div
+//                   className="book-card"
+//                   key={book.id}
+//                   onClick={() => navigate(`/book-info/${book.id}`)}
+//                 >
+//                   <div className="book-image-container">
+//                     <img src={book.image} alt={book.title} className="book-image" />
+//                     <button 
+//                       className="wishlist-button"
+//                       onClick={(e) => handleWishlistClick(e, book.id)}
+//                       disabled={wishlistLoading[book.id]}
+//                     >
+//                       {wishlistLoading[book.id] ? (
+//                         <span className="loading-icon">...</span>
+//                       ) : (
+//                         <span className="heart-icon">
+//                           {book.inWishlist ? "❤️" : "🤍"}
+//                         </span>
+//                       )}
+//                     </button>
+//                   </div>
+//                   <div className="book-details">
+//                     <h5 className="book-title">{book.title}</h5>
+//                     <p className="book-author">{book.author}</p>
+//                     <p className="book-price">{book.price}</p>
+//                     <p className="book-isbn">ISBN: {book.isbn}</p>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+            
+//             <div className="btn-wrap">
+//               <Button
+//                 title="Discover More Books"
+//                 name="more"
+//                 onClick={handleDiscoverMoreClick}
+//                 className="discover-more-btn"
+//               />
+//             </div>
+//           </>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DiscoverBook;
+
+
 import { useState, useEffect, useRef } from "react";
 import "../style/DiscoverBook.css";
 import Button from "../../buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import blogImg1 from "../images/discover-book1.jpg";
+
+// Helper function to safely convert any value to a string
+const safeString = (value) => {
+  if (value === null || value === undefined) return "";
+  if (typeof value === "string") return value;
+  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  return JSON.stringify(value);
+};
 
 const DiscoverBook = () => {
   const navigate = useNavigate();
@@ -2243,10 +2566,18 @@ const DiscoverBook = () => {
       );
       
       if (response.data?.success && Array.isArray(response.data?.data)) {
-        setCategories(response.data.data);
+        // Clean category data before setting state
+        const cleanedCategories = response.data.data.map(category => ({
+          _id: category._id || String(Math.random()),
+          name: typeof category.name === 'string' ? category.name : 
+                (category.name ? JSON.stringify(category.name) : 'Unknown')
+        }));
+        
+        setCategories(cleanedCategories);
+        
         // Set the first category as active by default if categories exist
-        if (response.data.data.length > 0) {
-          setActiveCategory(response.data.data[0].name);
+        if (cleanedCategories.length > 0) {
+          setActiveCategory(cleanedCategories[0].name);
         }
       }
     } catch (error) {
@@ -2270,18 +2601,63 @@ const DiscoverBook = () => {
         ? response.data.data
         : [];
 
-      const formattedBooks = bookArray.map((book) => ({
-        id: book._id,
-        title: book.title || "Untitled",
-        author: book.author || "Unknown Author",
-        description: book.description || "No description available.",
-        isbn: book.isbn || "No ISBN Available",
-        category: book.category?.name || book.category || "Uncategorized",
-        price: book.price ? `${book.price}` : "Price not available",
-        publishedYear: book.publishedYear || "Year not available",
-        image: book.image?.url || blogImg1, // Use default image if missing
-        inWishlist: book.inWishlist || false,
-      }));
+      // Log the first book to debug structure
+      if (bookArray.length > 0) {
+        console.log("First book structure:", JSON.stringify(bookArray[0], null, 2));
+      }
+
+      const formattedBooks = bookArray.map((book) => {
+        // Handle category - could be string, object with name, or something else
+        let categoryValue = "Uncategorized";
+        if (book.category) {
+          if (typeof book.category === 'object' && book.category.name) {
+            categoryValue = safeString(book.category.name);
+          } else if (typeof book.category === 'string') {
+            categoryValue = book.category;
+          } else {
+            categoryValue = "Uncategorized";
+          }
+        }
+
+        // Handle author - could be string, object with name fields, or something else
+        let authorValue = "Unknown Author";
+        if (book.author) {
+          if (typeof book.author === 'object') {
+            if (book.author.firstName || book.author.lastName) {
+              authorValue = `${book.author.firstName || ''} ${book.author.lastName || ''}`.trim();
+            } else if (book.author.name) {
+              authorValue = book.author.name;
+            } else {
+              authorValue = "Unknown Author";
+            }
+          } else if (typeof book.author === 'string') {
+            authorValue = book.author;
+          }
+        }
+
+        // Handle image - could be string URL, object with url property, or something else
+        let imageValue = blogImg1;
+        if (book.image) {
+          if (typeof book.image === 'object' && book.image.url) {
+            imageValue = book.image.url;
+          } else if (typeof book.image === 'string') {
+            imageValue = book.image;
+          }
+        }
+
+        return {
+          id: book._id || String(Math.random()),
+          title: safeString(book.title) || "Untitled",
+          author: authorValue,
+          description: safeString(book.description) || "No description available.",
+          isbn: safeString(book.isbn) || "No ISBN Available",
+          category: categoryValue,
+          price: safeString(book.price) || "Price not available",
+          publishedYear: safeString(book.publishedYear) || "Year not available",
+          image: imageValue,
+          inWishlist: !!book.inWishlist,
+        };
+      });
 
       setBooks(formattedBooks);
     } catch (error) {
@@ -2304,7 +2680,6 @@ const DiscoverBook = () => {
   // Filter books based on active category
   const filteredBooks = activeCategory
     ? books.filter((book) => 
-        // Case-insensitive comparison for more robust filtering
         book.category.toLowerCase() === activeCategory.toLowerCase())
     : books;
 
@@ -2322,10 +2697,8 @@ const DiscoverBook = () => {
   // Add to wishlist function
   const addToWishlist = async (bookId) => {
     try {
-      // Set loading state for this specific book
       setWishlistLoading((prev) => ({ ...prev, [bookId]: true }));
 
-      // Check if token exists first
       const token = localStorage.getItem("authToken");
       if (!token) {
         setAlert({
@@ -2336,8 +2709,7 @@ const DiscoverBook = () => {
         return;
       }
 
-      // Make API call to add book to wishlist with proper token format
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_BASE_URL}/user/wishlist/create`,
         { book: bookId }, 
         {
@@ -2348,7 +2720,6 @@ const DiscoverBook = () => {
         }
       );
 
-      // Update the book in state to show it's in wishlist
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book.id === bookId ? { ...book, inWishlist: true } : book
@@ -2381,28 +2752,23 @@ const DiscoverBook = () => {
         });
       }
     } finally {
-      // Clear loading state for this book
       setWishlistLoading((prev) => ({ ...prev, [bookId]: false }));
     }
   };
 
-  // Handle wishlist button click
   const handleWishlistClick = (e, bookId) => {
-    e.stopPropagation(); // Prevent triggering the parent onClick that navigates
+    e.stopPropagation();
     addToWishlist(bookId);
   };
 
-  // Function to dismiss alert
   const handleDismissAlert = () => {
     setAlert({ open: false, message: "", severity: "" });
   };
 
-  // Handle "All Books" category option
   const handleAllBooksClick = () => {
     setActiveCategory(null);
   };
 
-  // Handle "Discover More Books" button click
   const handleDiscoverMoreClick = () => {
     navigate("/store");
   };
