@@ -1326,7 +1326,7 @@ const Dashboard = () => {
         gap={isMobile ? "10px" : "0"}
       >
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-        <Button
+        {/* <Button
           sx={{
             backgroundColor: colors.blueAccent[700],
             color: colors.grey[100],
@@ -1338,7 +1338,7 @@ const Dashboard = () => {
         >
           <DownloadOutlinedIcon sx={{ mr: "10px" }} />
           Download Reports
-        </Button>
+        </Button> */}
       </Box>
 
       {/* GRID & CARDS */}

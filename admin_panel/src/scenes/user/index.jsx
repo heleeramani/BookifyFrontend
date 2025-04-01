@@ -774,7 +774,7 @@ const User = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="AUTHORS" subtitle="View Authors Information" />
+        <Header title="USERS" subtitle="View Users Information" />
       </Box>
 
       <Box
@@ -825,7 +825,7 @@ const User = () => {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Author Details</DialogTitle>
+        <DialogTitle>User Details</DialogTitle>
         <DialogContent>
           {selectedAuthor && (
             <Box sx={{ mt: 2 }}>

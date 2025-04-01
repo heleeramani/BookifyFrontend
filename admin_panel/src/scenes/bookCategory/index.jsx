@@ -98,9 +98,16 @@ const BookCategory = () => {
       let response1;
       if (isEdit) {
         // Update existing book
+        const authToken = localStorage.getItem("authToken");
+
         response1 = await axios.patch(
           `${process.env.REACT_APP_BASE_URL}/admin/book-category/update/${bookCategoryData.id}`,
-          bookCategoryPayload
+          bookCategoryPayload,
+          {
+            headers: {
+              Authorization: authToken,
+            },
+          }
         );
         setAlert({
           open: true,
@@ -109,9 +116,14 @@ const BookCategory = () => {
         });
       } else {
         // Create new book
+        const authToken = localStorage.getItem("authToken");
         response1 = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/admin/book-category/create`,
-          bookCategoryData
+          bookCategoryData,  {
+            headers: {
+              Authorization: authToken,
+            },
+          }
         );
         setAlert({
           open: true,
@@ -137,11 +149,18 @@ const BookCategory = () => {
     }
   };
   const handleDelete = async (id) => {
+    const authToken = localStorage.getItem("authToken");
+
     if (window.confirm("Are you sure you want to delete this book?")) {
       try {
         setLoading(true);
         await axios.delete(
-          `${process.env.REACT_APP_BASE_URL}/admin/book-category/delete/${id}`
+          `${process.env.REACT_APP_BASE_URL}/admin/book-category/delete/${id}`,
+          {
+            headers: {
+              Authorization: authToken,
+            },
+          }
         );
 
         // Update the books list

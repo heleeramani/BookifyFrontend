@@ -3601,13 +3601,13 @@ const Book = () => {
               InputLabelProps={{ shrink: true }}
               onChange={handleFileChange}
             />
-            <TextField
+            {/* <TextField
               label="Author"
               id="author"
               value={bookData.author}
-              onChange={handleInputChange}
+              onChange={handleInputChange}  
               required
-            />
+            /> */}
             <TextField
               label="ISBN"
               id="isbn"

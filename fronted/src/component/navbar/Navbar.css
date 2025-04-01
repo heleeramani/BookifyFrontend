@@ -325,4 +325,5 @@
 
 .navbar-sidebar-toggle {
   margin-top: -30px;
+  visibility: hidden;
 }

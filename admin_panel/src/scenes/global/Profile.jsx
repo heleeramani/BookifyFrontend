@@ -273,7 +273,7 @@ const ProfilePage = () => {
                     : "Loading..."}
                 </h2>
                 <div className="profile-metadata">
-                  <span className="position">Web designer</span>
+                  <span className="position">{userData.firstName}</span>
                   <span className="contact">{userData?.phone || "N/A"}</span>
                   <span className="user-id">
                     ID: {userData?._id?.substring(0, 5) || "N/A"}

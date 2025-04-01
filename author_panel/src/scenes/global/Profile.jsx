@@ -2934,7 +2934,7 @@ const Profile = () => {
                     : "Loading..."}
                 </h2>
                 <div className="profile-metadata">
-                  <span className="position">Web designer</span>
+                  <span className="position">{userData.firstName}</span>
                   <span className="contact">{userData?.phone || "N/A"}</span>
                   <span className="user-id">
                     ID: {userData?._id?.substring(0, 5) || "N/A"}
@@ -2950,7 +2950,7 @@ const Profile = () => {
               >
                 PROFILE
               </span>
-              <span
+              {/* <span
                 className={activeTab === "borrowed" ? "active" : ""}
                 onClick={() => openTab("borrowed")}
               >
@@ -2961,7 +2961,7 @@ const Profile = () => {
                 onClick={() => openTab("fine")}
               >
                 FINE
-              </span>
+              </span> */}
             </div>
 
             <div className="profile-content">
@@ -3014,7 +3014,7 @@ const Profile = () => {
                 </div>
               )}
 
-              {activeTab === "borrowed" && (
+              {/* {activeTab === "borrowed" && (
                 <div id="borrowed" className="tab-content active">
                   <div className="info-card">
                     <h3>Borrowed Books</h3>
@@ -3066,9 +3066,9 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
 
-              {activeTab === "fine" && (
+              {/* {activeTab === "fine" && (
                 <div id="fine" className="tab-content active">
                   <div className="info-card">
                     <h3>Fine Details</h3>
@@ -3083,7 +3083,6 @@ const Profile = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {/* Replace with dynamic fine data when available */}
                           <tr>
                             <td colSpan="4" className="empty-table-message">
                               No fine records available
@@ -3094,7 +3093,7 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -3187,8 +3186,8 @@ const EditProfileForm = ({ onSave, userData }) => {
         imageFormData.append("profile", profileImage);
         imageFormData.append("userId", userData._id);
 
-        await axios.patch(
-          `${process.env.REACT_APP_BASE_URL}/author/profile/update-image`,
+        await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/author/profile/upload`,
           imageFormData,
           {
             headers: {

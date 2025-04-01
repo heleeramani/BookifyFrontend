@@ -1534,14 +1534,14 @@ const ShopList = () => {
               ))}
             </div>
             
-            <div className="btn-wrap">
+            {/* <div className="btn-wrap">
               <Button
                 title="Discover More Books"
                 name="more"
                 onClick={handleDiscoverMoreClick}
                 className="discover-more-btn"
               />
-            </div>
+            </div> */}
           </>
         )}
       </div>

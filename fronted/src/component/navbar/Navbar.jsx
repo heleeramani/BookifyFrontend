@@ -1558,7 +1558,7 @@ const Navbar = () => {
         <div className="navbar-logo">
           <FontAwesomeIcon icon={faBook} className="navbar-logo-icon" />
           <span className="navbar-logo-text">
-            BOOK<span className="navbar-logo-highlight">lovers</span>
+            BOOK<span className="navbar-logo-highlight">IFY</span>
           </span>
           <p className="navbar-tagline">Your Favorite Bookshelf!</p>
         </div>
@@ -1572,7 +1572,7 @@ const Navbar = () => {
                 icon={faHeart}
                 className="navbar-favorites-icon"
               />
-              <span className="navbar-favorites-badge">{favoriteCount}</span>
+              {/* <span className="navbar-favorites-badge">{favoriteCount}</span> */}
             </Link>
           </div>
 

@@ -330,7 +330,7 @@ const Blog = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="BOOK" subtitle="Managing the Books" />
+        <Header title="BLOG" subtitle="Managing the Blogs" />
         <Button
           variant="contained"
           startIcon={<AddIcon />}
