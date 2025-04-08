@@ -15,6 +15,7 @@ import AddWishlist from "../component/wishlist/component/Addwishlist";
 import SubscriptionCard from "./SubscriptionCard";
 import Review from "../component/review/Review";
 import DiscoverBook from "../component/home/component/DiscoverBook";
+import Payment from "../component/payment/Payment";
 // import DiscoverBook from "./DiscoverBook";
 const Home = () => {
   return (
@@ -33,6 +34,8 @@ const Home = () => {
       <BestSeller />
       <MostRecentArtical />
 
+
+      <Payment />
       {/* <SubscriptionCard /> */}
       {/* <BokInfo /> */}
       {/* <ShopList /> */}
