@@ -90,6 +90,7 @@ import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import ProfilePage from "./scenes/global/Profile";
 import Login from "./scenes/global/Login";
+import Payment from "./scenes/payment";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -126,6 +127,7 @@ function App() {
               <Route path="/geography" element={<Geography />} />
               <Route path="/" element={<Login />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/payment" element={<Payment />} />
             </Routes>
           </main>
         </div>

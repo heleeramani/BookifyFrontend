@@ -1226,7 +1226,7 @@ const Book = () => {
     publishYear: "",
     publisher: "",
     description: "",
-    totalCopy: "",
+    totalCopies: "",
   });
   //upload image  1
   const handleFileChange = (e) => {
@@ -1275,7 +1275,7 @@ const Book = () => {
         publishYear: "",
         publisher: "",
         description: "",
-        totalCopy: "",
+        totalCopies: "",
       });
     }
     setOpenDialog(true);
@@ -1358,7 +1358,7 @@ const Book = () => {
         publishYear: bookData.publishYear,
         publisher: bookData.publisher,
         description: bookData.description,
-        totalCopy: bookData.totalCopy,
+        totalCopies: bookData.totalCopies,
       };
       //-------------------image
       // Add image ID to payload if we have one
@@ -1960,9 +1960,9 @@ const Book = () => {
             />
             <TextField
               label="Total Copies"
-              id="totalCopy"
+              id="totalCopies"
               type="number"
-              value={bookData.totalCopy}
+              value={bookData.totalCopies}
               onChange={handleInputChange}
             />
             <TextField
@@ -2025,7 +2025,7 @@ const Book = () => {
                 <strong>Publisher:</strong> {selectedBook.publisher || "N/A"}
               </Typography>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                <strong>Total Copies:</strong> {selectedBook.totalCopy || "N/A"}
+                <strong>Total Copies:</strong> {selectedBook.totalCopies || "N/A"}
               </Typography>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
                 <strong>Description:</strong>

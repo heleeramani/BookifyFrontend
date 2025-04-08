@@ -47,9 +47,9 @@
     margin-bottom: 20px;
   }
   
-  .invoice-details {
-    text-align: right;
-  }
+  /* .invoice-details {
+    text-align: left;
+  } */
   
   .customer-section {
     margin-bottom: 20px;
