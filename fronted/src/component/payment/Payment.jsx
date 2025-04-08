@@ -1268,7 +1268,7 @@ const Payment = ({ paymentDetails, onClose }) => {
             </div>
           )}
         </div>
-        
+          
         <div className="invoice-footer">
           <p>Thank you for your {paymentDetails?.type === 'borrow' ? 'borrowing' : 'purchase'}!</p>
         </div>
