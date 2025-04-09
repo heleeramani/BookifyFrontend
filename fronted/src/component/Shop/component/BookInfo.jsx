@@ -392,7 +392,7 @@ import "../style/BookInfo.css";
 import Button from "../../buttons/Button";
 import blogImg1 from "../../home/images/discover-book1.jpg";
 import Review from "../../review/Review";
-import Payment from "../../payment/Payment"; // Import the Payment component
+import Payment from "../../payment/Payment"; 
 
 const BookInfo = () => {
   const { id } = useParams();

@@ -197,13 +197,19 @@ const Sidebar = () => {
               setSelected={setSelected}
             /> */}
             <Item
-              title="Payment"
-              to="/payment"
+              title="Purchase"
+              to="/purchase"
               icon={<PaymentIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-
+            <Item
+              title="Borrow"
+              to="/borrow"
+              icon={<PaymentIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Typography variant="h6" color={colors.grey[300]}></Typography>
             {/* <Item
               title="Profile Form"
